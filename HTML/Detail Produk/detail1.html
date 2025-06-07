@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC25</title>
+    <!-- css -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="pagination">
+        <h4>Shop > Kategori > Nama game</h4>
+    </div>
+    <!-- product section -->
+    <section class="product-container">
+        <!-- left side -->
+        <div class="img-card">
+<video id="featured-video" class="media-box" controls poster="img/image1.jpeg">
+    <source src="video/IndonesiaRaya.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>            <!-- small img -->
+            <div class="small-Card">
+                <img src="img/image2.jpeg" alt="" class="small-Img">
+                <img src="img/image3.jpeg" alt="" class="small-Img">
+                <img src="img/image4.jpeg" alt="" class="small-Img">
+                <img src="img/image5.jpeg" alt="" class="small-Img">
+            </div>
+            <div class="requirements">
+                <!-- Minimum Requirements -->
+                <div class="requirement-card">
+                    <h4>MINIMUM:</h4>
+                    <p>Requires a 64-bit processor and operating system</p>
+                    <p>OS: Windows 10 - 64-Bit (Latest Update)</p>
+                    <p>Processor: AMD Ryzen 5 1600 or Intel Core i5 6600k</p>
+                    <p>Memory: 8 GB RAM</p>
+                    <p>Graphics: AMD RX 570 or Nvidia GTX 1050 Ti</p>
+                    <p>Storage:  100 GB available space</p>
+                    <p>Sound Card: DirectX: 12 Compatible video card or equivalent (feature level 12_0)</p>
+                </div>
+            
+                <!-- Recommended Requirements -->
+                <div class="requirement-card">
+                    <h4>RECOMMENDED:</h4>
+                    <p>Requires a 64-bit processor and operating system</p>
+                    <p>OS: Windows 10 - 64-Bit (Latest Update).</p>
+                    <p>Processor: AMD Ryzen 7 2700X or Intel Core i7 6700</p>
+                    <p>Memory: 12 GB RAM</p>
+                    <p>Graphics: AMD RX 5600 XT or Nvidia GTX 1660</p>
+                    <p>Storage:  100 GB available space</p>
+                    <p>Sound Card: DirectX: 12 Compatible video card or equivalent (feature level 12_0)</p>
+                </div>
+            </div>
+        </div>
+        <!-- Right side -->
+        <div class="product-info">
+            <h3>FC25</h3>
+            <p>Introducing Club Membership – the next phase of loyalty in EA SPORTS FC™ 25. Available to fans that have played EA SPORTS FC™ 24 before 27 September 2024 and play EA SPORTS FC™ 25 before November 1st, 2024*.</p>
+            <p>CFC 25 Club Members will receive a host of exclusive benefits across the year, including a badge and kit to represent their status and rewards across all your favourite game modes.</p>
+            <p>Once again, all Founders will be able to unlock their Founders exclusive cosmetic items.</p>
+            <!-- New Ticket Form -->
+    <form class="ticket-form" onsubmit="return addToCart(event)">
+        <div class="quantity">
+            <h5>Price: Rp 326.999 <del>Rp 339.000</del></h5>
+        </div>
+
+        <label for="date">Select Date:</label><br>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="tickets">Number of Tickets:</label><br>
+        <input type="number" id="tickets" name="tickets" min="1" max="10" value="1" required><br><br>
+
+        <button type="submit">Add to Cart</button>
+    </form>           
+        </div>
+    </section>
+
+    <!-- script tags -->
+    <script src="js/cart.js"></script>
+</body>
+</html>

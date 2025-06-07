@@ -1,0 +1,302 @@
+/* style.css */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f9fa;
+  color: #333;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: white;
+  border-bottom: 1px solid #ccc;
+}
+
+.back-button {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.ticket-card {
+  width: 300px;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.ticket-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.ticket-card h2 {
+  font-size: 1rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.note {
+  background: #f1f1f1;
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.detail-btn {
+  background: white;
+  border: 2px solid #007bff;
+  color: #007bff;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.ticket-info {
+  flex: 1;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.calendar {
+  margin-bottom: 1rem;
+}
+
+.calendar-btn {
+  background: #e9f4ff;
+  border: none;
+  padding: 0.75rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dates {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  align-items: center;
+}
+
+.dates span {
+  text-align: center;
+  font-size: 0.85rem;
+  background: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 8px;
+  width: 60px;
+}
+
+.info-box {
+  background: #e7f5ff;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.pricing, .total {
+  margin-top: 1rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e55300;
+}
+
+.old-price {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.point {
+  background: #fcefc1;
+  color: #8c6f00;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.total h2 {
+  color: #ff5b00;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.order {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.qty {
+  font-size: 1.5rem;
+  background: #f0f0f0;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.order input {
+  width: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+.order-btn {
+  background: #ff5b00;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.left-panel, .right-panel {
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-panel {
+  flex: 1;
+}
+
+.right-panel {
+  flex: 1;
+}
+
+.badge {
+  background-color: #ffeaea;
+  color: #d00;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin: 0.25rem 0;
+  display: inline-block;
+}
+
+.date-list {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.date {
+  background-color: #f1f1f1;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 0.5rem;
+  width: 70px;
+  text-align: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.date.selected {
+  border-color: #007bff;
+  background-color: #e0f0ff;
+}
+
+.price-section {
+  background: #fefefe;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.label {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.price-large {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #e55300;
+  margin: 0.5rem 0;
+}
+
+.points {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.quantity button {
+  background: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.quantity input {
+  width: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.4rem;
+  background: white;
+}
+
+.btn-primary {
+  background: #ff5b00;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.responsive-img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* agar gambar berada di tengah */
+}

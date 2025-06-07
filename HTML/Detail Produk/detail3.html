@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1® 24</title>
+    <!-- css -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="pagination">
+        <h4>Shop > Kategori > Nama game</h4>
+    </div>
+    <!-- product section -->
+    <section class="product-container">
+        <!-- left side -->
+        <div class="img-card">
+<video id="featured-video" class="media-box" controls poster="img/image1.jpeg">
+    <source src="video/IndonesiaRaya.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>            <!-- small img -->
+            <div class="small-Card">
+                <img src="img/image2.jpeg" alt="" class="small-Img">
+                <img src="img/image3.jpeg" alt="" class="small-Img">
+                <img src="img/image4.jpeg" alt="" class="small-Img">
+                <img src="img/image5.jpeg" alt="" class="small-Img">
+            </div>
+            <div class="requirements">
+                <!-- Minimum Requirements -->
+                <div class="requirement-card">
+                    <h4>MINIMUM:</h4>
+                    <p>Requires a 64-bit processor and operating system</p>
+                    <p>OS: Windows 10 64-bit Version 21H1 or newer</p>
+                    <p>Processor: Intel Core i3-2130 | Core i5-9600K (VR) or AMD FX 4300 | Ryzen 5 2600X (VR)</p>
+                    <p>Memory: 8 GB RAM</p>
+                    <p>Graphics: NVIDIA GTX 1060 (6GB) | GTX 1660Ti (VR) | RTX 2060 (RT) // AMD RX 480 (8GB) | RX 590 (VR) | 6700XT (RT) // Intel Arc A380 (VR/RT)</p>
+                    <p>DirectX: Version 12</p>
+                    <p>Network: Broadband Internet connection</p>
+                    <p>Storage: 100 GB available space</p>
+                    <p>Sound Card: DirectX Compatible</p>
+                    <p>VR Support: Steam VR. Keyboard and mouse required</p>
+                    <p>Additional Notes: GPU must support D3D_SHADER_MODEL_6_6.</p>
+
+                </div>
+            
+                <!-- Recommended Requirements -->
+                <div class="requirement-card">
+                    <h4>RECOMMENDED:</h4>
+                    <p>Requires a 64-bit processor and operating system</p>
+                    <p>OS: Windows 10 64-bit Version 21H1 or newer</p>
+                    <p>Processor: Intel Core i5-9600K or AMD Ryzen 5 2600X</p>
+                    <p>Memory: 16 GB RAM</p>
+                    <p>Graphics: NVIDIA RTX 2070 (+VR) | RTX 3070 (RT) // AMD RX 6600XT | RX 6700XT (VR) | RX 6800 (RT) // Intel Arc A580 (VR/RT)</p>
+                    <p>DirectX: Version 12</p>
+                    <p>Network: Broadband Internet connection</p>
+                    <p>Storage: 100 GB available space</p>
+                    <p>Sound Card: DirectX Compatible</p>
+                    <p>VR Support: Meta Quest 2 + Link; Oculus Rift S; HTC Cosmos; HTC Vive Pro; Valve Index; HP Reverb G2</p>
+                    <p>Additional Notes: GPU must support D3D_SHADER_MODEL_6_6.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Right side -->
+        <div class="product-info">
+            <h3>F1® 24</h3>
+            <p>Be One of the 20 with EA SPORTS™ F1® 24, the official video game of the 2024 FIA Formula One World Championship™. Unleash your champion in pursuit of a legacy-defining F1® Career, the mode’s first major update since 2016. Drive like the greatest and feel at one with the car through the all-new EA SPORTS Dynamic Handling System. Ignite your passion by connecting to your favorite teams and drivers while proving that you have what it takes across new modes and experiences.</p>
+
+            
+                    <form class="ticket-form" onsubmit="return addToCart(event)">
+        <div class="quantity">
+            <h5>Price: Rp 326.999 <del>Rp 339.000</del></h5>
+        </div>
+
+        <label for="date">Select Date:</label><br>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="tickets">Number of Tickets:</label><br>
+        <input type="number" id="tickets" name="tickets" min="1" max="10" value="1" required><br><br>
+
+        <button type="submit">Add to Cart</button>
+    </form>          
+        </div>
+    </section>
+
+    <!-- script tags -->
+    <script src="js/cart.js"></script>
+</body>
+</html>

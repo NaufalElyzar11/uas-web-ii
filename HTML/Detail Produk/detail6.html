@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SESUAI NAMA GAME</title>
+    <!-- css -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="pagination">
+        <h4>Shop > Kategori > Nama game</h4>
+    </div>
+    <!-- product section -->
+    <section class="product-container">
+        <!-- left side -->
+        <div class="img-card">
+<video id="featured-video" class="media-box" controls poster="img/image1.jpeg">
+    <source src="video/IndonesiaRaya.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>            <!-- small img -->
+            <div class="small-Card">
+                <img src="img/image2.jpeg" alt="" class="small-Img">
+                <img src="img/image3.jpeg" alt="" class="small-Img">
+                <img src="img/image4.jpeg" alt="" class="small-Img">
+                <img src="img/image5.jpeg" alt="" class="small-Img">
+            </div>
+            <div class="requirements">
+                <!-- Minimum Requirements -->
+                <div class="requirement-card">
+                    <h4>MINIMUM:</h4>
+                    <p>Requires a 64-bit processor and operating system</p>
+                    <p>OS: Windows 10 (latest service pack)</p>
+                    <p>Processor: Intel® Core™ i7-4770 | AMD FX™-9590</p>
+                    <p>Memory: 8 GB RAM</p>
+                    <p>Graphics: NVIDIA GeForce® GTX 1630 (4GB VRAM) | AMD Radeon™ RX 6400 (4GB VRAM)</p>
+                    <p>Storage: 105 GB available space</p>
+                    <p>Sound Card: DirectX 10 Compatible</p>
+                    <p>Additional Notes: SSD Required</p>
+                </div>
+            
+                <!-- Recommended Requirements -->
+                <div class="requirement-card">
+                    <h4>RECOMMENDED:</h4>
+                    <p>Requires a 64-bit processor and operating system</p>
+                    <p>OS: Windows 11</p>
+                    <p>Processor: Intel® Core™ i5-9600K | AMD Ryzen™ 5 3600</p>
+                    <p>Memory: 16 GB RAM</p>
+                    <p>Graphics: NVIDIA GeForce® RTX 3060 (8GB VRAM) | AMD Radeon™ RX 6600XT (8GB VRAM)</p>
+                    <p>Storage: 105 GB available space</p>
+                    <p>Sound Card: Windows Spatial Sound-compatible audio system</p>
+                    <p>Additional Notes: SSD with DirectStorage-compatibility</p>
+                </div>
+            </div>
+        </div>
+        <!-- Right side -->
+        <div class="product-info">
+            <h3>Grand Theft Auto V Enchanced</h3>
+            <p>Welcome to Los Santos
+                When a young street hustler, a retired bank robber, and a terrifying psychopath find themselves entangled with some of the most frightening and deranged elements of the criminal underworld, the U.S. government, and the entertainment industry, they must pull off a series of dangerous heists to survive in a ruthless city in which they can trust nobody — least of all each other.</p>
+            <p>Current PC players can transfer both GTAV Story Mode progress and GTA Online characters and progression with a one-time migration from the legacy version of GTAV to GTAV Enhanced.</p>
+
+         
+                <h4>MATURE CONTENT DESCRIPTION</h4>
+                <p>The developers describe the content like this:
+                This game may contain content not appropriate for all ages, or may not be appropriate for viewing at work:
+                Blood and Gore, Intense Violence, Nudity, Strong Language, Strong Sexual Content, Use of Drugs and Alcohol, and contains User Interactions and In-Game Purchases.</p>
+
+ 
+                    <form class="ticket-form" onsubmit="return addToCart(event)">
+        <div class="quantity">
+            <h5>Price: Rp 326.999 <del>Rp 339.000</del></h5>
+        </div>
+
+        <label for="date">Select Date:</label><br>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="tickets">Number of Tickets:</label><br>
+        <input type="number" id="tickets" name="tickets" min="1" max="10" value="1" required><br><br>
+
+        <button type="submit">Add to Cart</button>
+    </form>          
+        </div>
+    </section>
+
+    <!-- script tags -->
+    <script src="js/cart.js"></script>
+</body>
+</html>

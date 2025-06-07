@@ -1,0 +1,229 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: #fbfbfb;
+  font-size: 20px;;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 30px;
+  background-color: #1E2328;
+  color: Ini kode warna #2A2E34;
+  #2A2E34
+  #3B3F46
+}
+
+.pagination {
+  color: #FED053; /* Kuning */
+  margin: 15px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+.product-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 40px;
+  padding: 20px;
+}
+
+/* .img-card{
+    width: 40%;
+} */
+
+.img-card img {
+  width: 90%;
+  flex-shrink: 0;
+  border-radius: 8px;
+  max-height: 400px;
+  height: 350px;
+  object-fit: cover;
+  border: 2px solid #f5b402;
+}
+.media-box {
+    width: 100%;
+    height: auto;
+    max-width: 500px; /* atau ukuran sesuai layout kamu */
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Atur tata letak gambar kecil */
+.small-Card {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.small-Card img {
+    width: 100px;
+    height: auto;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.small-Card img:active {
+  border: 1px solid #f5b402;
+}
+
+.sm-card {
+  border: 2px solid #FED053;
+}
+
+.product-info{
+  width: 70%;
+  text-align: justify;
+}
+.product-info h3 {
+  font-size: 50px;
+  font-family: Lato;
+  font-weight: 800;
+  line-height: 100%;
+  color: #FED053;
+  margin-bottom: 15px;
+}
+
+.product-info h4 {
+  font-size: 20px;
+  color: #FED053;
+  margin-top: 15px;
+}
+
+.product-info h5 {
+  font-size: 24px;
+  font-family: Lato;
+  font-weight: 500;
+  line-height: 130%;
+  color: #ff4242;
+  margin: 10px 0;
+}
+
+.product-info del {
+  color: #ffffff;
+}
+
+.product-info p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 15px 0;
+  width: 100%;
+  color: #ffffff;
+}
+
+.sizes p {
+  font-size: 50px;
+  color: #2A2E34;
+}
+
+.size-option {
+  width: 200px;
+  height: 30px;
+  margin-bottom: 15px;
+  padding: 5px;
+}
+
+button {
+  background: #f5b402;
+  border-radius: 4px;
+  padding: 10px 40px;
+  border: none;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+  color: #121212;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #FED053;
+  color: #ffffff;
+  transition: 0.3s ease-in-out;
+}
+
+.delivery {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  color: #787a80;
+  font-size: 12px;
+  font-family: Lato;
+  line-height: 150%;
+  letter-spacing: 1px;
+}
+
+hr {
+  color: #f5b402;
+  width: 100%;
+  opacity: 0.5;
+  margin: 20px 0;
+}
+
+.pagination {
+  color: #f5b402; /* Kuning */
+  margin: 15px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Bagian spesifikasi minimum dan rekomendasi */
+.requirements {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.requirement-card {
+  width: 50%;
+  background-color: #2A2E34; /* Background gelap */
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #f5b402; /* Bingkai kuning */
+}
+
+.requirement-card h4 {
+  font-size: 20px;
+  color: #FED053;
+  margin-bottom: 10px;
+}
+
+.requirement-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #ffffff;
+  margin: 5px 0;
+}
+
+.ticket-form {
+    margin-top: 20px;
+}
+
+.ticket-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    color: #000000;
+    font-size: 1rem;
+}
+
+.ticket-form button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+}
+
+.ticket-form button:hover {
+    background-color: #0056b3;
+}

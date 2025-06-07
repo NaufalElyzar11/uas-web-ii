@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoGP™24</title>
+    <!-- css -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="pagination">
+        <h4>Shop > Kategori > Nama game</h4>
+    </div>
+    <!-- product section -->
+    <section class="product-container">
+        <!-- left side -->
+        <div class="img-card">
+    <!-- Video utama -->
+    <video id="featured-video" class="media-box" controls poster="img/image1.jpeg">
+    <source src="video/IndonesiaRaya.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+            <!-- small img -->
+            <div class="small-Card">
+                <img src="img/image2.jpeg" alt="" class="small-Img">
+                <img src="img/image3.jpeg" alt="" class="small-Img">
+                <img src="img/image4.jpeg" alt="" class="small-Img">
+                <img src="img/image5.jpeg" alt="" class="small-Img">
+            </div>
+            <div class="requirements">
+                <!-- Minimum Requirements -->
+                <div class="requirement-card">
+                    <h4>MINIMUM:</h4>
+                    <p>Requires a 64-bit processor and operating system</p>
+                    <p>OS: Windows 10 x64</p>
+                    <p>Processor: Intel Core i5-4590 (4 * 3300) | AMD FX-8350 (4 * 4000) or equivalent</p>
+                    <p>Memory: 8 GB RAM</p>
+                    <p>Graphics: GeForce GTX 960 (4096 MB) | Radeon R9 285 (2048 MB)</p>
+                    <p>Storage: 24 GB available space</p>
+                </div>
+            
+                <!-- Recommended Requirements -->
+                <div class="requirement-card">
+                    <h4>RECOMMENDED:</h4>
+                    <p>Requires a 64-bit processor and operating system</p>
+                    <p>OS: Windows 10 x64</p>
+                    <p>Processor: Intel Core i3-10100 (4 * 3600) | AMD Ryzen 5 1500X (4 * 3500) or equivalent</p>
+                    <p>Memory: 8 GB RAM</p>
+                    <p>Graphics: GeForce RTX 2070 (8192 MB) | Radeon RX 5700 (8192 MB)</p>
+                    <p>Storage: 24 GB available space</p>
+                </div>
+            </div>
+        </div>
+        <!-- Right side -->
+        <div class="product-info">
+            <h3>MotoGP™24</h3>
+            <p>Challenge your abilities in MotoGP™, Moto2™, Moto3™ and MotoE™ categories, and immerse yourself in the exhilarating journey of the 2024 campaign. Experience the thrill of official rosters and tracks exclusive to MotoGP™24!</p>
+
+                <h4>AN UNPREDICTABLE CAREER</h4>
+                <p>Embark on your quest to become a MotoGP™ legend and shape your own epic saga. From humble beginnings to triumphant heights, the path is yours to forge. Engage in thrilling rivalries, build your reputation, and leave your mark on the history of your beloved team.</p>
+                <P>But wait, there's more! As a new season dawns, the winds of change are sweeping through the pit crews. With the groundbreaking Riders market, riders can now transfer between teams to reshuffle the deck and inject a surge of unpredictability into the competition!</P>
+
+                <h4>The MotoGP™ EXPERIENCE</h4>
+                <p>Whether you're chasing professional thrills or just starting out, MotoGP™24 welcomes you with open arms! With the MotoGP™24 Academy and our neural help system, we've got your back every step of the way. And introducing our newest ally: Adaptive Difficulty. It tailors your gaming experience to your skills and results, ensuring every ride is uniquely yours!</p>
+
+                <h4>SHOWCASE YOUR STYLE</h4>
+                <p>Elevate your MotoGP™ experience with our four graphic editors: Stickers, Rider Stickers, Numbers, and Helmets. Stand out with a style that's truly yours as you conquer the finish line!</p>
+
+                <h4>A NEW CAMPAIGN EACH MONTH</h4>
+                <p>MotoGP™24 immerses you in the heart of the competition with LiveGP Championships: challenge yourself monthly against the elite, capture the top spot and the glory!</p>
+
+                <h4>ARE YOU FAST ENOUGH?</h4>
+                <p>Show your unstoppable skills online as you race against players from around the globe, or engage in live challenges with friends using the Split-Screen feature!</p>
+
+            
+                    <form class="ticket-form" onsubmit="return addToCart(event)">
+        <div class="quantity">
+            <h5>Price: Rp 326.999 <del>Rp 339.000</del></h5>
+        </div>
+
+        <label for="date">Select Date:</label><br>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="tickets">Number of Tickets:</label><br>
+        <input type="number" id="tickets" name="tickets" min="1" max="10" value="1" required><br><br>
+
+        <button type="submit">Add to Cart</button>
+    </form>           
+        </div>
+    </section>
+
+    <!-- script tags -->
+    <script src="js/cart.js"></script>
+</body>
+</html>

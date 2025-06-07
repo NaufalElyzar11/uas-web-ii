@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA 2K25</title>
+    <!-- css -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="pagination">
+        <h4>Shop > Kategori > NBA 2K25</h4>
+    </div>
+    <!-- product section -->
+    <section class="product-container">
+        <!-- left side -->
+        <div class="img-card">
+<video id="featured-video" class="media-box" controls poster="img/image1.jpeg">
+    <source src="video/IndonesiaRaya.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>            <!-- small img -->
+            <div class="small-Card">
+                <img src="img/image2.jpeg" alt="" class="small-Img">
+                <img src="img/image3.jpeg" alt="" class="small-Img">
+                <img src="img/image4.jpeg" alt="" class="small-Img">
+                <img src="img/image5.jpeg" alt="" class="small-Img">
+            </div>
+            <div class="requirements">
+                <!-- Minimum Requirements -->
+                <div class="requirement-card">
+                    <h4>MINIMUM:</h4>
+                    <p>Requires a 64-bit processor and operating system                        
+                    <P>OS: Windows 10 64-Bit (latest update)</P>
+                    <P>Processor: Intel® Core™ i3-9100 or AMD Ryzen™ 3 1200</P>
+                    <P>Memory: 8 GB RAM</P>
+                    <P>Graphics: NVIDIA® GeForce® GTX 960 4 GB or AMD Radeon™ RX 570 4 GB or Intel® Arc™ A580</P>
+                    <P> DirectX: Version 12</P>
+                    <P> Network: Broadband Internet connection</P>
+                    <P>Storage: 150 GB available space</P>
+                    <P>Additional Notes: SSD Required.</p>
+                </div>
+                <!-- Recommended Requirements -->
+                <div class="requirement-card">
+                    <h4>RECOMMENDED:</h4>
+                    <p>Requires a 64-bit processor and operating system</p>
+                    <p>OS: Windows 10 64-Bit (latest update)</p>
+                    <p>Processor: Intel® Core™ i5-10600 or AMD Ryzen™ 5 3600X</p>
+                    <p>Memory: 16 GB RAM</p>
+                    <p>Graphics: NVIDIA® GeForce® RTX 2070 (8GB) or AMD Radeon™ RX 5700 (8GB) or Intel® Arc™ A770</p>
+                    <p>DirectX: Version 12</p>
+                    <p>Network: Broadband Internet connection</p>
+                    <p>Storage: 150 GB available space</p>
+                    <p>Additional Notes: SSD Required.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Right side -->
+        <div class="product-info">
+            <H3>NBA 2K25</H3>
+            <P>Command every court with authenticity and realism Powered by ProPLAY™, giving you ultimate control over how you play in NBA 2K25. Define your legacy in MyCAREER, MyTEAM, MyNBA, and The W. Express yourself with an array of customization options and explore an all-new City rich with opportunity.</P>
+            
+            <h4>POWERED BY ProPLAY™</h4>
+            <p>Bring your game to life with ProPLAY™, immersive technology that directly translates NBA footage into engaging gameplay. Get up close and personal with your favorite NBA superstars and immerse yourself in clutch moments, as ProPLAY™ powers the most authentic NBA experience to date.</p>
+         
+            <h4>COMPETE IN THE CITY</h4>
+            <p>The City is the ultimate proving ground; hit the park for some streetball fun and compete at various new venues. Pay homage to legends of the game in MyCAREER as you eclipse their records and usher in the greatest dynasty of all-time. Let your talents shine in a bustling City and etch your name among the greats.</p>
+         
+            <h4>BUILD YOUR DYNASTY</h4>
+            <p>Build a dynasty that transcends eras, and redefine what it means to be the best as a General Manager in MyNBA. Explore the unique challenges that come with overseeing an NBA front office and cherish the ultimate reward of winning a championship, or multiple. Choose from six Eras, including an all-new Era, and become the next mastermind to change the game forever.</p>
+         
+            <h4>YOUR MyTEAM, YOUR WAY</h4>
+            <p>Challenge rival lineups with your all-time MyTEAM roster, and clash with other elite players in the weekly King of the Court. Go head-to-head and showcase why you deserve to be crowned the best of the best in this exclusive event. Collect new cards, master the fundamentals, and earn great rewards.</p>
+         
+            <h4>BECOME A WNBA LEGEND</h4>
+            <p>Strive for G.O.A.T. status in The W and create legendary moments during your career. Honor all-time players past and present as you ascend to the highest tier and etch your name in the record books. Lead the next generation of WNBA stars and take on world-class talent in The W Online.</p>
+         
+                
+
+            
+                    <form class="ticket-form" onsubmit="return addToCart(event)">
+        <div class="quantity">
+            <h5>Price: Rp 326.999 <del>Rp 339.000</del></h5>
+        </div>
+
+        <label for="date">Select Date:</label><br>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="tickets">Number of Tickets:</label><br>
+        <input type="number" id="tickets" name="tickets" min="1" max="10" value="1" required><br><br>
+
+        <button type="submit">Add to Cart</button>
+    </form>         
+        </div>
+    </section>
+
+    <!-- script tags -->
+    <script src="js/cart.js"></script>
+</body>
+</html>

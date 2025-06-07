@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo .red {
+    color: red;
+}
+
+.profile-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.lang-btn {
+    border: 1px solid #ccc;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.menu-icon, .profile-icon {
+    font-size: 20px;
+    background: #eee;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+aside {
+    width: 200px;
+    border-right: 1px solid #eee;
+}
+
+aside ul {
+    list-style: none;
+}
+
+aside li {
+    padding: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #aaa;
+}
+
+aside li.active {
+    border-left: 3px solid red;
+    color: black;
+}
+
+main {
+    flex: 1;
+    padding-left: 40px;
+}
+
+main h2 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.email {
+    margin-bottom: 30px;
+    color: gray;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="tel"],
+select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    outline-color: red;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    aside {
+        width: 100%;
+        border-right: none;
+        margin-bottom: 20px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+}
+
+.save-button {
+    background-color: red;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+    background-color: darkred;
+}
+
