@@ -1,0 +1,75 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 1rem;
+  background: #f9f9f9;
+}
+
+.judul {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.produk-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.produk-card {
+  flex: 0 0 auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  width: 300px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.produk-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.info {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.info h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.info p {
+  flex: 1;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.harga {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #111;
+}
+
+button {
+  background-color: #8f00ff;
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #7200cc;
+}
