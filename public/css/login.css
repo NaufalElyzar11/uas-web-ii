@@ -88,7 +88,7 @@ a:hover {
   height: 30px;
   border-top-left-radius: 50%;
   background: transparent;
-  box-shadow: -15px 0 0 0 var(--primary-color); /* Removed space before --primary-color */
+  box-shadow: -15px 0 0 0 var(--primary-color);
 }
 
 .input_box {
@@ -136,6 +136,15 @@ a:hover {
 select option { 
   color: #000; 
 }
+
+.icon {
+  position: absolute;
+  top: 50%; 
+  right: 20px; 
+  transform: translateY(-50%); 
+  font-size: 20px;
+}
+
 
 .form-select {
   width: 100%;
