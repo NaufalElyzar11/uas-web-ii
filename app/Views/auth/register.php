@@ -1,74 +1,108 @@
 <?= $this->extend('layouts/auth') ?>
 
 <?= $this->section('content') ?>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card mt-5">
-                <div class="card-header text-center">
-                    <h4>Register</h4>
-                </div>
-                <div class="card-body">
-                    <?php if (session()->has('errors')) : ?>
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                <?php foreach (session('errors') as $error) : ?>
-                                    <li><?= $error ?></li>
-                                <?php endforeach ?>
-                            </ul>
-                        </div>
-                    <?php endif ?>
 
-                    <form action="<?= base_url('auth/doRegister') ?>" method="post">
-                        <?= csrf_field() ?>
-                        <div class="mb-3">
-                            <label for="nama" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="nama" name="nama" value="<?= old('nama') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" value="<?= old('username') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                            <div class="form-text">Password minimal 6 karakter</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="confirm_password" class="form-label">Konfirmasi Password</label>
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="daerah" class="form-label">Daerah</label>
-                            <input type="text" class="form-control" id="daerah" name="daerah" value="<?= old('daerah') ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
-                                <option value="">Pilih Jenis Kelamin</option>
-                                <option value="L" <?= old('jenis_kelamin') == 'L' ? 'selected' : '' ?>>Laki-laki</option>
-                                <option value="P" <?= old('jenis_kelamin') == 'P' ? 'selected' : '' ?>>Perempuan</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="umur" class="form-label">Umur</label>
-                            <input type="number" class="form-control" id="umur" name="umur" value="<?= old('umur') ?>" required>
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </div>
-                    </form>
-                    
-                    <div class="text-center mt-3">
-                        <p>Sudah punya akun? <a href="<?= base_url('auth/login') ?>">Login disini</a></p>
-                    </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Modern Login Form | CodingStella </title>
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap'>
+    <link rel="stylesheet" href="<?= base_url('css/login.css') ?>">
+</head>
+
+<div class="wrapper">
+    <div class="login_box">
+        <div class="login-header">
+            <span>Login</span>
+        </div>
+        <div class="card-body">
+            <?php if (session()->has('errors')) : ?>
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        <?php foreach (session('errors') as $error) : ?>
+                            <li><?= $error ?></li>
+                        <?php endforeach ?>
+                    </ul>
                 </div>
+            <?php endif ?>
+
+
+            <form action="<?= base_url('auth/doRegister') ?>" method="post">
+                <?= csrf_field() ?>
+
+
+                <div class="input_box">
+                    <input type="text" class="input-field" id="nama" name="nama" value="<?= old('nama') ?>" required>
+                    <label for="nama" class="label">Nama Lengkap</label>
+                    <i class="bx bx-user icon"></i>
+                </div>
+
+
+                <div class="input_box">
+                    <input type="text" class="input-field" id="username" name="username" value="<?= old('username') ?>" required>
+                    <label for="username" class="label">Username</label>
+                    <i class="bx bx-user icon"></i>
+                </div>
+
+
+                <div class="input_box">
+                    <input type="email" class="input-field" id="email" name="email" value="<?= old('email') ?>" required>
+                    <label for="email" class="label">Email</label>
+                    <i class="bx bxl-gmail icon"></i>
+                </div>
+
+
+                <div class="input_box">
+                    <input type="password" class="input-field" id="password" name="password" required>
+                    <label for="password" class="label">Password</label>
+                    <i class="bx bx-lock-alt icon"></i>
+                </div>
+
+
+                <div class="input_box">
+                    <input type="password" class="input-field" id="confirm_password" name="confirm_password" required>
+                    <label for="confirm_password" class="label">Konfirmasi Password</label>
+                    <i class="bx bx-lock-alt icon"></i>
+                </div>
+
+
+                <div class="input_box">
+                    <input type="text" class="input-field" id="daerah" name="daerah" value="<?= old('daerah') ?>" required>
+                    <label for="daerah" class="label">Daerah</label>
+                    <i class="bx bx-location-plus"></i>
+                </div>
+
+
+                <div class="input_box">
+                    <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="L" <?= old('jenis_kelamin') == 'L' ? 'selected' : '' ?>>Laki-laki</option>
+                        <option value="P" <?= old('jenis_kelamin') == 'P' ? 'selected' : '' ?>>Perempuan</option>
+                        
+                    </select>
+                    <i class="bx bx-male-female"></i>
+                </div>
+
+
+                <div class="input_box">
+                    <input type="number" class="input-field" id="umur" name="umur" value="<?= old('umur') ?>" required>
+                    <label for="umur" class="label">Umur</label>
+                    <i class="bx bx-user icon"></i>
+                </div>
+
+
+                <div class="input_box">
+                    <button type="submit" class="input-submit">Register</button>
+                </div>
+            </form>
+
+
+            <div class="text-center mt-3">
+                <p>Sudah punya akun? <a href="<?= base_url('auth/login') ?>">Login disini</a></p>
             </div>
         </div>
     </div>
 </div>
-<?= $this->endSection() ?> 
+</div>
+</div>
+<?= $this->endSection() ?>

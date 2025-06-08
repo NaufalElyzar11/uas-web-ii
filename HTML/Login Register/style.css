@@ -88,7 +88,7 @@ a:hover {
   height: 30px;
   border-top-left-radius: 50%;
   background: transparent;
-  box-shadow: -15px 0 0 0 var(--primary-color); /* Removed space before --primary-color */
+  box-shadow: -15px 0 0 0 var(--primary-color);
 }
 
 .input_box {
@@ -104,7 +104,7 @@ a:hover {
   font-size: 16px;
   background: transparent;
   color: var(--second-color);
-  padding-inline: 20px 50;
+  padding-inline: 20px 50px;
   border: 2px solid var(--primary-color);
   border-radius: 30px;
   outline: none;
