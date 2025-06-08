@@ -1,75 +1,456 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 1rem;
-  background: #f9f9f9;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #F5F7F8;
 }
 
-.judul {
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav {
+    background-color: #333;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    padding: 14px 20px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: #111;
+}
+
+main {
+    padding: 20px;
+}
+
+h2 {
   text-align: center;
-  margin-bottom: 1rem;
 }
 
-.produk-container {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding-bottom: 1rem;
-  scroll-snap-type: x mandatory;
+
+h3 {
+    text-align: center;
 }
 
-.produk-card {
-  flex: 0 0 auto;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  width: 300px;
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
+.card-container {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.produk-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: calc(25% - 20px);
+    transition: transform 0.2s;
 }
 
-.info {
-  padding: 1rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.card:hover {
+    transform: translateY(-10px);
 }
 
-.info h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+.card img {
+    width: 100%;
+    height: auto;
 }
 
-.info p {
-  flex: 1;
+.card-content {
+    padding: 15px;
+}
+
+.card-content .badge {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.card-content .price {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.card-content h3 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.card-content p {
+    color: #666;
+    font-size: 14px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label, form input, form select, form textarea, form button {
+    margin-bottom: 10px;
+    margin-left: 55px;
+    margin-right: 55px;
+}
+
+form button {
+    align-self: start;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    position: relative;
+}
+
+.popup-content .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.tabel-panjang{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flight-card {
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    width: 700px;
+    align-items: center;
+}
+
+.flight-info {
+    display: flex;
+    align-items: center;
+}
+
+.airline-logo img {
+    width: 100px;
+    margin-right: 20px;
+}
+
+.flight-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.airline-name {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.flight-timing {
+    display: flex;
+    align-items: center;
+}
+
+.departure, .arrival {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.time {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.code {
+    font-size: 14px;
+    color: gray;
+}
+
+.duration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.line {
+    width: 200px;
+    height: 2px;
+    background-color: gray;
+    position: relative;
+}
+
+.line::before, .line::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: gray;
+    border-radius: 50%;
+    position: absolute;
+    top: -4px;
+}
+
+.line::before {
+    left: 0;
+}
+
+.line::after {
+    right: 0;
+}
+
+.stopover {
+    font-size: 12px;
+    color: gray;
+    margin-top: 5px;
+}
+
+.luggage-icon {
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+.price {
+    text-align: right;
+}
+
+.amount {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tax {
+    display: block;
+    font-size: 12px;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.book-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.book-button:hover {
+    background-color: #218838;
+}
+
+.trending-section {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+.trending-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  margin-bottom: 1.5rem;
   color: #555;
-  margin-bottom: 0.5rem;
 }
 
-.harga {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #111;
+.trending-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 200px);
+  grid-template-areas:
+    "jakarta bandung bandung bandung"
+    "yogya    surabaya ubud    ubud";
 }
 
-button {
-  background-color: #8f00ff;
+.destination {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.destination img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+
+.destination:hover img {
+  transform: scale(1.05);
+}
+
+.label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0,0,0,0.5);
   color: white;
-  border: none;
-  padding: 0.6rem;
+  padding: 5px 10px;
   border-radius: 5px;
-  cursor: pointer;
+  font-size: 0.9rem;
 }
 
-button:hover {
-  background-color: #7200cc;
+.large {
+  grid-row: 1 / 2;
+  height: 200px;
+}
+
+.small {
+  height: 200px;
+}
+
+
+.destination:nth-child(1) { grid-area: jakarta; }
+.destination:nth-child(2) { grid-area: bandung; }
+.destination:nth-child(3) { grid-area: yogya; }
+.destination:nth-child(4) { grid-area: surabaya; }
+.destination:nth-child(5) { grid-area: ubud; }
+
+@media (max-width: 768px) {
+  .trending-grid {
+    grid-template-areas: none;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .destination {
+    height: 180px;
+  }
+}
+
+#news-section {
+    padding: 40px 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+#news-section h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.news-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 20px;
+    justify-items: center;
+}
+
+.news-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Width for each item */
+    max-width: 600px; /* Maximum width */
+    text-align: left;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.news-content {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.news-content img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.text-content {
+    flex: 1; /* Text takes up the remaining space */
+}
+
+.text-content h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.text-content p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.text-content a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.news-item:hover {
+    transform: scale(1.05);
 }
