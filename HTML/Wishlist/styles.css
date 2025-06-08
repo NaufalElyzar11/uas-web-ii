@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background: #f7f7f7;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Header */
+header {
+  padding: 20px 40px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin-bottom: 10px;
+}
+
+nav span {
+  font-weight: bold;
+  color: #888;
+}
+
+/* Container */
+.wishlist-container {
+  padding: 0 40px;
+}
+
+/* Vertical List */
+.wishlist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Item */
+.wishlist-item {
+  display: flex;
+  align-items: center; /* Changed from center to flex-start for better vertical alignment with the image */
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  position: relative; /* **Crucial for positioning the 'remove' button** */
+}
+
+.wishlist-item img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.product-info {
+  padding: 15px;
+  flex-grow: 1;
+}
+
+.product-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.product-info .description {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.product-info .price {
+  font-weight: bold;
+  color: #e26d5a;
+}
+
+.product-info .stock {
+  color: #4CAF50;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Buttons */
+.wishlist-item .add-to-cart {
+  margin: 50px;
+  padding: 25px 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 15px;
+  transition: background 0.3s;
+  background: #4CAF50;
+  color: white;
+  /* Removed flex-shrink here as it's not needed for the add-to-cart button in this layout */
+}
+
+.add-to-cart:hover {
+  background: #45a049;
+}
+
+.remove {
+  position: absolute; /* **Position the button absolutely** */
+  top: 5px;          /* **Distance from the top edge of the parent** */
+  right: 5px;         /* **Distance from the left edge of the parent** */
+  background: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+  color: #333; /* Darker color for 'x' */
+  border: 1px solid #ffffff; /* Subtle border */
+  width: 28px;       /* Set a fixed width */
+  height: 28px;      /* Set a fixed height for a perfect circle */
+  border-radius: 50%; /* **Makes the button a circle** */
+  display: flex;     /* Use flexbox to center content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  font-size: 1.1rem; /* Adjust font size for the 'x' */
+  padding: 0;        /* Remove default padding */
+  cursor: pointer;
+  z-index: 10;       /* Ensure it's above other elements */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Optional: subtle shadow */
+}
+
+.remove:hover {
+  background: #e0e0e0; /* Lighter background on hover */
+  color: #000;
+}
