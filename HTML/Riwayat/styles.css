@@ -1,0 +1,224 @@
+body {
+    font-family: 'Open Sans', sans-serif; /* Menggunakan font yang umum dan bersih */
+    background-color: #f5f5f5; /* Latar belakang abu-abu muda */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center; /* Pusatkan kontainer pesanan di tengah halaman */
+}
+
+.orders-container {
+    width: 100%;
+    max-width: 700px; /* Lebar maksimum untuk kontainer pesanan */
+}
+
+.order-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    overflow: hidden; /* Penting untuk border-radius */
+}
+
+/* Order Header */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9em;
+    color: #666;
+    flex-wrap: wrap; /* Izinkan wrapping pada layar kecil */
+}
+
+.order-header .shop-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.order-header .btn-header:hover {
+    background-color: #f0f0f0;
+}
+
+.order-header .order-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto; /* Dorong status ke kanan */
+    flex-wrap: wrap; /* Izinkan wrapping */
+    justify-content: flex-end; /* Pastikan konten status rata kanan jika wrap */
+}
+
+.order-header .status-tag {
+    font-weight: bold;
+    color: #ee4d2d; /* Warna merah untuk status selesai */
+}
+
+/* Product Details */
+.product-details {
+    display: flex;
+    align-items: flex-start; /* Mengatur alignment vertikal item di dalam */
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.product-details:last-of-type {
+    border-bottom: none; /* Hapus border bawah untuk produk terakhir di pesanan */
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+    flex-shrink: 0; /* Pastikan gambar tidak mengecil */
+}
+
+.product-info-text {
+    flex-grow: 1; /* Ambil sisa ruang yang tersedia */
+    margin-right: 15px;
+}
+
+.product-name {
+    font-size: 0.95em;
+    color: #333;
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+
+.product-variation {
+    font-size: 0.85em;
+    color: #888;
+    margin-bottom: 3px;
+}
+
+.product-quantity {
+    font-size: 0.85em;
+    color: #888;
+}
+
+.product-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Rata kanan harga */
+    flex-shrink: 0; /* Jangan biarkan harga mengecil */
+}
+
+.discounted-price {
+    font-size: 1em;
+    font-weight: bold;
+    color: #ee4d2d; /* Warna merah untuk harga diskon */
+}
+
+/* Order Footer */
+.order-footer {
+    padding: 15px;
+    background-color: #fcfcfc;
+    border-top: 1px solid #eee;
+}
+
+.total-price-summary {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.total-price {
+    font-weight: bold;
+    color: #ee4d2d;
+    margin-left: 10px;
+    font-size: 1.2em; /* Ukuran lebih besar untuk total harga */
+}
+
+.order-actions-bottom {
+    display: flex;
+    justify-content: flex-end; /* Rata kanan tombol */
+    gap: 10px; /* Jarak antar tombol */
+    flex-wrap: wrap; /* Izinkan wrapping pada layar kecil */
+}
+
+.btn-action {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-action:hover {
+    background-color: #f0f0f0;
+    border-color: #aaa;
+}
+
+.primary-btn {
+    background-color: #ee4d2d;
+    color: white;
+    border-color: #ee4d2d;
+    font-weight: bold;
+}
+
+.primary-btn:hover {
+    background-color: #d13a20;
+    border-color: #d13a20;
+}
+
+.secondary-btn {
+    color: #555;
+    border-color: #ccc;
+}
+
+.secondary-btn:hover {
+    border-color: #999;
+    background-color: #f0f0f0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .order-header .order-status {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .product-details {
+        flex-wrap: wrap;
+    }
+
+    .product-image {
+        margin-bottom: 10px;
+    }
+
+    .product-info-text {
+        width: 100%; /* Ambil penuh lebar */
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .product-price {
+        width: 100%; /* Ambil penuh lebar */
+        flex-direction: row; /* Harga berdampingan */
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .order-actions-bottom {
+        flex-direction: column; /* Tombol tumpuk vertikal */
+        align-items: stretch; /* Tombol selebar parent */
+    }
+
+    .btn-action {
+        width: 100%;
+    }
+}
