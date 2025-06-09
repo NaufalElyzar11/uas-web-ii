@@ -11,7 +11,7 @@
 </head>
 
 <div class="wrapper">
-    <div class="login_box">
+    <div class="register_box">
         <div class="login-header">
             <span>Register</span>
         </div>
@@ -30,78 +30,72 @@
             <form action="<?= base_url('auth/doRegister') ?>" method="post">
                 <?= csrf_field() ?>
 
+                <div class="form-columns">
+                    <div class="form-column">                        
+                        <div class="input_box">
+                            <input type="text" class="input-field" id="nama" name="nama" value="<?= old('nama') ?>" required>
+                            <label for="nama" class="label">Nama Lengkap</label>
+                            <i class="bx bx-user icon"></i>
+                        </div>
 
-                <div class="input_box">
-                    <input type="text" class="input-field" id="nama" name="nama" value="<?= old('nama') ?>" required>
-                    <label for="nama" class="label">Nama Lengkap</label>
-                    <i class="bx bx-user icon"></i>
+                        <div class="input_box">
+                            <input type="text" class="input-field" id="username" name="username" value="<?= old('username') ?>" required>
+                            <label for="username" class="label">Username</label>
+                            <i class="bx bx-user icon"></i>
+                        </div>
+
+                        <div class="input_box">
+                            <input type="email" class="input-field" id="email" name="email" value="<?= old('email') ?>" required>
+                            <label for="email" class="label">Email</label>
+                            <i class="bx bxl-gmail icon"></i>
+                        </div>
+
+                        <div class="input_box">
+                            <input type="password" class="input-field" id="password" name="password" required>
+                            <label for="password" class="label">Password</label>
+                            <i class="bx bx-lock-alt icon"></i>
+                        </div>
+                    </div>    
+                
+                    <!-- Kolom Kanan -->
+                    <div class="form-column">
+                        <div class="input_box">
+                            <input type="password" class="input-field" id="confirm_password" name="confirm_password" required>
+                            <label for="confirm_password" class="label">Konfirmasi Password</label>
+                            <i class="bx bx-lock-alt icon"></i>
+                        </div>
+
+                        <div class="input_box">
+                            <input type="text" class="input-field" id="daerah" name="daerah" value="<?= old('daerah') ?>" required>
+                            <label for="daerah" class="label">Daerah</label>
+                            <i class="bx bx-location-plus icon"></i>
+                        </div>
+
+                        <div class="input_box">
+                            <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="L" <?= old('jenis_kelamin') == 'L' ? 'selected' : '' ?>>Laki-laki</option>
+                                <option value="P" <?= old('jenis_kelamin') == 'P' ? 'selected' : '' ?>>Perempuan</option>
+                            </select>
+                            <i class="bx bx-male-female icon"></i>
+                        </div>
+
+                        <div class="input_box">
+                            <input type="number" class="input-field" id="umur" name="umur" value="<?= old('umur') ?>" required>
+                            <label for="umur" class="label">Umur</label>
+                            <i class="bx bx-user icon"></i>
+                        </div>
+                    </div>    
                 </div>
 
+                    <div class="input_box">
+                        <button type="submit" class="input-submit">Register</button>
+                    </div>
+                </form>
 
-                <div class="input_box">
-                    <input type="text" class="input-field" id="username" name="username" value="<?= old('username') ?>" required>
-                    <label for="username" class="label">Username</label>
-                    <i class="bx bx-user icon"></i>
+                <div class="text-center mt-3">
+                    <p>Sudah punya akun? <a href="<?= base_url('auth/login') ?>">Login disini</a></p>
                 </div>
-
-
-                <div class="input_box">
-                    <input type="email" class="input-field" id="email" name="email" value="<?= old('email') ?>" required>
-                    <label for="email" class="label">Email</label>
-                    <i class="bx bxl-gmail icon"></i>
-                </div>
-
-
-                <div class="input_box">
-                    <input type="password" class="input-field" id="password" name="password" required>
-                    <label for="password" class="label">Password</label>
-                    <i class="bx bx-lock-alt icon"></i>
-                </div>
-
-
-                <div class="input_box">
-                    <input type="password" class="input-field" id="confirm_password" name="confirm_password" required>
-                    <label for="confirm_password" class="label">Konfirmasi Password</label>
-                    <i class="bx bx-lock-alt icon"></i>
-                </div>
-
-
-                <div class="input_box">
-                    <input type="text" class="input-field" id="daerah" name="daerah" value="<?= old('daerah') ?>" required>
-                    <label for="daerah" class="label">Daerah</label>
-                    <i class="bx bx-location-plus icon"></i>
-                </div>
-
-
-                <div class="input_box">
-                    <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
-                        <option value="">Pilih Jenis Kelamin</option>
-                        <option value="L" <?= old('jenis_kelamin') == 'L' ? 'selected' : '' ?>>Laki-laki</option>
-                        <option value="P" <?= old('jenis_kelamin') == 'P' ? 'selected' : '' ?>>Perempuan</option>
-                    </select>
-                    <i class="bx bx-male-female icon"></i>
-                </div>
-
-
-                <div class="input_box">
-                    <input type="number" class="input-field" id="umur" name="umur" value="<?= old('umur') ?>" required>
-                    <label for="umur" class="label">Umur</label>
-                    <i class="bx bx-user icon"></i>
-                </div>
-
-
-                <div class="input_box">
-                    <button type="submit" class="input-submit">Register</button>
-                </div>
-            </form>
-
-
-            <div class="text-center mt-3">
-                <p>Sudah punya akun? <a href="<?= base_url('auth/login') ?>">Login disini</a></p>
             </div>
         </div>
-    </div>
-</div>
-</div>
-</div>
 <?= $this->endSection() ?>
