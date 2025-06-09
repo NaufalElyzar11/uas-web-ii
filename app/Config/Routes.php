@@ -19,7 +19,7 @@ $routes->group('auth', function($routes) {
 });
 
 // Dashboard routes
-$routes->get('dashboard', 'Dashboard::index');
+$routes->get('/dashboard', 'Dashboard::index');
 $routes->get('destinasi', 'Destinasi::index');
 $routes->get('wishlist', 'Wishlist::index');
 $routes->get('riwayat', 'Riwayat::index');

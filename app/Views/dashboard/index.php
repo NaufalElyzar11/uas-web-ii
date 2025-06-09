@@ -151,8 +151,6 @@
             </div>
           </div>
         </div>
-        <?php endforeach; ?>
-      <?php endif; ?>
     </div>
   </section>
 </main>
@@ -163,4 +161,4 @@
     <p class="small text-muted">Terakhir diperbarui: <?= $currentDate ?? date('d M Y') ?></p>
   </div>
 </footer>
-<?= $this->endSection() ?> 
+<?= $this->endSection() ?>
