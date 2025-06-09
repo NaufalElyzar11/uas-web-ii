@@ -12,7 +12,7 @@
 <label for="check" class="toggle-btn">
   <i class="fas fa-chevron-left" id="sidebar-icon"></i>
 </label>    <div class="sidebar">
-    <header>Wisata Lokal</header>
+    <header>Banua Tour</header>
     <ul>
      <li><a href="<?= base_url('dashboard') ?>"><i class="fas fa-home"></i>Dashboard</a></li>
      <li><a href="<?= base_url('riwayat') ?>"><i class="fas fa-history"></i>History</a></li>
