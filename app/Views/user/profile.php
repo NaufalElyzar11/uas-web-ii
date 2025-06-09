@@ -133,7 +133,7 @@
                 </div>
 
                 <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-                    <form action="profile/change-password" class="profile-form">
+                    <form action="profile/change-password" method="POST" class="profile-form">
                         <div class="form-group">
                             <label for="current_password">Password Saat Ini</label>
                             <input type="password" id="current_password" name="current_password" class="form-control" required>
