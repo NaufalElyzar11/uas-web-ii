@@ -1,10 +1,15 @@
+html, body {
+  overflow-x: hidden;
+}   
+
 body {
     font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     background: linear-gradient(135deg, #ddf6e1 0%, #f5f7fa 100%);
-    min-height: 100vh;
+    min-height: 100%;
+    overflow-x: hidden;
 }
 
 .hero {
@@ -69,7 +74,7 @@ body {
     bottom: -60px;
     left: 50%;
     transform: translateX(-50%);
-    width: 120vw;
+    width: 105vw;
     height: 180px;
     background: radial-gradient(circle at 50% 0, #fff 0%, #e0e7ff 100%);
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
@@ -387,7 +392,7 @@ main {
     text-align: center;
 }
 .btn-primary:hover {
-    background-color: #362605;
+    background-color: #40a666;
 }
 
 footer {
@@ -473,3 +478,16 @@ footer {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     background: #f0f8ff;
 }
+
+/*
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden !important;
+}
+* {
+  outline: 1px solid red;
+}
+*/
