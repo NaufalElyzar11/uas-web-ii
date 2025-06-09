@@ -3,13 +3,13 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: linear-gradient(135deg, #e0e7ff 0%, #f5f7fa 100%);
+    background: linear-gradient(135deg, #ddf6e1 0%, #f5f7fa 100%);
     min-height: 100vh;
 }
 
 .hero {
     position: relative;
-    background: linear-gradient(120deg, #4f8cff 0%, #6ee7b7 100%);
+    background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
     color: #fff;
     padding: 60px 20px 100px 20px;
     text-align: center;
@@ -41,7 +41,7 @@ body {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 30px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 15px #224d32;
 }
 .search-form input {
     flex-grow: 1;
@@ -52,8 +52,8 @@ body {
     background: transparent;
 }
 .search-form button {
-    background: #0066ff;
-    color: white;
+    background: #efff42;
+    color: #362605;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -62,7 +62,7 @@ body {
     transition: background 0.2s;
 }
 .search-form button:hover {
-    background: #0055d4;
+    background: #a7b22e;
 }
 .hero-bg-shape {
     position: absolute;
@@ -92,7 +92,7 @@ main {
     padding: 0 20px;
     display: flex;
     align-items: center;
-    color: #4f8cff;
+    color: #362605;
     font-size: 14px;
 }
 .region-container i {
@@ -104,16 +104,16 @@ main {
 }
 .change-region {
     margin-left: auto;
-    color: #4f8cff;
+    color: #362605;
     text-decoration: none;
     font-weight: 500;
     padding: 2px 10px;
-    border: 1px solid #4f8cff;
+    border: 1px solid #362605;
     border-radius: 4px;
     transition: all 0.2s;
 }
 .change-region:hover {
-    background-color: #4f8cff;
+    background-color: #362605;
     color: white;
 }
 
@@ -125,7 +125,7 @@ main {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 1.5rem;
-    color: #2d3a4a;
+    color: #362605;
 }
 
 .card-container {
@@ -137,10 +137,11 @@ main {
     gap: 24px;
     justify-content: center;
 }
+
 .card {
-    background: #fff;
+    background: #ffffff;
     border-radius: 18px;
-    box-shadow: 0 4px 16px rgba(79,140,255,0.08);
+    box-shadow: 0 4px 16px #224d32;
     overflow: hidden;
     width: 260px;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -149,7 +150,7 @@ main {
 }
 .card:hover {
     transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 8px 24px rgba(79,140,255,0.15);
+    box-shadow: 0 8px 24px #224d32;
 }
 .card img {
     width: 100%;
@@ -171,20 +172,20 @@ main {
   min-height: 48px;
 }
 .card-content .badge {
-  background-color: #4f8cff;
-  color: white;
+  background-color: #0d6566;
+  color: #fff;
   padding: 5px 12px;
   border-radius: 6px;
   font-size: 13px;
   display: inline-block;
 }
 .card-content .badge.daerah {
-  background-color: #fbbf24;
-  color: #1e293b;
+  background-color: #362605;
+  color: #fff;
 }
 .card-content .price {
-    background-color: #6ee7b7;
-    color: #1e293b;
+    background-color: #00a441;
+    color: #fff;
     padding: 5px 12px;
     border-radius: 6px;
     font-size: 15px;
@@ -194,7 +195,7 @@ main {
 .card-content h3 {
     margin: 10px 0 6px 0;
     font-size: 1.1rem;
-    color: #2d3a4a;
+    color: #362605;
 }
 .card-content p {
     color: #666;
@@ -212,7 +213,7 @@ main {
 .trending-section h2 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
-    color: #2d3a4a;
+    color: #362605;
     text-align: center;
 }
 .trending-grid {
@@ -233,7 +234,7 @@ main {
     position: relative;
     overflow: hidden;
     border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+    box-shadow: 0 2px 8px #224d32;
 }
 .destination img {
     width: 100%;
@@ -248,7 +249,7 @@ main {
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: rgba(79,140,255,0.85);
+    background-color: #0d6566;
     color: white;
     padding: 6px 14px;
     border-radius: 6px;
@@ -259,7 +260,8 @@ main {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background-color: rgba(255, 59, 48, 0.85);
+    background-color: #00a441
+;
     color: white;
     padding: 6px 14px;
     border-radius: 6px;
@@ -304,14 +306,14 @@ main {
 
 #news-section {
     padding: 40px 20px;
-    background-color: #f4f8ff;
+    background-color: #fff;
     text-align: center;
 }
 #news-section h2 {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #2d3a4a;
+    color: #362605;
 }
 .news-container {
     display: grid;
@@ -322,7 +324,7 @@ main {
 .news-item {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 16px rgba(79,140,255,0.08);
+    box-shadow: 0 4px 16px #224d32;
     width: 95%;
     max-width: 600px;
     text-align: left;
@@ -376,7 +378,7 @@ main {
     gap: 15px;
 }
 .btn-primary {
-    background-color: #4f8cff;
+    background-color: #224d32;
     border: none;
     padding: 6px 12px;
     border-radius: 5px;
@@ -385,11 +387,11 @@ main {
     text-align: center;
 }
 .btn-primary:hover {
-    background-color: #3a6fd9;
+    background-color: #362605;
 }
 
 footer {
-    background: linear-gradient(90deg, #4f8cff 0%, #6ee7b7 100%);
+    background: linear-gradient(90deg, #307c4e 0%, #76d53b 100%);
     color: #fff;
     text-align: center;
     padding: 24px 0 12px 0;
@@ -434,7 +436,7 @@ footer {
 
 /* CTA Section Styles */
 .cta-section {
-    background: linear-gradient(120deg, #4f8cff 0%, #6ee7b7 100%);
+    background: linear-gradient(120deg,  #307c4e 0%, #76d53b 100%);
     padding: 60px 20px;
     text-align: center;
     color: #fff;
@@ -457,7 +459,7 @@ footer {
 .cta-button {
     display: inline-block;
     background: #fff;
-    color: #4f8cff;
+    color: #362605;
     padding: 12px 30px;
     border-radius: 30px;
     font-weight: 600;
