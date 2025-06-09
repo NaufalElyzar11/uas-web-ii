@@ -1,12 +1,16 @@
+body {
+    background: linear-gradient(135deg, #ddf6e1 0%, #f5f7fa 100%);
+}
+
 .breadcrumb {
-    background-color: #f8f9fa;
+    background-color: #bddabd;
     padding: 10px 15px;
     border-radius: 5px;
     margin-bottom: 20px;
 }
 
 .breadcrumb-item a {
-    color: #0066ff;
+    color: #0d6566;
     text-decoration: none;
 }
 
@@ -54,7 +58,7 @@
 }
 
 .badge {
-    background-color: #4f8cff;
+    background-color: #0d6566;
     color: white;
     padding: 5px 12px;
     border-radius: 5px;
@@ -63,18 +67,18 @@
 }
 
 .badge.daerah {
-    background-color: #fbbf24;
-    color: #1e293b;
+    background-color: #362605;
+    color: #fff;
 }
 
 .wisata-header h1 {
     font-size: 2rem;
     margin: 0;
-    color: #2d3a4a;
+    color: #000000;
 }
 
 .price-box {
-    background-color: #f5f7fa;
+    background-color: #bddabd;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 20px;
@@ -85,7 +89,7 @@
 
 .price-box h2 {
     margin: 0;
-    color: #0066ff;
+    color: #224d32;
     font-size: 1.8rem;
 }
 
@@ -108,23 +112,23 @@
 }
 
 .btn-primary {
-    background-color: #0066ff;
+    background-color: #0d6566;
     color: white;
     border: none;
 }
 
 .btn-primary:hover {
-    background-color: #0055d4;
+    background-color: #0a4647;
 }
 
 .btn-outline {
     background-color: transparent;
-    color: #0066ff;
-    border: 1px solid #0066ff;
+    color: #0d6566;
+    border: 1px solid #0a4647;
 }
 
 .btn-outline:hover {
-    background-color: #f0f8ff;
+    background-color: #c8dfcc;
 }
 
 .wisata-description {
@@ -134,7 +138,7 @@
 .wisata-description h3 {
     font-size: 1.3rem;
     margin-bottom: 10px;
-    color: #2d3a4a;
+    color: #000000;
 }
 
 .wisata-description p {
@@ -143,7 +147,7 @@
 }
 
 .wisata-details {
-    background-color: #f5f7fa;
+    background-color: #bddabd;
     border-radius: 10px;
     padding: 20px;
 }
@@ -157,7 +161,7 @@
 
 .detail-item i {
     font-size: 1.2rem;
-    color: #0066ff;
+    color: #224d32;
     width: 20px;
     text-align: center;
 }
@@ -169,7 +173,7 @@
 
 .detail-item strong {
     font-size: 0.9rem;
-    color: #666;
+    color: #555555;
 }
 
 .detail-item span {
