@@ -94,73 +94,70 @@
                     </div>
 
                     <div class="tab-pane fade" id="preferences" role="tabpanel" aria-labelledby="preferences-tab">
-                        <div class="alert alert-info">
-                            <i class="fas fa-info-circle"></i> Fitur preferensi wisata sedang dalam pengembangan. Silakan kunjungi kembali nanti.
-                        </div>
-
-                        <form action="#" class="profile-form">
+                        <form action="/profile/updatePreferences" method="POST" class="profile-form">
                             <div class="form-group">
                                 <label>Kategori Wisata Favorit</label>
                                 <div class="checkbox-group">
                                     <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Alam"> Wisata Alam
+                                        <input type="checkbox" name="kategori[]" value="Alam" <?= in_array('Alam', $userPreferences) ? 'checked' : '' ?>> Wisata Alam
                                     </label>
                                     <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Pantai"> Pantai
+                                        <input type="checkbox" name="kategori[]" value="Pantai" <?= in_array('Pantai', $userPreferences) ? 'checked' : '' ?>> Pantai
                                     </label>
                                     <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Gunung"> Gunung
+                                        <input type="checkbox" name="kategori[]" value="Gunung" <?= in_array('Gunung', $userPreferences) ? 'checked' : '' ?>> Gunung
                                     </label>
                                     <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Budaya"> Wisata Budaya
+                                        <input type="checkbox" name="kategori[]" value="Budaya" <?= in_array('Budaya', $userPreferences) ? 'checked' : '' ?>> Wisata Budaya
                                     </label>
                                     <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Kota"> Wisata Kota
+                                        <input type="checkbox" name="kategori[]" value="Kota" <?= in_array('Kota', $userPreferences) ? 'checked' : '' ?>> Wisata Kota
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="kategori[]" value="Religi" <?= in_array('Religi', $userPreferences) ? 'checked' : '' ?>> Wisata Religi
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="kategori[]" value="Hiburan" <?= in_array('Hiburan', $userPreferences) ? 'checked' : '' ?>> Hiburan
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="budget">Budget Wisata</label>
-                                <select id="budget" name="budget" class="form-control">
-                                    <option value="low">Low Budget (< Rp 500.000)</option>
-                                    <option value="medium">Medium Budget (Rp 500.000 - Rp 2.000.000)</option>
-                                    <option value="high">High Budget (> Rp 2.000.000)</option>
-                                </select>
-                            </div>
-
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary" disabled>Simpan Preferensi</button>
+                                <button type="submit" class="btn btn-primary">Simpan Preferensi</button>
                             </div>
                         </form>
                     </div>
 
-                    <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-                        <form action="#" class="profile-form">
-                            <div class="form-group">
-                                <label for="current_password">Password Saat Ini</label>
-                                <input type="password" id="current_password" name="current_password" class="form-control" required>
-                            </div>
+                    
+                    </form>
+                </div>
 
-                            <div class="form-group">
-                                <label for="new_password">Password Baru</label>
-                                <input type="password" id="new_password" name="new_password" class="form-control" required>
-                            </div>
+                <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                    <form action="#" class="profile-form">
+                        <div class="form-group">
+                            <label for="current_password">Password Saat Ini</label>
+                            <input type="password" id="current_password" name="current_password" class="form-control" required>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="confirm_password">Konfirmasi Password Baru</label>
-                                <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
-                            </div>
+                        <div class="form-group">
+                            <label for="new_password">Password Baru</label>
+                            <input type="password" id="new_password" name="new_password" class="form-control" required>
+                        </div>
 
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Ubah Password</button>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="form-group">
+                            <label for="confirm_password">Konfirmasi Password Baru</label>
+                            <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Ubah Password</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script>
