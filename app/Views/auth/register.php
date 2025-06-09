@@ -69,7 +69,7 @@
                 <div class="input_box">
                     <input type="text" class="input-field" id="daerah" name="daerah" value="<?= old('daerah') ?>" required>
                     <label for="daerah" class="label">Daerah</label>
-                    <i class="bx bx-location-plus"></i>
+                    <i class="bx bx-location-plus icon"></i>
                 </div>
 
 
@@ -78,9 +78,8 @@
                         <option value="">Pilih Jenis Kelamin</option>
                         <option value="L" <?= old('jenis_kelamin') == 'L' ? 'selected' : '' ?>>Laki-laki</option>
                         <option value="P" <?= old('jenis_kelamin') == 'P' ? 'selected' : '' ?>>Perempuan</option>
-                        
                     </select>
-                    <i class="bx bx-male-female"></i>
+                    <i class="bx bx-male-female icon"></i>
                 </div>
 
 
