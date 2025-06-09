@@ -81,6 +81,9 @@
                 </div>
             </div>
         </div>
+        <!-- Content Section -->
+                <?= $this->renderSection('content') ?>
     </div>
 </div>
+
 <?= $this->endSection() ?> 
