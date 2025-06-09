@@ -11,6 +11,8 @@
   }
 </style>
 
+<link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
+
 <!-- Hero Section -->
 <section class="hero">
   <div class="hero-content">
