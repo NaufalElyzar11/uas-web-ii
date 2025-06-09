@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
-<!-- Remove top navigation for dashboard view -->
+
 <style>
   .navbar {
     display: none;
@@ -13,13 +13,11 @@
 
 <link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
 
-<!-- Hero Section -->
 <section class="hero">
   <div class="hero-content">
-    <h1>Jelajahi Wisata Indonesia</h1>
-    <p>Temukan destinasi impian, inspirasi liburan, dan pengalaman tak terlupakan di seluruh Nusantara.</p>
+    <h1>Jelajahi Wisata Kalimantan Selatan</h1>
+    <p>Temukan destinasi impian, inspirasi liburan, dan pengalaman tak terlupakan di seluruh Kalimantan Selatan.</p>
     
-    <!-- Search Form -->
     <div class="search-container mt-4">
       <form action="<?= base_url('destinasi/search') ?>" method="get" class="search-form">
         <input type="text" name="keyword" placeholder="Cari destinasi wisata..." required>
@@ -100,7 +98,7 @@
         <?php foreach ($wisataTerdekat as $wisata): ?>
         <div class="card" data-wisata="<?= esc($wisata['nama']) ?>" data-price="<?= $wisata['harga'] ?? 0 ?>">
           <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="card-link">
-            <img src="<?= base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
+            <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="card-content">
               <div class="card-labels">
                 <span class="badge"><?= esc($wisata['kategori'] ?? 'Umum') ?></span>
