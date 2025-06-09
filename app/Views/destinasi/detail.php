@@ -223,7 +223,6 @@
 <script>
 function toggleWishlist(wisataId) {
     alert('Fitur wishlist belum tersedia');
-    // Implementasi AJAX untuk wishlist akan dilakukan di masa mendatang
 }
 </script>
 <?= $this->endSection() ?>
