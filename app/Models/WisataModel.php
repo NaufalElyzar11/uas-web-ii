@@ -80,9 +80,7 @@ class WisataModel extends Model
             log_message('error', 'Error in getWisataPopuler: ' . $e->getMessage());
             return [];
         }
-    }
-
-    /**
+    }    /**
      * Dapatkan wisata berdasarkan daerah user
      */
     public function getWisataTerdekat($userDaerah, $limit = 4)
@@ -102,6 +100,24 @@ class WisataModel extends Model
                         ->find();
         } catch (\Exception $e) {
             log_message('error', 'Error in getWisataTerdekat: ' . $e->getMessage());
+            return [];
+        }
+    }
+    
+    /**
+     * Search wisata by keyword (nama or daerah)
+     */
+    public function search($keyword)
+    {
+        try {
+            return $this->like('nama', $keyword)
+                      ->orLike('daerah', $keyword)
+                      ->orLike('deskripsi', $keyword)
+                      ->orLike('kategori', $keyword)
+                      ->orderBy($this->primaryKey, 'DESC')
+                      ->find();
+        } catch (\Exception $e) {
+            log_message('error', 'Error in search: ' . $e->getMessage());
             return [];
         }
     }
