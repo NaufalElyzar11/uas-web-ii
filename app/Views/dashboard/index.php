@@ -80,7 +80,7 @@
         <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="destination-link">
           <div class="destination <?= ($i <= 2) ? 'large' : 'small' ?>">
             <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
-            <div class="label"><?= esc($wisata['daerah']) ?></div>
+            <div class="label">🇮🇩 <?= esc($wisata['nama']) ?></div>
             <div class="trending-badge"><i class="fas fa-fire"></i> Populer</div>
           </div>
         </a>
@@ -151,6 +151,8 @@
             </div>
           </div>
         </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
     </div>
   </section>
 </main>
