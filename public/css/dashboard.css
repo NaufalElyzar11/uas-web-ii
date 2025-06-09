@@ -30,6 +30,40 @@ body {
     font-weight: 400;
     margin-bottom: 0;
 }
+.search-container {
+    margin-top: 25px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.search-form {
+    display: flex;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+.search-form input {
+    flex-grow: 1;
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: transparent;
+}
+.search-form button {
+    background: #0066ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+.search-form button:hover {
+    background: #0055d4;
+}
 .hero-bg-shape {
     position: absolute;
     bottom: -60px;
@@ -45,6 +79,42 @@ body {
 
 main {
     padding: 0 0 40px 0;
+}
+
+.user-region {
+    background-color: #f4f8ff;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e7ff;
+}
+.region-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    color: #4f8cff;
+    font-size: 14px;
+}
+.region-container i {
+    margin-right: 8px;
+}
+.region-container strong {
+    margin: 0 5px;
+    font-weight: 600;
+}
+.change-region {
+    margin-left: auto;
+    color: #4f8cff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 2px 10px;
+    border: 1px solid #4f8cff;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+.change-region:hover {
+    background-color: #4f8cff;
+    color: white;
 }
 
 .section-wisata {
@@ -151,8 +221,13 @@ main {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 180px);
     grid-template-areas:
-      "jakarta bandung bandung bandung"
-      "yogya    surabaya ubud    ubud";
+      "dest1 dest2 dest2 dest2"
+      "dest3 dest4 dest5 dest5";
+}
+.destination-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 .destination {
     position: relative;
@@ -180,6 +255,17 @@ main {
     font-size: 1rem;
     font-weight: 500;
 }
+.trending-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(255, 59, 48, 0.85);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
 .large {
     grid-row: 1 / 2;
     height: 180px;
@@ -187,11 +273,11 @@ main {
 .small {
     height: 180px;
 }
-.destination:nth-child(1) { grid-area: jakarta; }
-.destination:nth-child(2) { grid-area: bandung; }
-.destination:nth-child(3) { grid-area: yogya; }
-.destination:nth-child(4) { grid-area: surabaya; }
-.destination:nth-child(5) { grid-area: ubud; }
+.destination:nth-child(1) { grid-area: dest1; }
+.destination:nth-child(2) { grid-area: dest2; }
+.destination:nth-child(3) { grid-area: dest3; }
+.destination:nth-child(4) { grid-area: dest4; }
+.destination:nth-child(5) { grid-area: dest5; }
 
 @media (max-width: 900px) {
   .trending-grid {
@@ -272,11 +358,34 @@ main {
 }
 .text-content a {
     text-decoration: none;
-    color: #4f8cff;
+    color: #fff;
     font-weight: bold;
 }
 .news-item:hover {
     transform: scale(1.03);
+}
+.news-footer {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.news-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.btn-primary {
+    background-color: #4f8cff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+    display: inline-block;
+    text-align: center;
+}
+.btn-primary:hover {
+    background-color: #3a6fd9;
 }
 
 footer {
@@ -291,7 +400,74 @@ footer {
     border-top-right-radius: 24px;
 }
 
-/* Hapus style yang tidak perlu dari versi lama */
-header, nav, .flight-card, .flight-info, .airline-logo, .flight-details, .airline-name, .flight-timing, .departure, .arrival, .time, .code, .duration, .line, .stopover, .luggage-icon, .amount, .tax, .book-button, .popup, .popup-content, .tabel-panjang {
-    display: none !important;
+/* Responsive untuk perangkat mobile */
+@media (max-width: 768px) {
+    .news-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .news-content img {
+        width: 100px;
+        height: 80px;
+    }
+}
+
+/* Card link styles */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+.card-action {
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-action .text-muted {
+    color: #888;
+    font-size: 0.85rem;
+}
+
+/* CTA Section Styles */
+.cta-section {
+    background: linear-gradient(120deg, #4f8cff 0%, #6ee7b7 100%);
+    padding: 60px 20px;
+    text-align: center;
+    color: #fff;
+    margin: 40px 0;
+}
+.cta-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.cta-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.cta-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+.cta-button {
+    display: inline-block;
+    background: #fff;
+    color: #4f8cff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: #f0f8ff;
 }
