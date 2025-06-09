@@ -89,13 +89,6 @@ label #cancel{
 #check:checked ~ section{
   margin-left: 250px;
 }
-section{
-  background: url(bg.jpeg) no-repeat;
-  background-position: center;
-  background-size: cover;
-  height: 100vh;
-  transition: all .5s;
-}
 
 /* Reset */
 body, html {
@@ -146,10 +139,10 @@ body, html {
 
 .toggle-btn {
   position: fixed;
-  top: 20px; 
+  /* top: 10px; */
   left: 200px; /* Saat sidebar terbuka */
   font-size: 24px;
-  color: #494949;
+  color: #111;
   /* background: #ffffff; */
   /* padding: 4px 4px; */
   cursor: pointer;
@@ -167,7 +160,6 @@ body, html {
 
 .main-content {
   margin-left: 250px;
-  padding: 20px;
   transition: margin-left 0.3s ease;
 }
 
