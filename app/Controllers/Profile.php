@@ -100,10 +100,10 @@ class Profile extends BaseController
             return redirect()->back()->with('error', 'Pilih setidaknya satu kategori wisata.');
         }
 
-        $this->userModel->db->table('user_interests')->where('user_id', $userId)->delete();
+        $this->userModel->db->table('minat_user')->where('user_id', $userId)->delete();
 
         foreach ($kategori as $k) {
-            $this->userModel->db->table('user_interests')->insert([
+            $this->userModel->db->table('minat_user')->insert([
                 'user_id' => $userId,
                 'kategori' => $k
             ]);
