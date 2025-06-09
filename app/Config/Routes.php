@@ -45,3 +45,5 @@ $routes->get('riwayat/cancel/(:num)', 'Riwayat::cancel/$1');
 $routes->get('profile', 'Profile::index');
 $routes->post('profile/update', 'Profile::update');
 $routes->post('profile/change-password', 'Profile::changePassword');
+$routes->post('profile/updatePreferences', 'Profile::updatePreferences');
+
