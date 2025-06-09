@@ -51,7 +51,7 @@
       <?php else: ?>        <?php foreach ($wisataTerbaru as $wisata): ?>
         <div class="card" data-wisata="<?= esc($wisata['nama']) ?>" data-price="<?= $wisata['harga'] ?? 0 ?>">
           <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="card-link">
-            <img src="<?= base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
+            <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="card-content">
               <div class="card-labels">
                 <span class="badge"><?= esc($wisata['kategori'] ?? 'Umum') ?></span>
@@ -79,7 +79,7 @@
         <?php $i = 1; foreach ($wisataPopuler as $wisata): ?>
         <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="destination-link">
           <div class="destination <?= ($i <= 2) ? 'large' : 'small' ?>">
-            <img src="<?= base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
+            <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="label">🇮🇩 <?= esc($wisata['nama']) ?></div>
             <div class="trending-badge"><i class="fas fa-fire"></i> Populer</div>
           </div>
