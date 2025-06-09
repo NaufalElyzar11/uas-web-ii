@@ -13,7 +13,7 @@
 <div class="wrapper">
     <div class="login_box">
         <div class="login-header">
-            <span>Rogister</span>
+            <span>Register</span>
         </div>
         <div class="card-body">
             <?php if (session()->has('errors')) : ?>
