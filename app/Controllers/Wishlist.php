@@ -12,7 +12,6 @@ class Wishlist extends BaseController
     
     public function __construct()
     {
-        // Cek apakah user sudah login
         if (!session()->get('isLoggedIn')) {
             header('Location: ' . base_url('auth/login'));
             exit();
