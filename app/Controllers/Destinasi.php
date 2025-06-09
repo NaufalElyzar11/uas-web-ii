@@ -63,8 +63,7 @@ class Destinasi extends BaseController
         
         return view('destinasi/search', $data);
     }
-    
-    public function detail($id = null)
+      public function detail($id = null)
     {
         if ($id === null) {
             return redirect()->to('destinasi');
@@ -74,6 +73,31 @@ class Destinasi extends BaseController
         
         if ($wisata === null) {
             return redirect()->to('destinasi')->with('error', 'Destinasi wisata tidak ditemukan');
+        }
+          // Get gallery images for this destination
+        $galeri = [];
+        
+        try {
+            // Check if there's a gallery directory for this destination
+            $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $id;
+            if (is_dir($galleryPath)) {
+                // Get all images from the gallery directory
+                $files = scandir($galleryPath);
+                foreach ($files as $file) {
+                    if ($file != '.' && $file != '..' && in_array(pathinfo($file, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif'])) {
+                        $galeri[] = 'gallery/' . $id . '/' . $file;
+                    }
+                }
+            }
+            
+            // If no gallery images found, use the main image
+            if (empty($galeri) && !empty($wisata['gambar_wisata'])) {
+                $galeri[] = $wisata['gambar_wisata'];
+            }
+        } catch (\Exception $e) {
+            // If any error occurs, just use an empty gallery
+            log_message('error', 'Error loading gallery images: ' . $e->getMessage());
+            $galeri = [];
         }
         
         $data = [
@@ -86,7 +110,8 @@ class Destinasi extends BaseController
                 'role' => session()->get('role'),
                 'daerah' => session()->get('daerah') ?? 'Indonesia'
             ],
-            'wisata' => $wisata
+            'wisata' => $wisata,
+            'galeri' => $galeri
         ];
         
         return view('destinasi/detail', $data);
