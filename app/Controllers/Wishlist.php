@@ -42,25 +42,31 @@ class Wishlist extends BaseController
         return view('user/wishlist', $data);
     }
     
- public function add($wisataId)
-{
-    $userId = session()->get('user_id');
-    log_message('debug', 'Adding to wishlist: User ID: ' . $userId . ' Wisata ID: ' . $wisataId);
-    
-    $result = $this->wishlistModel->addToWishlist($userId, $wisataId);
-    
-    return $this->response->setJSON(['success' => $result]);
-}
+    public function add($wisataId)
+    {
+        $userId = session()->get('user_id');
+        if ($this->wishlistModel->isInWishlist($userId, $wisataId)) {
+            if ($this->request->isAJAX()) {
+                return $this->response->setJSON(['success' => false, 'message' => 'Sudah di wishlist']);
+            }
+            return redirect()->back()->with('info', 'Destinasi sudah ada di wishlist Anda.');
+        }
+        $result = $this->wishlistModel->addToWishlist($userId, $wisataId);
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON(['success' => $result]);
+        }
+        return redirect()->back()->with('success', 'Berhasil menambah ke wishlist.');
+    }
 
-public function remove($wisataId)
-{
-    $userId = session()->get('user_id');
-    log_message('debug', 'Removing from wishlist: User ID: ' . $userId . ' Wisata ID: ' . $wisataId);
-    
-    $result = $this->wishlistModel->removeFromWishlist($userId, $wisataId);
-    
-    return $this->response->setJSON(['success' => $result]);
-}
+    public function remove($wisataId)
+    {
+        $userId = session()->get('user_id');
+        $result = $this->wishlistModel->removeFromWishlist($userId, $wisataId);
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON(['success' => $result]);
+        }
+        return redirect()->back()->with('success', 'Berhasil menghapus dari wishlist.');
+    }
 
 
 }

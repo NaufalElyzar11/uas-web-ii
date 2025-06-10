@@ -74,10 +74,10 @@
 
                 <a href="javascript:void(0);"
                     id="wishlistButton"
-                    class="btn btn-outline"
+                    class="btn btn-outline<?= !empty($isInWishlist) ? ' added' : '' ?>"
                     onclick="toggleWishlist()">
-                    <i class="far fa-heart" id="wishlistIcon"></i>
-                    <span id="wishlistText">Tambah ke Wishlist</span>
+                    <i class="<?= !empty($isInWishlist) ? 'fas' : 'far' ?> fa-heart" id="wishlistIcon"></i>
+                    <span id="wishlistText"><?= !empty($isInWishlist) ? 'Sudah di Wishlist' : 'Tambah ke Wishlist' ?></span>
                 </a>
                 </a>
             </div>
@@ -145,44 +145,25 @@
         const wishlistButton = document.getElementById('wishlistButton');
         const wishlistIcon = document.getElementById('wishlistIcon');
         const wishlistText = document.getElementById('wishlistText');
-        const wisataId = <?= esc($wisata['wisata_id']); ?>; 
-
+        const wisataId = <?= esc($wisata['wisata_id']); ?>;
         if (wishlistButton.classList.contains('added')) {
             wishlistButton.classList.remove('added');
             wishlistIcon.classList.remove('fas');
             wishlistIcon.classList.add('far');
             wishlistText.textContent = 'Tambah ke Wishlist';
-
-            fetch(`<?= base_url('wishlist/remove/') ?>/${wisataId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                })
+            fetch(`<?= base_url('wishlist/remove/') ?>${wisataId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         console.log('Removed from wishlist');
                     }
                 });
-
         } else {
             wishlistButton.classList.add('added');
             wishlistIcon.classList.remove('far');
             wishlistIcon.classList.add('fas');
             wishlistText.textContent = 'Sudah di Wishlist';
-            
-            fetch(`<?= base_url('wishlist/add/') ?>/${wisataId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                    body: JSON.stringify({
-                        wisataId: wisataId
-                    })
-                })
+            fetch(`<?= base_url('wishlist/add/') ?>${wisataId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
