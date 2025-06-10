@@ -1,12 +1,19 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
+<head>
+<link rel="stylesheet" href="<?= base_url('css/create.css') ?>">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
 <div class="container mt-4">
-    <h1 class="mb-4">Booking Destinasi</h1>
+    <h1 class="mb-4">Beli Tiket Destinasi</h1>
     
-    <div class="row">
+    <div class="row d-flex align-items-stretch">
         <div class="col-md-8">
-            <div class="card mb-4">
+            <div class="card mb-4 h-100">
                 <div class="card-body">
                     <h2 class="card-title"><?= esc($wisata['nama']) ?></h2>
                     <p class="card-text"><i class="fas fa-map-marker-alt"></i> <?= esc($wisata['daerah']) ?></p>
@@ -27,9 +34,9 @@
         </div>
         
         <div class="col-md-4">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Form Booking</h5>
+                    <h5 class="mb-0">Form Pembelian</h5>
                 </div>
                 <div class="card-body">
                     <?php if (session()->getFlashdata('error')): ?>
@@ -52,20 +59,20 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label for="total" class="form-label">Total Harga</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="text" class="form-control" id="total" readonly value="<?= number_format($wisata['harga'], 0, ',', '.') ?>">
-                            </div>
+                            <label class="form-label">Total Harga</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                <div class="form-control bg-light" style="border: none;" id="total"><?= number_format($wisata['harga'], 0, ',', '.') ?></div>
+                             </div>
                         </div>
-                        
-                        <button type="submit" class="btn btn-primary w-100">Booking Sekarang</button>
+                        <button type="submit" class="btn btn-primary w-100">Beli Sekarang</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</body>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
