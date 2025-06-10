@@ -123,8 +123,6 @@ h2.mb-4 {
 
 .container {
     padding: 40px 80px;
-    border: 2px dashed red;
-
 }
 
 @media (min-width: 768px) {
