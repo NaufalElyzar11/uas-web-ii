@@ -24,4 +24,26 @@ class WishlistModel extends Model
                     ->where('wisata_id', $wisataId)
                     ->countAllResults() > 0;
     }
+
+    public function addToWishlist($userId, $wisataId)
+    {
+        $data = [
+            'user_id' => $userId,
+            'wisata_id' => $wisataId
+        ];
+        if ($this->insert($data)) {
+        return true;  
+    } 
+        return false;
+    }
+
+    public function removeFromWishlist($userId, $wisataId)
+    {
+        return $this->where('user_id', $userId)
+                    ->where('wisata_id', $wisataId)
+                    ->delete(); {
+                        return true;
+                    }
+        return false;
+    }
 }

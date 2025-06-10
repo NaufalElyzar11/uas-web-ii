@@ -74,7 +74,7 @@ class Destinasi extends BaseController
         if ($wisata === null) {
             return redirect()->to('destinasi')->with('error', 'Destinasi wisata tidak ditemukan');
         }
-          // Get gallery images for this destination
+        // Get gallery images for this destination
         $galeri = [];
         
         try {
@@ -99,6 +99,13 @@ class Destinasi extends BaseController
             log_message('error', 'Error loading gallery images: ' . $e->getMessage());
             $galeri = [];
         }
+        // Wishlist status
+        $isInWishlist = false;
+        if (session()->get('isLoggedIn')) {
+            $userId = session()->get('user_id');
+            $wishlistModel = new \App\Models\WishlistModel();
+            $isInWishlist = $wishlistModel->isInWishlist($userId, $wisata['wisata_id']);
+        }
         
         $data = [
             'title' => $wisata['nama'],
@@ -111,7 +118,8 @@ class Destinasi extends BaseController
                 'daerah' => session()->get('daerah') ?? 'Indonesia'
             ],
             'wisata' => $wisata,
-            'galeri' => $galeri
+            'galeri' => $galeri,
+            'isInWishlist' => $isInWishlist
         ];
         
         return view('destinasi/detail', $data);
