@@ -54,7 +54,7 @@
 
             <div class="wisata-actions">
                 <a href="<?= base_url('booking/create/' . $wisata['wisata_id']) ?>" class="btn btn-primary">
-                    <i class="fas fa-ticket-alt"></i> Booking Sekarang
+                    <i class="fas fa-ticket-alt"></i> Beli Sekarang
                 </a>
                 <a href="<?= base_url('wishlist/add/' . $wisata['wisata_id']) ?>" class="btn btn-outline">
                     <i class="far fa-heart"></i> Tambah ke Wishlist
