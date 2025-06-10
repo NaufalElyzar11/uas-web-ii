@@ -249,3 +249,19 @@ body {
         height: 70px;
     }
 }
+
+.media-box {
+    width: 100%;
+    height: 400px; /* Sesuaikan tinggi sesuai kebutuhan */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: none; /* Menghilangkan border default iframe */
+    display: block; /* Memastikan iframe mengambil full width */
+}
+
+/* Responsive Adjustment */
+@media (max-width: 768px) {
+    .media-box {
+        height: 250px; /* Lebih pendek di mobile */
+    }
+}
