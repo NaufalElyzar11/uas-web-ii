@@ -1,10 +1,11 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
+
+<link rel="stylesheet" href="<?= base_url('css/destinasi.css') ?>">
 <div class="container mt-4">
     <h1 class="mb-4"><?= $title ?></h1>
     
-    <!-- Search Form -->
     <div class="search-container mb-4">
         <form action="<?= base_url('destinasi/search') ?>" method="get" class="search-form">
             <input type="text" name="keyword" placeholder="Cari destinasi wisata..." required>
@@ -12,7 +13,6 @@
         </form>
     </div>
 
-    <!-- Filter Options -->
     <div class="filter-container mb-4">
         <div class="filters">
             <label>
@@ -24,6 +24,7 @@
                     <option value="Gunung">Gunung</option>
                     <option value="Budaya">Budaya</option>
                     <option value="Kota">Kota</option>
+                    <option value="Religi">Religi</option>
                 </select>
             </label>
             <label>
@@ -87,138 +88,22 @@
     <?php endif; ?>
 </div>
 
-<style>
-.search-container {
-    max-width: 600px;
-    margin: 0 auto;
-}
-.search-form {
-    display: flex;
-    background: #f5f7fa;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-.search-form input {
-    flex-grow: 1;
-    padding: 12px 20px;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    background: transparent;
-}
-.search-form button {
-    background: #0066ff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: background 0.2s;
-}
-.search-form button:hover {
-    background: #0055d4;
-}
-.filter-container {
-    background: #f5f7fa;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-.filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    align-items: center;
-}
-.filters label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.filters select {
-    padding: 8px 12px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: white;
-}
-.wisata-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-}
-.wisata-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.wisata-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-.card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-.wisata-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-.wisata-content {
-    padding: 15px;
-}
-.wisata-labels {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-.badge {
-    background-color: #4f8cff;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-}
-.badge.daerah {
-    background-color: #fbbf24;
-    color: #1e293b;
-}
-.price {
-    color: #0066ff;
-    font-weight: bold;
-    margin: 8px 0;
-}
-.description {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 0;
-}
-</style>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Filter functions
     const kategoriFilter = document.getElementById('kategori-filter');
     const daerahFilter = document.getElementById('daerah-filter');
     const sortFilter = document.getElementById('sort-filter');
     const wisataCards = document.querySelectorAll('.wisata-card');
 
-    // Apply filters function
     function applyFilters() {
         const selectedKategori = kategoriFilter.value;
         const selectedDaerah = daerahFilter.value;
         const sortOption = sortFilter.value;
 
-        // Convert nodelist to array for sorting
+
         const wisataArray = Array.from(wisataCards);
 
-        // Sort the array
+
         wisataArray.sort((a, b) => {
             if (sortOption === 'name-asc') {
                 return a.dataset.nama.localeCompare(b.dataset.nama);
@@ -232,31 +117,30 @@ document.addEventListener('DOMContentLoaded', function() {
             return 0;
         });
 
-        // Hide all cards first
+
         wisataCards.forEach(card => {
             card.style.display = 'none';
         });
 
-        // Show cards that match the filter
+
         wisataArray.forEach(card => {
             const cardKategori = card.dataset.kategori;
             const cardDaerah = card.dataset.daerah;
             
-            // If both filters match (or are empty)
+    
             if ((selectedKategori === '' || cardKategori === selectedKategori) && 
                 (selectedDaerah === '' || cardDaerah === selectedDaerah)) {
                 card.style.display = 'block';
             }
         });
         
-        // Reorder cards in the DOM
+
         const container = document.querySelector('.wisata-grid');
         wisataArray.forEach(card => {
             container.appendChild(card);
         });
     }
 
-    // Add event listeners
     kategoriFilter.addEventListener('change', applyFilters);
     daerahFilter.addEventListener('change', applyFilters);
     sortFilter.addEventListener('change', applyFilters);
