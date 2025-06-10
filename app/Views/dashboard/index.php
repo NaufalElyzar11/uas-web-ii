@@ -2,15 +2,6 @@
 
 <?= $this->section('content') ?>
 
-<style>
-  .navbar {
-    display: none;
-  }
-  .content {
-    padding: 0;
-  }
-</style>
-
 <link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
 
 <section class="hero">
@@ -35,14 +26,14 @@
     </div>
   <?php endif; ?>
 
-  <!-- User region indicator -->
+  
   <div class="user-region">
     <div class="region-container">
       <i class="fas fa-map-marker-alt"></i>
       <span>Anda berada di wilayah: <strong><?= esc($user['daerah'] ?? 'Indonesia') ?></strong></span>
       <a href="<?= base_url('profile') ?>" class="change-region">Ubah</a>
     </div>
-  </div><!-- Wisata Terbaru -->
+  </div>
   <section class="section-wisata">
     <h2>Wisata Terbaru</h2>
     <div class="card-container">
@@ -70,7 +61,7 @@
       <?php endif; ?>
     </div>
   </section>
-  <!-- Wisata Populer -->
+  
   <section class="trending-section">
     <h2>Wisata Populer</h2>
     <div class="trending-grid">      <?php if (empty($wisataPopuler)): ?>
@@ -89,7 +80,7 @@
     </div>
   </section>
 
-  <!-- Wisata Terdekat -->
+  
   <section class="section-wisata">
     <h2>Wisata Terdekat</h2>
     <div class="card-container">      <?php if (empty($wisataTerdekat)): ?>
@@ -117,7 +108,7 @@
       <?php endif; ?>
     </div>  </section>
 
-  <!-- CTA Section -->
+  
   <section class="cta-section">
     <div class="cta-container">
       <h2>Temukan Lebih Banyak Destinasi</h2>
@@ -126,7 +117,7 @@
     </div>
   </section>
   
-  <!-- Berita Terbaru -->
+  
   <section id="news-section">
     <h2>Berita Terbaru</h2>
     <div class="news-container">      <?php if (empty($berita)): ?>
@@ -135,12 +126,12 @@
         <?php foreach ($berita as $item): ?>
         <div class="news-item">
           <div class="news-content">
-            <img src="<?= base_url('uploads/wisata/' . ($item['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($item['judul']) ?>">
+            <img src="<?= (filter_var($item['gambar'], FILTER_VALIDATE_URL)) ? $item['gambar'] : base_url('uploads/wisata/' . ($item['gambar'] ?? 'default.jpg')) ?>" alt="<?= esc($item['judul']) ?>">
             <div class="text-content">
               <h3><?= esc($item['judul']) ?></h3>
               <p><?= esc(substr($item['konten'] ?? '', 0, 120)) ?>...</p>
               <div class="news-footer">
-                <a href="<?= base_url('berita/detail/' . $item['berita_id']) ?>" class="btn btn-sm btn-primary">Baca Selengkapnya</a>
+                <a href="<?= $item['link_berita'] ?>" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Baca Selengkapnya</a>
                 <div class="news-meta">
                   <small class="text-muted"><i class="fas fa-map-marker-alt"></i> <?= esc($item['nama'] ?? 'Tidak diketahui') ?></small>
                   <?php if(!empty($item['tanggal_post'])): ?>
