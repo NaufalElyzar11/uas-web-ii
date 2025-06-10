@@ -335,9 +335,9 @@ body {
 }
 
 #wishlistButton.added i {
-    color: gold;
+    color: #efff42;
 }
 
 #wishlistButton.added span {
-    color: gold;
+    color: #efff42;
 }
