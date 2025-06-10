@@ -4,12 +4,12 @@
 
 <link rel="stylesheet" href="<?= base_url('css/destinasi.css') ?>">
 <div class="container mt-4">
-    <h1 class="mb-4"><?= $title ?></h1>
+    <h2 class="mb-4 text-center"><?= $title ?></h2>
     
     <div class="search-container mb-4">
         <form action="<?= base_url('destinasi/search') ?>" method="get" class="search-form">
             <input type="text" name="keyword" placeholder="Cari destinasi wisata..." required>
-            <button type="submit"><i class="fas fa-search"></i> Cari</button>
+            <button type="submit"><i class="fas fa-search"></i> Cari </button>
         </form>
     </div>
 
