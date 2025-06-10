@@ -1,3 +1,9 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    background: #eafaf2; /* opsional, agar warna seperti contoh */
+}
+
 .container {
     max-width: 1000px;
     margin: 0 auto;
