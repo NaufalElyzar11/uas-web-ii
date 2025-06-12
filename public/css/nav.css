@@ -18,7 +18,7 @@ body {
 }
 .sidebar header {
   font-size: 22px;
-  color: white;
+  color: #ffffff;
   line-height: 70px;
   text-align: center;
   background: #362605;
@@ -111,11 +111,12 @@ body, html {
 }
 
 .sidebar header {
-  color: white;
+  color: #efff42;
   text-align: center;
   line-height: 70px;
   background: #307c4e;
   font-size: 1.5em;
+  font-weight: 500;
 }
 
 .sidebar ul {
@@ -139,12 +140,10 @@ body, html {
 
 .toggle-btn {
   position: fixed;
-  top: 20px;
+  top: 15px;
   left: 210px; /* Saat sidebar terbuka */
-  font-size: 24px;
-  color: #fff;
-  /* background: #ffffff; */
-  /* padding: 4px 4px; */
+  font-size: 30px;
+  color: #362605;
   cursor: pointer;
   z-index: 101;
   transition: left 0.3s ease;
