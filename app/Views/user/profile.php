@@ -3,9 +3,12 @@
 <?= $this->section('content') ?>
 
 <link rel="stylesheet" href="<?= base_url('css/profil.css') ?>">
-<div class="container mt-4">
-    <h1 class="mb-4">Profil Pengguna</h1>
 
+    <header>
+        <h1>Profil Pengguna</h1>
+    </header>
+
+<div class="container mt-4">
     <?php if (session()->getFlashdata('success')): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <?= session()->getFlashdata('success') ?>
