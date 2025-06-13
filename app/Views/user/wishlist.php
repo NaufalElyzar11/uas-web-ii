@@ -2,22 +2,10 @@
 
 <?= $this->section('content') ?>
 
-<!DOCTYPE html>
-<html lang="id">
-<link rel="stylesheet" href="<?= base_url('css/wishlist.css') ?>">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title><?= esc($title) ?></title>
-  <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-</head>
-<body>
+<div class="wishlist-page-wrapper">
+
   <header>
-    <h1>Wishlist</h1>
-    <nav>
-      <a href="<?= base_url() ?>">Home</a> | <span>Wishlist</span>
-    </nav>
+    <h1>Wishlist Saya</h1>
   </header>
 
   <main class="wishlist-container">
@@ -26,9 +14,10 @@
     <?php endif; ?>
 
     <?php if (empty($wishlist)): ?>
-      <div class="empty-wishlist text-center">
+      <div class="empty-wishlist">
+
         <h3>Wishlist Anda Kosong</h3>
-        <p>Tambahkan destinasi favorit ke wishlist Anda untuk melihatnya di sini.</p>
+        <p>Sepertinya Anda belum menambahkan destinasi apa pun. Mari jelajahi!</p>
         <a href="<?= base_url('destinasi') ?>" class="btn btn-primary">
           <i class="fas fa-search"></i> Jelajahi Destinasi
         </a>
@@ -54,5 +43,7 @@
       </div>
     <?php endif; ?>
   </main>
-</body>
-</html>
+
+  </div> <link rel="stylesheet" href="<?= base_url('css/wishlist.css') ?>">
+
+  <?= $this->endSection() ?>

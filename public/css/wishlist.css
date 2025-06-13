@@ -6,31 +6,50 @@
 
 body {
   font-family: sans-serif;
-  background: #f7f7f7;
+  background: linear-gradient(135deg, #ddf6e1 0%, #f5f7fa 100%);
   color: #333;
   line-height: 1.5;
+}
+
+.wishlist-page-wrapper {
+  display: flex; /* Mengaktifkan Flexbox */
+  flex-direction: column; /* Menyusun item (header dan main) secara vertikal */
+  height: 100%; /* Membuat wrapper mengisi seluruh tinggi area konten */
+  max-height: calc(100vh - 10px); /* Opsi: Batasi tinggi maksimal agar tidak melebihi layar */
 }
 
 /* Header */
 header {
   padding: 20px 40px;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
+  box-shadow: 0 2px 4px #224d32;
   margin-bottom: 20px;
+  flex-shrink: 0;
 }
 
 header h1 {
   margin-bottom: 10px;
-}
-
-nav span {
-  font-weight: bold;
-  color: #888;
+  color: #fff;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
 /* Container */
 .wishlist-container {
-  padding: 0 40px;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.empty-wishlist {
+  text-align: center;
+  color: #434242;
+}
+
+.empty-wishlist .empty-icon {
+  margin-bottom: 1.5rem;
 }
 
 /* Vertical List */
@@ -70,17 +89,17 @@ nav span {
 
 .product-info .description {
   font-size: 0.95rem;
-  color: #666;
+  color: #595959;
   margin-bottom: 10px;
 }
 
 .product-info .price {
   font-weight: bold;
-  color: #e26d5a;
+  color: #00a441;
 }
 
 .product-info .stock {
-  color: #4CAF50;
+  color: #0d6566;
   font-size: 0.9rem;
   margin-top: 5px;
 }
@@ -94,7 +113,7 @@ nav span {
   border: none;
   border-radius: 15px;
   transition: background 0.3s;
-  background: #4CAF50;
+  background: #0d6566;
   color: white;
   /* Removed flex-shrink here as it's not needed for the add-to-cart button in this layout */
 }
