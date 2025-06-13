@@ -3,14 +3,15 @@
 <?= $this->section('content') ?>
 <link rel="stylesheet" href="<?= base_url('css/detail.css') ?>">
 
-<div class="container mt-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?= base_url('destinasi') ?>">Destinasi Lainnya</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= esc($wisata['nama']) ?></li>
-        </ol>
-    </nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?= base_url('destinasi') ?>">Destinasi Lainnya</a></li>
+        <li class="breadcrumb-item"><a href="<?= base_url('wishlist') ?>">Wishlist</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><?= esc($wisata['nama']) ?></li>
+    </ol>
+</nav>
 
+<div class="container mt-4">
     <div class="wisata-detail">
         <div class="left-column">
             <div class="wisata-images">

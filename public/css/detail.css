@@ -3,26 +3,30 @@ body {
 }
 
 .breadcrumb {
-    background-color: #bddabd;
-    padding: 10px 15px;
-    border-radius: 5px;
+    background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
+    padding: 20px 20px;
     margin-bottom: 20px;
-     display: flex;
+    display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .breadcrumb-item a {
     color: #0d6566;
-    text-decoration: none;
+    text-decoration: underline;
     font-size: 16px;
-    align-items: center;
+}
+
+.breadcrumb-item a:hover {
+    color: #efff42; /* Warna berubah menjadi putih agar kontras dengan background */
+    text-decoration: underline; /* Menambahkan garis bawah */
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
     content: "|";
     padding: 0 8px;
-    color: #6c757d; 
+    color: #484849; 
 }
 
 .wisata-detail {
