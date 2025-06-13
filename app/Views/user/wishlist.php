@@ -18,9 +18,7 @@
 
         <h3>Wishlist Anda Kosong</h3>
         <p>Sepertinya Anda belum menambahkan destinasi apa pun. Mari jelajahi!</p>
-        <a href="<?= base_url('destinasi') ?>" class="btn btn-primary">
-          <i class="fas fa-search"></i> Jelajahi Destinasi
-        </a>
+        <a href="<?= base_url('destinasi') ?>" class="btn btn-primary"><i class="fas fa-search"></i> Jelajahi Destinasi</a>
       </div>
     <?php else: ?>
       <div class="wishlist-list">

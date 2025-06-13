@@ -43,6 +43,17 @@ header h1 {
   overflow-y: auto;
 }
 
+.btn-primary {
+    color: #0d6566;
+    text-decoration: underline;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    color: #062c2d; /* Warna berubah menjadi putih agar kontras dengan background */
+    text-decoration: underline; /* Menambahkan garis bawah */
+}
+
 .empty-wishlist {
   text-align: center;
   color: #434242;
