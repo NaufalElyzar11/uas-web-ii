@@ -33,14 +33,12 @@ $routes->get('wishlist/remove/(:num)', 'Wishlist::remove/$1');
 
 // Booking routes
 $routes->get('booking', 'Booking::index');
-$routes->get('booking/create/(:num)', 'Booking::create/$1');
-$routes->post('booking/store', 'Booking::store');
-$routes->get('booking/complete-payment/(:num)', 'Booking::completePayment/$1');
-
-// Booking history routes
-$routes->get('booking', 'Booking::index');
 $routes->get('booking/pembelian/(:num)', 'Booking::create/$1');
 $routes->post('booking/store', 'Booking::store');
+
+// Booking history routes
+$routes->get('riwayat', 'Riwayat::index');
+$routes->get('riwayat/cancel/(:num)', 'Riwayat::cancel/$1');
 
 // Profile routes
 $routes->get('profile', 'Profile::index');
@@ -50,3 +48,4 @@ $routes->post('profile/updatePreferences', 'Profile::updatePreferences');
 
 // Review routes
 $routes->post('destinasi/addReview', 'Destinasi::addReview');
+
