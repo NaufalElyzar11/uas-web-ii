@@ -38,8 +38,9 @@ $routes->post('booking/store', 'Booking::store');
 $routes->get('booking/complete-payment/(:num)', 'Booking::completePayment/$1');
 
 // Booking history routes
-$routes->get('riwayat', 'Riwayat::index');
-$routes->get('riwayat/cancel/(:num)', 'Riwayat::cancel/$1');
+$routes->get('booking', 'Booking::index');
+$routes->get('booking/pembelian/(:num)', 'Booking::create/$1');
+$routes->post('booking/store', 'Booking::store');
 
 // Profile routes
 $routes->get('profile', 'Profile::index');
@@ -47,3 +48,5 @@ $routes->post('profile/update', 'Profile::update');
 $routes->post('profile/change-password', 'Profile::changePassword');
 $routes->post('profile/updatePreferences', 'Profile::updatePreferences');
 
+// Review routes
+$routes->post('destinasi/addReview', 'Destinasi::addReview');

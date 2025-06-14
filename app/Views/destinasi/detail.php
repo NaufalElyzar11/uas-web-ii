@@ -3,15 +3,14 @@
 <?= $this->section('content') ?>
 <link rel="stylesheet" href="<?= base_url('css/detail.css') ?>">
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= base_url('destinasi') ?>">Destinasi Lainnya</a></li>
-        <li class="breadcrumb-item"><a href="<?= base_url('wishlist') ?>">Wishlist</a></li>
-        <li class="breadcrumb-item active" aria-current="page"><?= esc($wisata['nama']) ?></li>
-    </ol>
-</nav>
-
 <div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="<?= base_url('destinasi') ?>">Destinasi Lainnya</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?= esc($wisata['nama']) ?></li>
+        </ol>
+    </nav>
+
     <div class="wisata-detail">
         <div class="left-column">
             <div class="wisata-images">
@@ -82,7 +81,7 @@
                 </div>
 
                 <div class="wisata-actions">
-                    <a href="<?= base_url('booking/create/' . $wisata['wisata_id']) ?>" class="btn btn-primary">
+                    <a href="<?= base_url('booking/pembelian/' . $wisata['wisata_id']) ?>" class="btn btn-primary">
                         <i class="fas fa-ticket-alt"></i> Beli Sekarang
                     </a>
 
@@ -127,7 +126,172 @@
             </div>
         </div>
     </div>
+
+    <!-- Review Section -->
+    <div class="review-section mt-5">
+        <div class="container">
+            <h2 class="mb-4">Ulasan Pengunjung</h2>
+            
+            <!-- Rating Summary -->
+            <div class="rating-summary mb-4">
+                <div class="average-rating">
+                    <h3><?= number_format($averageRating, 1) ?></h3>
+                    <div class="stars">
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <i class="fas fa-star <?= $i <= round($averageRating) ? 'text-warning' : 'text-muted' ?>"></i>
+                        <?php endfor; ?>
+                    </div>
+                    <p>Berdasarkan <?= count($reviews) ?> ulasan</p>
+                </div>
+            </div>
+
+            <!-- Review Form -->
+            <?php if (session()->get('isLoggedIn')): ?>
+            <div class="review-form mb-4">
+                <h5>Tulis Ulasan</h5>
+                <form id="reviewForm">
+                    <input type="hidden" name="wisata_id" value="<?= $wisata['wisata_id'] ?>">
+                    <div class="mb-3">
+                        <label class="form-label">Rating</label>
+                        <div class="rating">
+                            <?php for($i = 5; $i >= 1; $i--): ?>
+                            <input type="radio" name="rating" value="<?= $i ?>" id="star<?= $i ?>" required>
+                            <label for="star<?= $i ?>">☆</label>
+                            <?php endfor; ?>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="komentar" class="form-label">Komentar</label>
+                        <textarea class="form-control" id="komentar" name="komentar" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kirim Ulasan</button>
+                </form>
+            </div>
+            <?php else: ?>
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> Silahkan <a href="<?= base_url('auth/login') ?>" class="alert-link">login</a> untuk menulis ulasan.
+            </div>
+            <?php endif; ?>
+
+            <!-- Reviews List -->
+            <div class="reviews-list">
+                <?php if (empty($reviews)): ?>
+                    <div class="alert alert-info">Belum ada ulasan untuk destinasi ini</div>
+                <?php else: ?>
+                    <?php foreach ($reviews as $review): ?>
+                    <div class="review-item mb-4">
+                        <div class="review-header">
+                            <div class="user-info">
+                                <h4><?= esc($review['nama_user']) ?></h4>
+                                <div class="stars">
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                        <i class="fas fa-star <?= $i <= $review['rating'] ? 'text-warning' : 'text-muted' ?>"></i>
+                                    <?php endfor; ?>
+                                </div>
+                            </div>
+                            <small class="text-muted">
+                                <?= date('d M Y', strtotime($review['tanggal_review'])) ?>
+                            </small>
+                        </div>
+                        <div class="review-content">
+                            <p><?= nl2br(esc($review['komentar'])) ?></p>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+/* Review Section Styles */
+.review-section {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    border-radius: 10px;
+}
+
+.rating-summary {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.average-rating {
+    text-align: center;
+}
+
+.average-rating h3 {
+    font-size: 3rem;
+    margin: 0;
+    color: #0d6566;
+}
+
+.stars {
+    margin: 10px 0;
+}
+
+.stars i {
+    font-size: 1.2rem;
+    margin: 0 2px;
+}
+
+.review-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rating-input input {
+    display: none;
+}
+
+.rating-input label {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #ddd;
+    margin: 0 2px;
+}
+
+.rating-input input:checked ~ label,
+.rating-input label:hover,
+.rating-input label:hover ~ label {
+    color: #ffc107;
+}
+
+.review-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.user-info h4 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.review-content {
+    color: #555;
+    line-height: 1.6;
+}
+</style>
 
 <script>
     let currentIndex = 0;
@@ -187,6 +351,38 @@
                 });
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const reviewForm = document.getElementById('reviewForm');
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                
+                fetch('<?= base_url('destinasi/addReview') ?>', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Ulasan berhasil ditambahkan!');
+                        location.reload();
+                    } else {
+                        alert(data.message || 'Gagal menambahkan ulasan');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan saat mengirim ulasan');
+                });
+            });
+        }
+    });
 </script>
 
 <?= $this->endSection() ?>

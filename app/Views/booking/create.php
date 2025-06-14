@@ -9,7 +9,7 @@
 
 <body>
 <div class="container mt-4">
-    <h1 class="mb-4">Beli Tiket Destinasi</h1>
+    <h1 class="mb-4">Pembelian Tiket</h1>
     
     <div class="row d-flex align-items-stretch">
         <div class="col-md-8">
@@ -59,12 +59,21 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Total Harga</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">Rp</span>
-                                <div class="form-control bg-light" style="border: none;" id="total"><?= number_format($wisata['harga'], 0, ',', '.') ?></div>
-                             </div>
+                            <label class="form-label">Harga per Orang</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <div class="form-control bg-light" style="border: none;" id="harga_satuan"><?= number_format($wisata['harga'], 0, ',', '.') ?></div>
+                            </div>
                         </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Total Harga</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <div class="form-control bg-light" style="border: none;" id="total_harga"><?= number_format($wisata['harga'], 0, ',', '.') ?></div>
+                            </div>
+                        </div>
+
                         <button type="submit" class="btn btn-primary w-100">Beli Sekarang</button>
                     </form>
                 </div>
@@ -78,24 +87,40 @@
 document.addEventListener('DOMContentLoaded', function() {
     const hargaSatuan = <?= $wisata['harga'] ?>;
     const jumlahInput = document.getElementById('jumlah_orang');
-    const totalInput = document.getElementById('total');
+    const totalHargaInput = document.getElementById('total_harga');
     
     // Calculate total when quantity changes
-    jumlahInput.addEventListener('change', function() {
+    jumlahInput.addEventListener('input', function() {
         const jumlah = parseInt(jumlahInput.value) || 1;
         const total = hargaSatuan * jumlah;
-        totalInput.value = new Intl.NumberFormat('id-ID').format(total);
+        totalHargaInput.textContent = new Intl.NumberFormat('id-ID').format(total);
     });
     
     // Set min date to today
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('tanggal_kunjungan').setAttribute('min', today);
+
+    // Validate jumlah_orang input
+    jumlahInput.addEventListener('change', function() {
+        if (this.value < 1) {
+            this.value = 1;
+            const total = hargaSatuan * 1;
+            totalHargaInput.textContent = new Intl.NumberFormat('id-ID').format(total);
+        }
+    });
 });
 </script>
 
 <style>
 .wisata-info {
     line-height: 1.6;
+}
+.form-control:disabled, .form-control[readonly] {
+    background-color: #f8f9fa;
+}
+.input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
 }
 </style>
 <?= $this->endSection() ?>

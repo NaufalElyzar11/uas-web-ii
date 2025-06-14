@@ -29,13 +29,18 @@ class Booking extends BaseController
     
     public function create($wisataId)
     {
+        // Cek apakah user sudah login
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('auth/login')->with('error', 'Silahkan login terlebih dahulu untuk melakukan pemesanan.');
+        }
+
         $wisata = $this->wisataModel->find($wisataId);
         if (!$wisata) {
             return redirect()->back()->with('error', 'Destinasi tidak ditemukan.');
         }
         
         $data = [
-            'title' => 'Booking Destinasi',
+            'title' => 'Pembelian Tiket',
             'user' => [
                 'user_id' => session()->get('user_id'),
                 'nama' => session()->get('nama'),
@@ -59,7 +64,7 @@ class Booking extends BaseController
         ];
         
         if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('error', 'Form booking tidak valid. Periksa kembali input Anda.');
+            return redirect()->back()->withInput()->with('error', 'Form pembelian tidak valid. Periksa kembali input Anda.');
         }
         
         $wisataId = $this->request->getPost('wisata_id');
@@ -77,15 +82,15 @@ class Booking extends BaseController
             'tanggal_kunjungan' => $this->request->getPost('tanggal_kunjungan'),
             'jumlah_orang' => $jumlahOrang,
             'total_harga' => $totalHarga,
-            'status' => 'upcoming'
+            'status' => 'completed'
         ];
         
         try {
             $this->bookingModel->insert($bookingData);
-            return redirect()->to('riwayat')->with('success', 'Booking berhasil dibuat. Silahkan cek riwayat kunjungan Anda.');
+            return redirect()->to('riwayat')->with('success', 'Pembelian tiket berhasil! Silahkan cek riwayat kunjungan Anda.');
         } catch (\Exception $e) {
             log_message('error', 'Error creating booking: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat membuat booking.');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat melakukan pembelian.');
         }
     }
     

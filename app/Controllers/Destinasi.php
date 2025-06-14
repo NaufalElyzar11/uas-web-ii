@@ -106,6 +106,11 @@ class Destinasi extends BaseController
             $wishlistModel = new \App\Models\WishlistModel();
             $isInWishlist = $wishlistModel->isInWishlist($userId, $wisata['wisata_id']);
         }
+
+        // Get reviews
+        $reviewModel = new \App\Models\ReviewModel();
+        $reviews = $reviewModel->getReviewsByWisataId($wisata['wisata_id']);
+        $averageRating = $reviewModel->getAverageRating($wisata['wisata_id']);
         
         $data = [
             'title' => $wisata['nama'],
@@ -119,9 +124,56 @@ class Destinasi extends BaseController
             ],
             'wisata' => $wisata,
             'galeri' => $galeri,
-            'isInWishlist' => $isInWishlist
+            'isInWishlist' => $isInWishlist,
+            'reviews' => $reviews,
+            'averageRating' => $averageRating
         ];
         
         return view('destinasi/detail', $data);
+    }
+
+    public function addReview()
+    {
+        // Cek apakah user sudah login
+        if (!session()->get('isLoggedIn')) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Silahkan login terlebih dahulu untuk memberikan review'
+            ]);
+        }
+
+        $rules = [
+            'wisata_id' => 'required|numeric',
+            'rating' => 'required|numeric|greater_than[0]|less_than[6]',
+            'komentar' => 'required|min_length[10]|max_length[500]'
+        ];
+        
+        if (!$this->validate($rules)) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Review tidak valid. Rating harus 1-5 dan komentar minimal 10 karakter.'
+            ]);
+        }
+        
+        $reviewData = [
+            'user_id' => session()->get('user_id'),
+            'wisata_id' => $this->request->getPost('wisata_id'),
+            'rating' => $this->request->getPost('rating'),
+            'komentar' => $this->request->getPost('komentar')
+        ];
+        
+        try {
+            $this->reviewModel->insert($reviewData);
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Review berhasil ditambahkan'
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', 'Error adding review: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat menambahkan review'
+            ]);
+        }
     }
 }
