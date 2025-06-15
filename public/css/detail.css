@@ -400,3 +400,246 @@ body {
 #wishlistButton.added span {
     color: #efff42;
 }
+
+.review-section {
+    background-color: #ffffff;
+    padding: 50px 0;
+    border-radius: 15px;
+    margin-top: 40px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.review-section .container {
+    max-width: 1200px; /* Sesuaikan dengan max-width container Anda */
+    width: 100%;
+    padding-right: 15px; /* Standar padding container */
+    padding-left: 15px;  /* Standar padding container */
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.review-section-title {
+    font-family: 'Poppins', sans-serif; 
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.review-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
+    border-radius: 2px;
+}
+
+/* --- Kartu Ringkasan Rating --- */
+.rating-summary-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f8ec 100%);
+    border: 1px solid #e0e0e0;
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.average-rating-display {
+    text-align: center;
+}
+
+.average-rating-display .rating-score {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #0d6566;
+    line-height: 1;
+}
+
+.average-rating-display .rating-stars {
+    margin: 10px 0;
+    font-size: 1.5rem;
+}
+
+.average-rating-display .rating-stars .fas.fa-star.filled {
+    color: #ffc107;
+}
+
+.average-rating-display .rating-stars .fas.fa-star {
+    color: #d4d4d4;
+}
+
+.average-rating-display .total-reviews {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* --- Kartu Form Ulasan --- */
+.review-form-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.review-form-card h5 {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.rating-input input {
+    display: none;
+}
+
+.rating-input label {
+    cursor: pointer;
+    font-size: 2rem;
+    color: #e0e0e0;
+    transition: color 0.2s ease-in-out;
+}
+
+.rating-input label .fas {
+    pointer-events: none; /* Mencegah ikon mencuri event klik dari label */
+}
+
+
+.rating-input input:checked ~ label,
+.rating-input label:hover,
+.rating-input label:hover ~ label {
+    color: #ffc107;
+}
+
+.form-control {
+    border-radius: 8px;
+    border-color: #ced4da;
+    min-height: 120px;
+}
+
+.form-control:focus {
+    border-color: #0d6566;
+    box-shadow: 0 0 0 0.25rem rgba(13, 101, 102, 0.25);
+}
+
+.btn-submit-review {
+    background-color: #0d6566;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.review-form-card .form-label {
+    display: block; /* Membuat label mengambil satu baris penuh */
+    margin-bottom: 8px; /* Memberi sedikit jarak ke textarea di bawahnya */
+}
+
+.btn-submit-review:hover {
+    background-color: #0a4d4e;
+    transform: translateY(-2px);
+}
+
+/* --- Kartu Daftar Ulasan --- */
+.review-item-card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.review-item-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.review-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.review-user-info {
+    flex-grow: 1;
+}
+
+.user-name {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.review-date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.review-item-stars {
+    font-size: 0.9rem;
+    color: #d4d4d4;
+}
+
+.review-item-stars .fas.fa-star.filled {
+    color: #ffc107;
+}
+
+.review-item-content {
+    padding-left: 65px; /* Sejajar dengan info user */
+    border-left: 3px solid #f0f0f0;
+    margin-left: 23px; /* Untuk membuat jarak dengan avatar */
+    padding-left: 20px; /* Jarak antara garis dan teks */
+}
+
+.review-item-content p {
+    margin: 0;
+    color: #555;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* --- Custom Alert --- */
+.alert-info-custom {
+    background-color: #eef7f7;
+    border-left: 5px solid #0d6566;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: #073435;
+    margin: 20px 0;
+}
+
+.alert-info-custom .alert-link {
+    color: #0d6566;
+    font-weight: 600;
+    text-decoration: underline;
+}

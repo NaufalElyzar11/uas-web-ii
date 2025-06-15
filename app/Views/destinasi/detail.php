@@ -128,170 +128,80 @@
     </div>
 
     <!-- Review Section -->
-    <div class="review-section mt-5">
-        <div class="container">
-            <h2 class="mb-4">Ulasan Pengunjung</h2>
-            
-            <!-- Rating Summary -->
-            <div class="rating-summary mb-4">
-                <div class="average-rating">
-                    <h3><?= number_format($averageRating, 1) ?></h3>
-                    <div class="stars">
-                        <?php for ($i = 1; $i <= 5; $i++): ?>
-                            <i class="fas fa-star <?= $i <= round($averageRating) ? 'text-warning' : 'text-muted' ?>"></i>
+<div class="review-section mt-5">
+    <div class="container">
+        <h2 class="review-section-title mb-4">Ulasan Pengunjung</h2>
+
+        <div class="rating-summary-card mb-5">
+            <div class="average-rating-display">
+                <div class="rating-score"><?= number_format($averageRating, 1) ?></div>
+                <div class="rating-stars">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <i class="fas fa-star <?= $i <= round($averageRating) ? 'filled' : '' ?>"></i>
+                    <?php endfor; ?>
+                </div>
+                <div class="total-reviews">Berdasarkan <?= count($reviews) ?> ulasan</div>
+            </div>
+        </div>
+
+        <?php if (session()->get('isLoggedIn')): ?>
+        <div class="review-form-card mb-5">
+            <h5>Bagaimana pengalaman Anda? Tulis ulasan Anda!</h5>
+            <form id="reviewForm">
+                <input type="hidden" name="wisata_id" value="<?= $wisata['wisata_id'] ?>">
+                <div class="mb-3">
+                    <label class="form-label">Rating Anda</label>
+                    <div class="rating-input">
+                        <?php for($i = 5; $i >= 1; $i--): ?>
+                        <input type="radio" name="rating" value="<?= $i ?>" id="star<?= $i ?>" required>
+                        <label for="star<?= $i ?>"><i class="fas fa-star"></i></label>
                         <?php endfor; ?>
                     </div>
-                    <p>Berdasarkan <?= count($reviews) ?> ulasan</p>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label for="komentar" class="form-label">Komentar Anda</label>
+                    <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi ini..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit-review">Kirim Ulasan</button>
+            </form>
+        </div>
+        <?php else: ?>
+        <div class="alert alert-info-custom">
+            <i class="fas fa-info-circle"></i> Silahkan <a href="<?= base_url('auth/login') ?>" class="alert-link">login</a> untuk menulis ulasan.
+        </div>
+        <?php endif; ?>
 
-            <!-- Review Form -->
-            <?php if (session()->get('isLoggedIn')): ?>
-            <div class="review-form mb-4">
-                <h5>Tulis Ulasan</h5>
-                <form id="reviewForm">
-                    <input type="hidden" name="wisata_id" value="<?= $wisata['wisata_id'] ?>">
-                    <div class="mb-3">
-                        <label class="form-label">Rating</label>
-                        <div class="rating">
-                            <?php for($i = 5; $i >= 1; $i--): ?>
-                            <input type="radio" name="rating" value="<?= $i ?>" id="star<?= $i ?>" required>
-                            <label for="star<?= $i ?>">☆</label>
-                            <?php endfor; ?>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="komentar" class="form-label">Komentar</label>
-                        <textarea class="form-control" id="komentar" name="komentar" rows="3" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Kirim Ulasan</button>
-                </form>
-            </div>
+        <div class="reviews-list">
+            <?php if (empty($reviews)): ?>
+                <div class="alert alert-secondary text-center">Belum ada ulasan untuk destinasi ini. Jadilah yang pertama!</div>
             <?php else: ?>
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle"></i> Silahkan <a href="<?= base_url('auth/login') ?>" class="alert-link">login</a> untuk menulis ulasan.
-            </div>
-            <?php endif; ?>
-
-            <!-- Reviews List -->
-            <div class="reviews-list">
-                <?php if (empty($reviews)): ?>
-                    <div class="alert alert-info">Belum ada ulasan untuk destinasi ini</div>
-                <?php else: ?>
-                    <?php foreach ($reviews as $review): ?>
-                    <div class="review-item mb-4">
-                        <div class="review-header">
-                            <div class="user-info">
-                                <h4><?= esc($review['nama_user']) ?></h4>
-                                <div class="stars">
-                                    <?php for ($i = 1; $i <= 5; $i++): ?>
-                                        <i class="fas fa-star <?= $i <= $review['rating'] ? 'text-warning' : 'text-muted' ?>"></i>
-                                    <?php endfor; ?>
-                                </div>
-                            </div>
-                            <small class="text-muted">
+                <?php foreach ($reviews as $review): ?>
+                <div class="review-item-card mb-4">
+                    <div class="review-item-header">
+                        <div class="review-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="review-user-info">
+                            <h4 class="user-name"><?= esc($review['nama_user']) ?></h4>
+                            <small class="review-date">
                                 <?= date('d M Y', strtotime($review['tanggal_review'])) ?>
                             </small>
                         </div>
-                        <div class="review-content">
-                            <p><?= nl2br(esc($review['komentar'])) ?></p>
+                        <div class="review-item-stars">
+                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                <i class="fas fa-star <?= $i <= $review['rating'] ? 'filled' : '' ?>"></i>
+                            <?php endfor; ?>
                         </div>
                     </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div>
+                    <div class="review-item-content">
+                        <p><?= nl2br(esc($review['komentar'])) ?></p>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>
-
-<style>
-/* Review Section Styles */
-.review-section {
-    background-color: #f8f9fa;
-    padding: 40px 0;
-    border-radius: 10px;
-}
-
-.rating-summary {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.average-rating {
-    text-align: center;
-}
-
-.average-rating h3 {
-    font-size: 3rem;
-    margin: 0;
-    color: #0d6566;
-}
-
-.stars {
-    margin: 10px 0;
-}
-
-.stars i {
-    font-size: 1.2rem;
-    margin: 0 2px;
-}
-
-.review-form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.rating-input {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-}
-
-.rating-input input {
-    display: none;
-}
-
-.rating-input label {
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: #ddd;
-    margin: 0 2px;
-}
-
-.rating-input input:checked ~ label,
-.rating-input label:hover,
-.rating-input label:hover ~ label {
-    color: #ffc107;
-}
-
-.review-item {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 10px;
-}
-
-.user-info h4 {
-    margin: 0;
-    font-size: 1.1rem;
-}
-
-.review-content {
-    color: #555;
-    line-height: 1.6;
-}
-</style>
 
 <script>
     let currentIndex = 0;
