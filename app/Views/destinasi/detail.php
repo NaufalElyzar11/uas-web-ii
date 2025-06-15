@@ -159,10 +159,13 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="komentar" class="form-label">Komentar Anda</label>
-                    <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi ini..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-submit-review">Kirim Ulasan</button>
+        <label for="komentar" class="form-label">Komentar Anda</label>
+        
+        <div class="review-submit-area"> 
+            <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi ini..."></textarea>
+            <button type="submit" class="btn btn-submit-review">Kirim Ulasan</button>
+        </div>
+    </div>
             </form>
         </div>
         <?php else: ?>
