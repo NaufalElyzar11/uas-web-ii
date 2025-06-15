@@ -1,15 +1,31 @@
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
+    background: linear-gradient(135deg, #ddf6e1 0%, #f5f7fa 100%);
+}
+
+header {
+  padding: 20px 40px;
+  background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
+  box-shadow: 0 2px 4px #224d32;
+  margin-bottom: 20px;
+  position: -webkit-sticky; /* Untuk kompatibilitas browser lama (Safari) */
+    position: sticky;       /* Properti utama */
+    top: 0;                 /* Menempel di bagian atas saat scroll mencapai posisi ini */
+}
+
+header h1 {
+  margin-bottom: 10px;
+  color: #fff;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
 .orders-container {
     width: 100%;
-    max-width: 700px;
+    max-width: 1140px; /* Lebar diperbesar, Anda bisa ganti ke 960px atau sesuai selera */
+    margin: 40px auto; /* Memberi jarak atas/bawah 40px, dan auto untuk kiri/kanan agar center */
+    padding: 0 15px; /* Memberi sedikit padding jika layar lebih kecil dari max-width */
 }
 
 .order-item {

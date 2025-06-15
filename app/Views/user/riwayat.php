@@ -4,7 +4,12 @@
 
 <link rel="stylesheet" href="<?= base_url('css/riwayat.css') ?>">
 
+    <header>
+        <h1>History</h1>
+    </header>
+
 <div class="orders-container">
+    
     <?php if (session()->getFlashdata('success')): ?>
     <div class="alert alert-success">
         <?= session()->getFlashdata('success') ?>
@@ -143,5 +148,4 @@
     </div>
     <?php endif; ?>
 </div>
-
 <?= $this->endSection() ?>
