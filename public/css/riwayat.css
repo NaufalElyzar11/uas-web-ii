@@ -29,7 +29,7 @@ header h1 {
 }
 
 .order-item {
-    background-color: #fff;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     margin-bottom: 20px;
@@ -60,7 +60,7 @@ header h1 {
 }
 
 .status-tag.delivered {
-    color: #28a745;
+    color: #5cb425;
 }
 
 .status-tag.upcoming {
@@ -114,7 +114,7 @@ header h1 {
 .discounted-price {
     font-size: 1em;
     font-weight: bold;
-    color: #ee4d2d;
+    color: #00a441;
 }
 
 .order-footer {
@@ -133,7 +133,7 @@ header h1 {
 
 .total-price {
     font-weight: bold;
-    color: #ee4d2d;
+    color: #00a441;
     margin-left: 10px;
     font-size: 1.2em;
 }
@@ -164,15 +164,15 @@ header h1 {
 }
 
 .primary-btn {
-    background-color: #ee4d2d;
+    background-color: #0d6566;
     color: white;
-    border-color: #ee4d2d;
+    border-color: #0d6566;
     font-weight: bold;
 }
 
 .primary-btn:hover {
-    background-color: #d13a20;
-    border-color: #d13a20;
+    background-color: #062c2d;
+    border-color: #062c2d;
     color: white;
 }
 
@@ -190,14 +190,14 @@ header h1 {
 .empty-history {
     text-align: center;
     padding: 40px 20px;
-    background: white;
+    background: #bddabd;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .empty-icon {
     font-size: 5rem;
-    color: #ddd;
+    color: #ffffff;
 }
 
 @media (max-width: 600px) {
