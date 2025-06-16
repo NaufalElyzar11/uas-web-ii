@@ -60,57 +60,27 @@ class WisataModel extends Model
             return [];
         }
     }    /**
-     * Dapatkan wisata popular berdasarkan statistik kunjungan
+     * Dapatkan 5 wisata dengan trending_score tertinggi
      */
     public function getWisataPopuler($limit = 5)
     {
         try {
-            $db = \Config\Database::connect();
-            
-            // Join with statistik_kunjungan table and get sum of visits
-            $query = $db->table('wisata')
-                ->select('wisata.*, SUM(statistik_kunjungan.jumlah_pengunjung) as total_kunjungan')
-                ->join('statistik_kunjungan', 'statistik_kunjungan.wisata_id = wisata.wisata_id', 'left')
-                ->groupBy('wisata.wisata_id')
-                ->orderBy('total_kunjungan', 'DESC')
-                ->limit($limit);
-                
-            $result = $query->get()->getResultArray();
-            
-            // If no results with statistics, fallback to trending_score or recent
-            if (empty($result)) {
-                if (in_array('trending_score', $this->allowedFields)) {
-                    return $this->orderBy('trending_score', 'DESC')
-                                ->limit($limit)
-                                ->find();
-                } else {
-                    return $this->orderBy($this->primaryKey, 'DESC')
-                                ->limit($limit)
-                                ->find();
-                }
+            // Periksa apakah kolom trending_score ada
+            if (!in_array('trending_score', $this->allowedFields)) {
+                log_message('warning', 'trending_score field not found, using default sorting');
+                return $this->orderBy($this->primaryKey, 'DESC')
+                            ->limit($limit)
+                            ->find();
             }
             
-            return $result;
+            return $this->orderBy('trending_score', 'DESC')
+                        ->limit($limit)
+                        ->find();
         } catch (\Exception $e) {
             log_message('error', 'Error in getWisataPopuler: ' . $e->getMessage());
-            
-            // Fallback to using trending_score on error
-            try {
-                if (in_array('trending_score', $this->allowedFields)) {
-                    return $this->orderBy('trending_score', 'DESC')
-                                ->limit($limit)
-                                ->find();
-                } else {
-                    return $this->orderBy($this->primaryKey, 'DESC')
-                                ->limit($limit)
-                                ->find();
-                }
-            } catch (\Exception $e2) {
-                log_message('error', 'Error in getWisataPopuler fallback: ' . $e2->getMessage());
-                return [];
-            }
+            return [];
         }
-    }/**
+    }    /**
      * Dapatkan wisata berdasarkan daerah user
      */
     public function getWisataTerdekat($userDaerah, $limit = 4)
