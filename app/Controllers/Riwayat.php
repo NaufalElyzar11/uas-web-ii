@@ -10,7 +10,6 @@ class Riwayat extends BaseController
     
     public function __construct()
     {
-        // Cek apakah user sudah login
         if (!session()->get('isLoggedIn')) {
             header('Location: ' . base_url('auth/login'));
             exit();
@@ -23,7 +22,6 @@ class Riwayat extends BaseController
     {
         $userId = session()->get('user_id');
         
-        // Get bookings based on status
         $upcomingBookings = $this->bookingModel->getUpcomingBookings($userId);
         $completedBookings = $this->bookingModel->getCompletedBookings($userId);
         $canceledBookings = $this->bookingModel->getCanceledBookings($userId);
@@ -50,18 +48,15 @@ class Riwayat extends BaseController
     {
         $userId = session()->get('user_id');
         
-        // Check if booking belongs to user
         $booking = $this->bookingModel->find($bookingId);
         if (!$booking || $booking['user_id'] != $userId) {
             return redirect()->back()->with('error', 'Booking tidak ditemukan.');
         }
         
-        // Check if booking can be canceled (not already completed)
         if ($booking['status'] == 'completed') {
             return redirect()->back()->with('error', 'Booking yang sudah selesai tidak dapat dibatalkan.');
         }
         
-        // Update booking status
         $this->bookingModel->update($bookingId, [
             'status' => 'canceled'
         ]);

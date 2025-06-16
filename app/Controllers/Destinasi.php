@@ -7,11 +7,12 @@ use App\Models\WisataModel;
 class Destinasi extends BaseController
 {
     protected $wisataModel;
+    protected $reviewModel;
 
     public function __construct()
     {
-        // Load model
         $this->wisataModel = new WisataModel();
+        $this->reviewModel = new \App\Models\ReviewModel();
     }
 
     public function index()
@@ -52,14 +53,11 @@ class Destinasi extends BaseController
         if ($wisata === null) {
             return redirect()->to('destinasi')->with('error', 'Destinasi wisata tidak ditemukan');
         }
-        // Get gallery images for this destination
         $galeri = [];
         
         try {
-            // Check if there's a gallery directory for this destination
             $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $id;
             if (is_dir($galleryPath)) {
-                // Get all images from the gallery directory
                 $files = scandir($galleryPath);
                 foreach ($files as $file) {
                     if ($file != '.' && $file != '..' && in_array(pathinfo($file, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif'])) {
@@ -82,9 +80,8 @@ class Destinasi extends BaseController
             $isInWishlist = $wishlistModel->isInWishlist($userId, $wisata['wisata_id']);
         }
 
-        $reviewModel = new \App\Models\ReviewModel();
-        $reviews = $reviewModel->getReviewsByWisataId($wisata['wisata_id']);
-        $averageRating = $reviewModel->getAverageRating($wisata['wisata_id']);
+        $reviews = $this->reviewModel->getReviewsByWisataId($wisata['wisata_id']);
+        $averageRating = $this->reviewModel->getAverageRating($wisata['wisata_id']);
         
         $data = [
             'title' => $wisata['nama'],

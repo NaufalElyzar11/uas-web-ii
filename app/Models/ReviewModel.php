@@ -29,4 +29,11 @@ class ReviewModel extends Model
                        ->first();
         return $result['rating'] ?? 0;
     }
+
+    public function hasUserReviewed($userId, $wisataId)
+    {
+        return $this->where('user_id', $userId)
+                    ->where('wisata_id', $wisataId)
+                    ->countAllResults() > 0;
+    }
 } 

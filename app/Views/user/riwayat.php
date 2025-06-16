@@ -91,7 +91,7 @@
                     <span class="total-price">Rp <?= number_format($booking['total_harga'], 0, ',', '.') ?></span>
                 </div>
                 <div class="order-actions-bottom">
-                    <a href="<?= base_url('destinasi/detail/' . $booking['wisata_id']) ?>" class="btn-action primary-btn">Nilai</a>
+                    <a href="javascript:void(0);" onclick="openReviewModal('<?= $booking['wisata_id'] ?>')" class="btn-action primary-btn">Nilai</a>
                     <a href="<?= base_url('booking/pembelian/' . $booking['wisata_id']) ?>" class="btn-action secondary-btn">Beli Lagi</a>
                 </div>
             </div>
@@ -148,4 +148,150 @@
     </div>
     <?php endif; ?>
 </div>
+
+<!-- Review Modal -->
+<div id="reviewModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Berikan Ulasan</h3>
+        <form id="reviewForm">
+            <input type="hidden" name="wisata_id" id="wisata_id">
+            <div class="mb-3">
+                <label class="form-label">Rating Anda</label>
+                <div class="rating-input">
+                    <?php for($i = 5; $i >= 1; $i--): ?>
+                    <input type="radio" name="rating" value="<?= $i ?>" id="star<?= $i ?>" required>
+                    <label for="star<?= $i ?>"><i class="fas fa-star"></i></label>
+                    <?php endfor; ?>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="komentar" class="form-label">Komentar Anda</label>
+                <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi ini..."></textarea>
+            </div>
+            <div class="review-button-container">
+                <button type="submit" class="btn btn-submit-review">Kirim Ulasan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.rating-input input {
+    display: none;
+}
+
+.rating-input label {
+    cursor: pointer;
+    font-size: 24px;
+    color: #ddd;
+}
+
+.rating-input input:checked ~ label,
+.rating-input label:hover,
+.rating-input label:hover ~ label {
+    color: #ffd700;
+}
+
+.btn-submit-review {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-submit-review:hover {
+    background-color: #0056b3;
+}
+</style>
+
+<script>
+const modal = document.getElementById('reviewModal');
+const closeBtn = document.getElementsByClassName('close')[0];
+
+function openReviewModal(wisataId) {
+    document.getElementById('wisata_id').value = wisataId;
+    modal.style.display = "block";
+}
+
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+document.getElementById('reviewForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('<?= base_url('destinasi/addReview') ?>', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Ulasan berhasil ditambahkan!');
+            location.reload();
+        } else {
+            alert(data.message || 'Gagal menambahkan ulasan');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat mengirim ulasan');
+    });
+});
+</script>
+
 <?= $this->endSection() ?>

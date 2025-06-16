@@ -152,40 +152,9 @@
             </div>
         </div>
 
-        <?php if (session()->get('isLoggedIn')): ?>
-        <div class="review-form-card mb-5">
-            <h5>Bagaimana pengalaman Anda? Tulis ulasan Anda!</h5>
-            <form id="reviewForm">
-                <input type="hidden" name="wisata_id" value="<?= $wisata['wisata_id'] ?>">
-                <div class="mb-3">
-                    <label class="form-label">Rating Anda</label>
-                    <div class="rating-input">
-                        <?php for($i = 5; $i >= 1; $i--): ?>
-                        <input type="radio" name="rating" value="<?= $i ?>" id="star<?= $i ?>" required>
-                        <label for="star<?= $i ?>"><i class="fas fa-star"></i></label>
-                        <?php endfor; ?>
-                    </div>
-                </div>
-
-    <div class="mb-3">
-        <label for="komentar" class="form-label">Komentar Anda</label>
-        <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi ini..."></textarea>
-    </div>
-
-    <div class="review-button-container">
-        <button type="submit" class="btn btn-submit-review">Kirim Ulasan</button>
-    </div>
-</form>
-        </div>
-        <?php else: ?>
-        <div class="alert alert-info-custom">
-            <i class="fas fa-info-circle"></i> Silahkan <a href="<?= base_url('auth/login') ?>" class="alert-link">login</a> untuk menulis ulasan.
-        </div>
-        <?php endif; ?>
-
         <div class="reviews-list">
             <?php if (empty($reviews)): ?>
-                <div class="alert alert-secondary text-center">Belum ada ulasan untuk destinasi ini. Jadilah yang pertama!</div>
+                <div class="alert alert-secondary text-center">Belum ada ulasan untuk destinasi ini.</div>
             <?php else: ?>
                 <?php foreach ($reviews as $review): ?>
                 <div class="review-item-card mb-4">
@@ -269,38 +238,6 @@
                 });
         }
     }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const reviewForm = document.getElementById('reviewForm');
-        if (reviewForm) {
-            reviewForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const formData = new FormData(this);
-                
-                fetch('<?= base_url('destinasi/addReview') ?>', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Ulasan berhasil ditambahkan!');
-                        location.reload();
-                    } else {
-                        alert(data.message || 'Gagal menambahkan ulasan');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan saat mengirim ulasan');
-                });
-            });
-        }
-    });
 </script>
 
 <?= $this->endSection() ?>
