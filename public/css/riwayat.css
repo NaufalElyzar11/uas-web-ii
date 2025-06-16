@@ -8,9 +8,9 @@ header {
   background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
   box-shadow: 0 2px 4px #224d32;
   margin-bottom: 20px;
-  position: -webkit-sticky; /* Untuk kompatibilitas browser lama (Safari) */
-    position: sticky;       /* Properti utama */
-    top: 0;                 /* Menempel di bagian atas saat scroll mencapai posisi ini */
+  position: -webkit-sticky; 
+    position: sticky;       
+    top: 0;                
 }
 
 header h1 {
@@ -23,9 +23,9 @@ header h1 {
 
 .orders-container {
     width: 100%;
-    max-width: 1140px; /* Lebar diperbesar, Anda bisa ganti ke 960px atau sesuai selera */
-    margin: 40px auto; /* Memberi jarak atas/bawah 40px, dan auto untuk kiri/kanan agar center */
-    padding: 0 15px; /* Memberi sedikit padding jika layar lebih kecil dari max-width */
+    max-width: 1140px;
+    margin: 40px auto;
+    padding: 0 15px;
 }
 
 .order-item {
@@ -243,4 +243,73 @@ header h1 {
         width: 100%;
         text-align: center;
     }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.rating-input input {
+    display: none;
+}
+
+.rating-input label {
+    cursor: pointer;
+    font-size: 24px;
+    color: #ddd;
+}
+
+.rating-input input:checked ~ label,
+.rating-input label:hover,
+.rating-input label:hover ~ label {
+    color: #ffd700;
+}
+
+.btn-submit-review {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-submit-review:hover {
+    background-color: #0056b3;
 }
