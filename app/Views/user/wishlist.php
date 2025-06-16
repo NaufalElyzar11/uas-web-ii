@@ -35,13 +35,44 @@
               <p class="stock">Tersedia</p>
             </div>
             <a href="<?= base_url('destinasi/detail/' . $item['wisata_id']) ?>" class="add-to-cart">Lihat</a>
-            <a href="<?= base_url('wishlist/remove/' . $item['wisata_id']) ?>" class="remove" onclick="return confirm('Hapus dari wishlist?')">×</a>
+            <a href="<?= base_url('wishlist/remove/' . $item['wisata_id']) ?>" class="remove">×</a>
           </div>
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
   </main>
 
-  </div> <link rel="stylesheet" href="<?= base_url('css/wishlist.css') ?>">
+  </div> 
+  <link rel="stylesheet" href="<?= base_url('css/wishlist.css') ?>">
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const removeButtons = document.querySelectorAll('.remove');
+    
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            
+            const removalUrl = this.href;
+            
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Destinasi ini akan dihapus dari wishlist Anda.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = removalUrl;
+                }
+            });
+        });
+    });
+});
+</script>
 
   <?= $this->endSection() ?>
