@@ -94,7 +94,7 @@
                     <?php if (session()->get('isLoggedIn')): ?>
                     <a href="javascript:void(0);"
                         id="wishlistButton"
-                        class="btn btn-outline-primary"
+                        class="btn btn-outline"
                         data-wisata-id="<?= $wisata['wisata_id'] ?>"
                         onclick="toggleWishlist(this)">
                         <i class="fas fa-heart <?= !empty($isInWishlist) ? 'text-danger' : '' ?>"></i>
@@ -159,6 +159,10 @@
                 <?php foreach ($reviews as $review): ?>
                 <div class="review-item-card mb-4">
                     <div class="review-item-header">
+                        <?php if (session()->get('isLoggedIn') && session()->get('user_id') == $review['user_id']): ?>
+                            <a href="<?= base_url('destinasi/deleteReview/' . $review['review_id']) ?>" class="btn-delete-review" title="Hapus ulasan Anda">×</a>
+                        <?php endif; ?>
+
                         <div class="review-avatar">
                             <i class="fas fa-user"></i>
                         </div>
@@ -184,7 +188,9 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
     let currentIndex = 0;
 
     function openModal(index) {
@@ -238,6 +244,32 @@
                 });
         }
     }
+
+     const deleteReviewButtons = document.querySelectorAll('.btn-delete-review');
+    
+    deleteReviewButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            
+            const deleteUrl = this.href;
+            
+            Swal.fire({
+                title: 'Hapus Ulasan?',
+                text: "Anda tidak akan bisa mengembalikan ulasan ini.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = deleteUrl;
+                }
+            });
+        });
+    });
+});
 </script>
 
 <?= $this->endSection() ?>
