@@ -10,12 +10,6 @@ class Destinasi extends BaseController
 
     public function __construct()
     {
-        // Cek apakah user sudah login
-        if (!session()->get('isLoggedIn')) {
-            header('Location: ' . base_url('auth/login'));
-            exit();
-        }
-
         // Load model
         $this->wisataModel = new WisataModel();
     }
@@ -24,14 +18,6 @@ class Destinasi extends BaseController
     {
         $data = [
             'title' => 'Semua Destinasi Wisata',
-            'user' => [
-                'user_id' => session()->get('user_id'),
-                'nama' => session()->get('nama'),
-                'email' => session()->get('email'),
-                'username' => session()->get('username'),
-                'role' => session()->get('role'),
-                'daerah' => session()->get('daerah') ?? 'Indonesia'
-            ],
             'wisata' => $this->wisataModel->findAll()
         ];
         
@@ -49,14 +35,6 @@ class Destinasi extends BaseController
         
         $data = [
             'title' => 'Hasil Pencarian: ' . $keyword,
-            'user' => [
-                'user_id' => session()->get('user_id'),
-                'nama' => session()->get('nama'),
-                'email' => session()->get('email'),
-                'username' => session()->get('username'),
-                'role' => session()->get('role'),
-                'daerah' => session()->get('daerah') ?? 'Indonesia'
-            ],
             'keyword' => $keyword,
             'wisata' => $wisata
         ];
@@ -114,14 +92,6 @@ class Destinasi extends BaseController
         
         $data = [
             'title' => $wisata['nama'],
-            'user' => [
-                'user_id' => session()->get('user_id'),
-                'nama' => session()->get('nama'),
-                'email' => session()->get('email'),
-                'username' => session()->get('username'),
-                'role' => session()->get('role'),
-                'daerah' => session()->get('daerah') ?? 'Indonesia'
-            ],
             'wisata' => $wisata,
             'galeri' => $galeri,
             'isInWishlist' => $isInWishlist,

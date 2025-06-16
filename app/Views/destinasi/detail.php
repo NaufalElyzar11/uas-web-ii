@@ -81,18 +81,26 @@
                 </div>
 
                 <div class="wisata-actions">
+                    <?php if (session()->get('isLoggedIn')): ?>
                     <a href="<?= base_url('booking/pembelian/' . $wisata['wisata_id']) ?>" class="btn btn-primary">
                         <i class="fas fa-ticket-alt"></i> Beli Sekarang
                     </a>
+                    <?php else: ?>
+                    <a href="<?= base_url('auth/login') ?>" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login untuk Membeli
+                    </a>
+                    <?php endif; ?>
 
+                    <?php if (session()->get('isLoggedIn')): ?>
                     <a href="javascript:void(0);"
                         id="wishlistButton"
-                        class="btn btn-outline<?= !empty($isInWishlist) ? ' added' : '' ?>"
-                        onclick="toggleWishlist()">
-                        <i class="<?= !empty($isInWishlist) ? 'fas' : 'far' ?> fa-heart" id="wishlistIcon"></i>
+                        class="btn btn-outline-primary"
+                        data-wisata-id="<?= $wisata['wisata_id'] ?>"
+                        onclick="toggleWishlist(this)">
+                        <i class="fas fa-heart <?= !empty($isInWishlist) ? 'text-danger' : '' ?>"></i>
                         <span id="wishlistText"><?= !empty($isInWishlist) ? 'Sudah di Wishlist' : 'Tambah ke Wishlist' ?></span>
                     </a>
-                    </a>
+                    <?php endif; ?>
                 </div>
 
                 <div class="wisata-description">
@@ -234,15 +242,13 @@
         document.getElementById('modalImage').src = images[currentIndex].src;
     }
 
-    function toggleWishlist() {
-        const wishlistButton = document.getElementById('wishlistButton');
-        const wishlistIcon = document.getElementById('wishlistIcon');
-        const wishlistText = document.getElementById('wishlistText');
-        const wisataId = <?= esc($wisata['wisata_id']); ?>;
-        if (wishlistButton.classList.contains('added')) {
-            wishlistButton.classList.remove('added');
-            wishlistIcon.classList.remove('fas');
-            wishlistIcon.classList.add('far');
+    function toggleWishlist(button) {
+        const wishlistButton = button;
+        const wishlistIcon = wishlistButton.querySelector('i');
+        const wishlistText = wishlistButton.querySelector('span');
+        const wisataId = wishlistButton.getAttribute('data-wisata-id');
+        if (wishlistIcon.classList.contains('text-danger')) {
+            wishlistIcon.classList.remove('text-danger');
             wishlistText.textContent = 'Tambah ke Wishlist';
             fetch(`<?= base_url('wishlist/remove/') ?>${wisataId}`)
                 .then(response => response.json())
@@ -252,9 +258,7 @@
                     }
                 });
         } else {
-            wishlistButton.classList.add('added');
-            wishlistIcon.classList.remove('far');
-            wishlistIcon.classList.add('fas');
+            wishlistIcon.classList.add('text-danger');
             wishlistText.textContent = 'Sudah di Wishlist';
             fetch(`<?= base_url('wishlist/add/') ?>${wisataId}`)
                 .then(response => response.json())
