@@ -524,9 +524,10 @@ body {
 }
 
 .form-control {
-    border-radius: 8px;
     border-color: #ced4da;
     min-height: 120px;
+    padding: 15px;
+    box-sizing: border-box; 
 }
 
 .form-control:focus {
@@ -555,6 +556,12 @@ body {
 }
 
 /* --- Kartu Daftar Ulasan --- */
+
+.reviews-list {
+    /* Atur jarak dari komponen di atasnya (form ulasan) */
+    margin-top: 50px; 
+}
+
 .review-item-card {
     background-color: #fff;
     padding: 25px;
@@ -644,20 +651,14 @@ body {
     text-decoration: underline;
 }
 
-.review-submit-area {
-    display: flex; /* 1. Mengaktifkan Flexbox untuk menyejajarkan item */
-    align-items: flex-end; /* 2. Menyejajarkan item ke bagian bawah (agar tombol sejajar dengan dasar textarea) */
-    gap: 15px; /* 3. Memberi jarak 15px antara kolom komentar dan tombol */
+/* Kontainer yang membungkus tombol */
+.review-button-container {
+  display: flex; /* Mengaktifkan Flexbox */
+  justify-content: flex-end; /* Mendorong semua item di dalamnya ke kanan */
+  margin-top: 15px; /* Memberi jarak dari kolom komentar di atasnya */
 }
 
-.review-submit-area .form-control {
-    flex-grow: 1; /* 4. INI BAGIAN PENTING: Membuat textarea melebar mengisi sisa ruang */
-    /* Kita bisa mengurangi tinggi minimal jika perlu */
-    min-height: 80px;
-    /* Reset margin bawah jika ada */
-    margin-bottom: 0;
-}
-
-.review-submit-area .btn-submit-review {
-    flex-shrink: 0; /* 5. Mencegah tombol menyusut jika ruang sempit */
+/* Pastikan textarea tetap 100% lebar (biasanya sudah default) */
+.form-control {
+    width: 100%;
 }

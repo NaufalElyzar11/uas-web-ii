@@ -158,15 +158,16 @@
                         <?php endfor; ?>
                     </div>
                 </div>
-                <div class="mb-3">
+
+    <div class="mb-3">
         <label for="komentar" class="form-label">Komentar Anda</label>
-        
-        <div class="review-submit-area"> 
-            <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi ini..."></textarea>
-            <button type="submit" class="btn btn-submit-review">Kirim Ulasan</button>
-        </div>
+        <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi ini..."></textarea>
     </div>
-            </form>
+
+    <div class="review-button-container">
+        <button type="submit" class="btn btn-submit-review">Kirim Ulasan</button>
+    </div>
+</form>
         </div>
         <?php else: ?>
         <div class="alert alert-info-custom">
