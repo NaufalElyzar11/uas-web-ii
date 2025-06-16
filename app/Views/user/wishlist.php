@@ -35,7 +35,7 @@
               <p class="stock">Tersedia</p>
             </div>
             <a href="<?= base_url('destinasi/detail/' . $item['wisata_id']) ?>" class="add-to-cart">Lihat</a>
-            <a href="<?= base_url('wishlist/remove/' . $item['wishlist_id']) ?>" class="remove" onclick="return confirm('Hapus dari wishlist?')">×</a>
+            <a href="<?= base_url('wishlist/remove/' . $item['wisata_id']) ?>" class="remove" onclick="return confirm('Hapus dari wishlist?')">×</a>
           </div>
         <?php endforeach; ?>
       </div>

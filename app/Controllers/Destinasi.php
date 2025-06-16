@@ -68,16 +68,13 @@ class Destinasi extends BaseController
                 }
             }
             
-            // If no gallery images found, use the main image
             if (empty($galeri) && !empty($wisata['gambar_wisata'])) {
                 $galeri[] = $wisata['gambar_wisata'];
             }
         } catch (\Exception $e) {
-            // If any error occurs, just use an empty gallery
             log_message('error', 'Error loading gallery images: ' . $e->getMessage());
             $galeri = [];
         }
-        // Wishlist status
         $isInWishlist = false;
         if (session()->get('isLoggedIn')) {
             $userId = session()->get('user_id');
@@ -85,7 +82,6 @@ class Destinasi extends BaseController
             $isInWishlist = $wishlistModel->isInWishlist($userId, $wisata['wisata_id']);
         }
 
-        // Get reviews
         $reviewModel = new \App\Models\ReviewModel();
         $reviews = $reviewModel->getReviewsByWisataId($wisata['wisata_id']);
         $averageRating = $reviewModel->getAverageRating($wisata['wisata_id']);
@@ -104,7 +100,6 @@ class Destinasi extends BaseController
 
     public function addReview()
     {
-        // Cek apakah user sudah login
         if (!session()->get('isLoggedIn')) {
             return $this->response->setJSON([
                 'status' => 'error',
