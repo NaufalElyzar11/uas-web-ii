@@ -28,7 +28,6 @@ class Dashboard extends BaseController
         $this->beritaModel = new BeritaModel();
         $this->userModel = new UserModel();
         $this->reviewModel = new ReviewModel();
-        $this->statistikModel = new StatistikKunjunganModel();
     }    public function index()
     {
         try {
