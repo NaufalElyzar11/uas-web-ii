@@ -87,7 +87,7 @@ class Booking extends BaseController
         
         try {
             $this->bookingModel->insert($bookingData);
-            return redirect()->to('riwayat')->with('success', 'Pembelian tiket berhasil! Silahkan cek riwayat kunjungan Anda.');
+            return redirect()->to('riwayat')->with('success', '');
         } catch (\Exception $e) {
             log_message('error', 'Error creating booking: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Terjadi kesalahan saat melakukan pembelian.');
