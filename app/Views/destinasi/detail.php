@@ -94,7 +94,7 @@
                     <?php if (session()->get('isLoggedIn')): ?>
                     <a href="javascript:void(0);"
                         id="wishlistButton"
-                        class="btn btn-outline"
+                        class="btn btn-outline-primary"
                         data-wisata-id="<?= $wisata['wisata_id'] ?>"
                         onclick="toggleWishlist(this)">
                         <i class="fas fa-heart <?= !empty($isInWishlist) ? 'text-danger' : '' ?>"></i>
