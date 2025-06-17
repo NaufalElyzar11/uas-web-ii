@@ -35,6 +35,7 @@ $routes->get('booking/pembelian/(:num)', 'Booking::create/$1');
 $routes->post('booking/store', 'Booking::store');
 
 $routes->get('riwayat', 'Riwayat::index');
+$routes->get('riwayat/delete/(:num)', 'Riwayat::delete/$1');
 $routes->get('riwayat/cancel/(:num)', 'Riwayat::cancel/$1');
 
 $routes->get('profile', 'Profile::index');

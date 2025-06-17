@@ -26,6 +26,13 @@
     <?php if (!empty($upcomingBookings)): ?>
         <?php foreach ($upcomingBookings as $booking): ?>
         <div class="order-item">
+            <a href="javascript:void(0);" 
+           class="btn-delete-history" 
+           data-booking-id="<?= $booking['booking_id'] ?>" 
+           title="Hapus riwayat ini">
+            &times;
+        </a>
+
             <div class="order-header">
                 <div class="order-status">
                     <span class="status-tag upcoming">AKAN DATANG</span>
@@ -66,6 +73,13 @@
     <?php if (!empty($completedBookings)): ?>
         <?php foreach ($completedBookings as $booking): ?>
         <div class="order-item">
+            <a href="javascript:void(0);" 
+           class="btn-delete-history" 
+           data-booking-id="<?= $booking['booking_id'] ?>" 
+           title="Hapus riwayat ini">
+            &times;
+        </a>
+
             <div class="order-header">
                 <div class="order-status">
                     <span class="status-tag delivered">SELESAI</span>
@@ -103,6 +117,13 @@
     <?php if (!empty($canceledBookings)): ?>
         <?php foreach ($canceledBookings as $booking): ?>
         <div class="order-item">
+            <a href="javascript:void(0);" 
+           class="btn-delete-history" 
+           data-booking-id="<?= $booking['booking_id'] ?>" 
+           title="Hapus riwayat ini">
+            &times;
+        </a>
+
             <div class="order-header">
                 <div class="order-status">
                     <span class="status-tag canceled">DIBATALKAN</span>
@@ -176,50 +197,115 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-const modal = document.getElementById('reviewModal');
-const closeBtn = document.getElementsByClassName('close')[0];
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- KODE UNTUK MODAL REVIEW (SUDAH ADA) ---
+    const modal = document.getElementById('reviewModal');
+    const closeBtn = document.querySelector('#reviewModal .close'); // Selector lebih spesifik
 
-function openReviewModal(wisataId) {
-    document.getElementById('wisata_id').value = wisataId;
-    modal.style.display = "block";
-}
-
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    window.openReviewModal = function(wisataId) {
+        document.getElementById('wisata_id').value = wisataId;
+        modal.style.display = "block";
     }
-}
 
-document.getElementById('reviewForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(this);
-    
-    fetch('<?= base_url('destinasi/addReview') ?>', {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
+    if(closeBtn) {
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Ulasan berhasil ditambahkan!');
-            location.reload();
-        } else {
-            alert(data.message || 'Gagal menambahkan ulasan');
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Terjadi kesalahan saat mengirim ulasan');
+    }
+
+    const reviewForm = document.getElementById('reviewForm');
+    if(reviewForm) {
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch('<?= base_url('destinasi/addReview') ?>', {
+                method: 'POST',
+                body: formData,
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire('Berhasil!', 'Ulasan berhasil ditambahkan!', 'success').then(() => location.reload());
+                } else {
+                    Swal.fire('Gagal', data.message || 'Gagal menambahkan ulasan.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('Error', 'Terjadi kesalahan saat mengirim ulasan.', 'error');
+            });
+        });
+    }
+
+
+    // --- KODE BARU UNTUK HAPUS RIWAYAT ---
+    const deleteButtons = document.querySelectorAll('.btn-delete-history');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const bookingId = this.getAttribute('data-booking-id');
+            const url = `<?= base_url('riwayat/delete/') ?>${bookingId}`;
+            const historyItemElement = this.closest('.order-item');
+
+            // Tampilkan konfirmasi SweetAlert
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Riwayat ini akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#555',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                // Jika pengguna menekan "Ya, hapus!"
+                if (result.isConfirmed) {
+                    
+                    // Kirim permintaan hapus ke server
+                    fetch(url, {
+                        method: 'GET', // atau 'POST'/'DELETE' sesuai route Anda
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Tampilkan notifikasi sukses
+                            Swal.fire('Terhapus!', 'Riwayat berhasil dihapus.', 'success');
+                            
+                            // Hapus elemen dari halaman
+                            historyItemElement.style.transition = 'opacity 0.3s, transform 0.3s';
+                            historyItemElement.style.opacity = '0';
+                            historyItemElement.style.transform = 'scale(0.95)';
+                            setTimeout(() => {
+                                historyItemElement.remove();
+                            }, 300);
+
+                        } else {
+                            // Tampilkan notifikasi gagal dari server
+                            Swal.fire('Gagal', data.message || 'Gagal menghapus riwayat.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
+                    });
+                }
+            });
+        });
     });
+
 });
 </script>
 
