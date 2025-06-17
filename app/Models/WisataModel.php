@@ -19,31 +19,34 @@ class WisataModel extends Model
         'harga', 
         'kategori', 
         'trending_score', 
-        'gambar_wisata',
-        'link_video',
-        'latitude',
-        'longitude'
+        'gambar_wisata'
     ];
 
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
+    protected $updatedField  = '';
     protected $deletedField  = '';
 
     // Validation
     protected $validationRules      = [];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
-
-    /**
+    protected $cleanValidationRules = true;    /**
      * Dapatkan wisata terbaru (kurang dari 1 bulan)
      */
     public function getWisataTerbaru($limit = 4)
     {
         try {
+            // Periksa apakah kolom created_at ada
+            if (!in_array('created_at', $this->allowedFields) && !$this->createdField) {
+                // Fallback jika tidak ada field created_at
+                return $this->orderBy($this->primaryKey, 'DESC')
+                        ->limit($limit)
+                        ->find();
+            }
+            
             $date = new \DateTime();
             $date->sub(new \DateInterval('P1M')); // 1 bulan yang lalu
             $monthAgo = $date->format('Y-m-d H:i:s');
@@ -56,29 +59,71 @@ class WisataModel extends Model
             log_message('error', 'Error in getWisataTerbaru: ' . $e->getMessage());
             return [];
         }
-    }
-
-    /**
-     * Dapatkan 5 wisata dengan trending_score tertinggi
+    }    /**
+     * Dapatkan wisata popular berdasarkan statistik kunjungan
      */
     public function getWisataPopuler($limit = 5)
     {
         try {
-            return $this->orderBy('trending_score', 'DESC')
-                        ->limit($limit)
-                        ->find();
+            $db = \Config\Database::connect();
+            
+            // Join with statistik_kunjungan table and get sum of visits
+            $query = $db->table('wisata')
+                ->select('wisata.*, SUM(statistik_kunjungan.jumlah_pengunjung) as total_kunjungan')
+                ->join('statistik_kunjungan', 'statistik_kunjungan.wisata_id = wisata.wisata_id', 'left')
+                ->groupBy('wisata.wisata_id')
+                ->orderBy('total_kunjungan', 'DESC')
+                ->limit($limit);
+                
+            $result = $query->get()->getResultArray();
+            
+            // If no results with statistics, fallback to trending_score or recent
+            if (empty($result)) {
+                if (in_array('trending_score', $this->allowedFields)) {
+                    return $this->orderBy('trending_score', 'DESC')
+                                ->limit($limit)
+                                ->find();
+                } else {
+                    return $this->orderBy($this->primaryKey, 'DESC')
+                                ->limit($limit)
+                                ->find();
+                }
+            }
+            
+            return $result;
         } catch (\Exception $e) {
             log_message('error', 'Error in getWisataPopuler: ' . $e->getMessage());
-            return [];
+            
+            // Fallback to using trending_score on error
+            try {
+                if (in_array('trending_score', $this->allowedFields)) {
+                    return $this->orderBy('trending_score', 'DESC')
+                                ->limit($limit)
+                                ->find();
+                } else {
+                    return $this->orderBy($this->primaryKey, 'DESC')
+                                ->limit($limit)
+                                ->find();
+                }
+            } catch (\Exception $e2) {
+                log_message('error', 'Error in getWisataPopuler fallback: ' . $e2->getMessage());
+                return [];
+            }
         }
-    }
-
-    /**
+    }/**
      * Dapatkan wisata berdasarkan daerah user
      */
     public function getWisataTerdekat($userDaerah, $limit = 4)
     {
         try {
+            // Periksa apakah kolom daerah ada
+            if (!in_array('daerah', $this->allowedFields)) {
+                log_message('warning', 'daerah field not found, returning all wisata');
+                return $this->orderBy($this->primaryKey, 'DESC')
+                            ->limit($limit)
+                            ->find();
+            }
+            
             return $this->where('daerah', $userDaerah)
                         ->orderBy($this->primaryKey, 'DESC')
                         ->limit($limit)
@@ -89,9 +134,6 @@ class WisataModel extends Model
         }
     }
     
-    /**
-     * Search wisata by keyword (nama or daerah)
-     */
     public function search($keyword)
     {
         try {

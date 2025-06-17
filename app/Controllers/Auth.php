@@ -17,6 +17,42 @@ class Auth extends BaseController
             return redirect()->to('/dashboard');
         }
         
+        if ($this->request->getMethod() === 'post') {
+            $rules = [
+                'username' => 'required',
+                'password' => 'required'
+            ];
+
+            if ($this->validate($rules)) {
+                $username = $this->request->getPost('username');
+                $password = $this->request->getPost('password');
+
+                $user = $this->userModel->where('username', $username)->first();
+
+                if ($user && password_verify($password, $user['password'])) {
+                    $sessionData = [
+                        'user_id' => $user['user_id'],
+                        'username' => $user['username'],
+                        'nama' => $user['nama'],
+                        'role' => $user['role'],
+                        'isLoggedIn' => true
+                    ];
+
+                    session()->set($sessionData);
+
+                    if ($user['role'] === 'admin') {
+                        return redirect()->to('/admin/dashboard');
+                    }
+
+                    return redirect()->to('/');
+                }
+
+                return redirect()->back()->with('error', 'Username atau password salah');
+            }
+
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         return view('auth/login');
     }
 

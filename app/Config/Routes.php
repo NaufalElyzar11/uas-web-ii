@@ -49,3 +49,18 @@ $routes->post('profile/updatePreferences', 'Profile::updatePreferences');
 // Review routes
 $routes->post('destinasi/addReview', 'Destinasi::addReview');
 
+// Admin Routes
+$routes->group('admin', ['filter' => 'admin'], function($routes) {
+    $routes->get('/', 'Admin\Dashboard::index');
+    $routes->get('dashboard', 'Admin\Dashboard::index');
+    $routes->get('users', 'Admin\Users::index');
+    $routes->get('wisata', 'Admin\Wisata::index');
+    $routes->get('review', 'Admin\Review::index');
+    $routes->get('booking', 'Admin\Booking::index');
+    $routes->get('wisata/create', 'Admin\Wisata::create');
+    $routes->post('wisata/store', 'Admin\Wisata::store');
+    $routes->get('wisata/edit/(:num)', 'Admin\Wisata::edit/$1');
+    $routes->post('wisata/update/(:num)', 'Admin\Wisata::update/$1');
+    $routes->post('wisata/delete/(:num)', 'Admin\Wisata::delete/$1');
+});
+
