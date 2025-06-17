@@ -53,7 +53,7 @@ class Dashboard extends BaseController
                 $wisataTerdekat = [];
             }
               try {
-                $berita = $this->beritaModel->getLatest(3);
+                $berita = $this->beritaModel->getBeritaTerbaru(4);
             } catch (\Exception $e) {
                 log_message('error', 'Error fetching berita: ' . $e->getMessage());
                 $berita = [];
