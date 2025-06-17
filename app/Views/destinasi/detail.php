@@ -25,12 +25,14 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                     </iframe>
-
                 <?php else: ?>
-                    <img
-                        class="main-image"
-                        src="<?= (filter_var($wisata['gambar_wisata'] ?? '', FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>"
-                        alt="<?= esc($wisata['nama']) ?>">
+                    <?php if (!empty($galeri) && is_array($galeri)): ?>
+                        <img
+                            class="main-image"
+                            src="<?= base_url('uploads/wisata/' . $galeri[0]) ?>"
+                            alt="<?= esc($wisata['nama']) ?>"
+                            onerror="this.src='<?= base_url('uploads/wisata/default.jpg') ?>'">
+                    <?php endif; ?>
                 <?php endif; ?>
 
                 <?php if (!empty($galeri) && is_array($galeri)): ?>
@@ -40,12 +42,79 @@
                                 src="<?= base_url('uploads/wisata/' . $gambar) ?>"
                                 alt="Thumbnail"
                                 class="small-Img"
-                                onerror="this.src='<?= base_url('uploads/wisata/default.jpg') ?>'"
+                                data-index="<?= $index ?>"
                                 onclick="openModal(<?= $index ?>)">
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
             </div>
+
+            <style>
+                .modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 1000;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.9);
+                    overflow: auto;
+                }
+
+                .modal-content {
+                    margin: auto;
+                    display: block;
+                    max-width: 90%;
+                    max-height: 90vh;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+
+                .close {
+                    position: absolute;
+                    right: 25px;
+                    top: 10px;
+                    color: #f1f1f1;
+                    font-size: 40px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    z-index: 1001;
+                }
+
+                .prev, .next {
+                    cursor: pointer;
+                    position: absolute;
+                    top: 50%;
+                    width: auto;
+                    padding: 16px;
+                    margin-top: -50px;
+                    color: white;
+                    font-weight: bold;
+                    font-size: 20px;
+                    transition: 0.6s ease;
+                    border-radius: 0 3px 3px 0;
+                    user-select: none;
+                    -webkit-user-select: none;
+                    background-color: rgba(0, 0, 0, 0.8);
+                }
+
+                .next {
+                    right: 0;
+                    border-radius: 3px 0 0 3px;
+                }
+
+                .prev {
+                    left: 0;
+                    border-radius: 3px 0 0 3px;
+                }
+
+                .prev:hover, .next:hover {
+                    background-color: rgba(0, 0, 0, 0.9);
+                }
+            </style>
 
             <div id="imageModal" class="modal">
                 <span class="close" onclick="closeModal()">&times;</span>
@@ -202,7 +271,7 @@
     const nextButton = modal.querySelector('.next');
     
     function openModal(index) {
-        currentIndex = parseInt(index); 
+        currentIndex = parseInt(index);
         if (images.length > 0) {
             modalImage.src = images[currentIndex].src;
             modal.style.display = "block";
@@ -213,7 +282,7 @@
         modal.style.display = "none";
     }
 
-            function moveImage(step) {
+    function moveImage(step) {
         currentIndex += step;
         if (currentIndex >= images.length) {
             currentIndex = 0;
@@ -348,6 +417,26 @@
                 }
             });
         });
+    });
+
+    // Close modal when clicking outside the image
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (modal.style.display === "block") {
+            if (e.key === "ArrowLeft") {
+                moveImage(-1);
+            } else if (e.key === "ArrowRight") {
+                moveImage(1);
+            } else if (e.key === "Escape") {
+                closeModal();
+            }
+        }
     });
 });
 </script>
