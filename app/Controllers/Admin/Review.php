@@ -20,4 +20,15 @@ class Review extends BaseController
         ];
         return view('admin/review/index', $data);
     }
+
+    public function delete($id)
+    {
+        $review = $this->reviewModel->find($id);
+        if (!$review) {
+            return redirect()->to('admin/review')->with('error', 'Review tidak ditemukan');
+        }
+
+        $this->reviewModel->delete($id);
+        return redirect()->to('admin/review')->with('success', 'Review berhasil dihapus');
+    }
 } 

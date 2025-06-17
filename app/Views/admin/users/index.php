@@ -29,7 +29,10 @@
                         <td><?= esc($user['daerah']) ?></td>
                         <td><span class="badge badge-<?= $user['role']==='admin'?'success':'secondary' ?>"><?= esc($user['role']) ?></span></td>
                         <td>
-                            <!-- Tombol aksi edit/hapus bisa ditambahkan di sini -->
+                            <a href="<?= base_url('admin/users/edit/'.$user['user_id']) ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                            <form action="<?= base_url('admin/users/delete/'.$user['user_id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            </form> 
                         </td>
                     </tr>
                     <?php endforeach; ?>

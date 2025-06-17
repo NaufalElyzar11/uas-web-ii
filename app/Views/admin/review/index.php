@@ -28,7 +28,11 @@
                         <td><?= esc($r['rating']) ?></td>
                         <td><?= esc($r['komentar']) ?></td>
                         <td><?= esc($r['tanggal_review']) ?></td>
-                        <td><!-- Tombol aksi --></td>
+                        <td>
+                            <form action="<?= base_url('admin/review/delete/'.$r['review_id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

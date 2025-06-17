@@ -20,4 +20,15 @@ class Booking extends BaseController
         ];
         return view('admin/booking/index', $data);
     }
+
+    public function delete($id)
+    {
+        $booking = $this->bookingModel->find($id);
+        if (!$booking) {
+            return redirect()->to('admin/booking')->with('error', 'Booking tidak ditemukan');
+        }
+
+        $this->bookingModel->delete($id);
+        return redirect()->to('admin/booking')->with('success', 'Booking berhasil dihapus');
+    }
 } 

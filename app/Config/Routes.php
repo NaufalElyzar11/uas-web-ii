@@ -62,5 +62,14 @@ $routes->group('admin', ['filter' => 'admin'], function($routes) {
     $routes->get('wisata/edit/(:num)', 'Admin\Wisata::edit/$1');
     $routes->post('wisata/update/(:num)', 'Admin\Wisata::update/$1');
     $routes->post('wisata/delete/(:num)', 'Admin\Wisata::delete/$1');
+
+    $routes->post('users/store', 'Admin\Users::store');
+    $routes->get('users/edit/(:num)', 'Admin\Users::edit/$1');
+    $routes->post('users/update/(:num)', 'Admin\Users::update/$1');
+    $routes->post('users/delete/(:num)', 'Admin\Users::delete/$1');
+
+    $routes->post('review/delete/(:num)', 'Admin\Review::delete/$1');
+
+    $routes->post('booking/delete/(:num)', 'Admin\Booking::delete/$1');
 });
 
