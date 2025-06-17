@@ -10,7 +10,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Auth::login');
 
 // Auth routes
-$routes->group('auth', function($routes) {
+$routes->group('auth', function ($routes) {
     $routes->get('login', 'Auth::login');
     $routes->post('doLogin', 'Auth::doLogin');
     $routes->get('register', 'Auth::register');
@@ -43,13 +43,15 @@ $routes->post('profile/change-password', 'Profile::changePassword');
 $routes->post('profile/updatePreferences', 'Profile::updatePreferences');
 
 // Bagian Admin
-$routes->group('admin', ['filter' => 'admin'], function($routes) {
+$routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('/', 'Admin\Dashboard::index');
     $routes->get('dashboard', 'Admin\Dashboard::index');
     $routes->get('users', 'Admin\Users::index');
     $routes->get('wisata', 'Admin\Wisata::index');
     $routes->get('review', 'Admin\Review::index');
     $routes->get('booking', 'Admin\Booking::index');
+    $routes->get('berita', 'Admin\Berita::index');
+    $routes->get('berita/detail/(:num)', 'Berita::detail/$1');
     $routes->get('wisata/create', 'Admin\Wisata::create');
     $routes->post('wisata/store', 'Admin\Wisata::store');
     $routes->get('wisata/edit/(:num)', 'Admin\Wisata::edit/$1');
@@ -64,5 +66,11 @@ $routes->group('admin', ['filter' => 'admin'], function($routes) {
     $routes->post('review/delete/(:num)', 'Admin\Review::delete/$1');
 
     $routes->post('booking/delete/(:num)', 'Admin\Booking::delete/$1');
-});
 
+    // Routes for Berita (News)
+    $routes->get('berita/create', 'Admin\Berita::create');
+    $routes->post('berita/store', 'Admin\Berita::store');
+    $routes->get('berita/edit/(:num)', 'Admin\Berita::edit/$1');
+    $routes->post('berita/update/(:num)', 'Admin\Berita::update/$1');
+    $routes->post('berita/delete/(:num)', 'Admin\Berita::delete/$1');
+});

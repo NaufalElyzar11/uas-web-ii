@@ -6,6 +6,7 @@
     <title><?= $title ?? 'Admin' ?></title>
     <link href="<?= base_url('assets/sbadmin2/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('assets/sbadmin2/css/sb-admin-2.min.css') ?>" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css">
 </head>
 <body id="page-top">
     <div id="wrapper">
@@ -48,6 +49,11 @@
                     <i class="fas fa-fw fa-calendar"></i>
                     <span>Booking</span></a>
             </li>
+            <li class="nav-item <?= is_active('admin/berita') ?>">
+                <a class="nav-link" href="<?= base_url('admin/berita') ?>">
+                    <i class="fas fa-fw fa-newspaper"></i>
+                    <span>Berita</span></a>
+            </li>
         </ul>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
@@ -64,5 +70,8 @@
     <script src="<?= base_url('assets/sbadmin2/vendor/jquery/jquery.min.js') ?>"></script>
     <script src="<?= base_url('assets/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('assets/sbadmin2/js/sb-admin-2.min.js') ?>"></script>
+
+    <?= $this->renderSection('script') ?>
+    
 </body>
 </html> 

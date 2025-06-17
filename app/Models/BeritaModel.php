@@ -15,16 +15,40 @@ class BeritaModel extends Model
     protected $allowedFields    = [
         'judul',
         'konten',
-        'wisata_id',
-        'tanggal_post'
+        'gambar',
+        'status'
     ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = '';
-    protected $updatedField  = '';
-    protected $deletedField  = '';    /**
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = '';
+
+    protected $validationRules = [
+        'judul' => 'required|min_length[5]|max_length[255]',
+        'konten' => 'required|min_length[10]',
+        'status' => 'required|in_list[published,draft]'
+    ];
+
+    protected $validationMessages = [
+        'judul' => [
+            'required' => 'Judul berita harus diisi',
+            'min_length' => 'Judul berita minimal 5 karakter',
+            'max_length' => 'Judul berita maksimal 255 karakter'
+        ],
+        'konten' => [
+            'required' => 'Konten berita harus diisi',
+            'min_length' => 'Konten berita minimal 10 karakter'
+        ],
+        'status' => [
+            'required' => 'Status berita harus diisi',
+            'in_list' => 'Status berita harus published atau draft'
+        ]
+    ];
+
+    /**
      * Dapatkan berita terbaru beserta informasi wisata terkait
      */
     public function getBeritaTerbaru($limit = 6)
@@ -58,5 +82,18 @@ class BeritaModel extends Model
             log_message('error', 'Error in getBeritaDetail: ' . $e->getMessage());
             return null;
         }
+    }
+
+    public function getPublishedBerita($limit = null)
+    {
+        $builder = $this->builder();
+        $builder->where('status', 'published');
+        $builder->orderBy('created_at', 'DESC');
+        
+        if ($limit !== null) {
+            $builder->limit($limit);
+        }
+        
+        return $builder->get()->getResultArray();
     }
 }
