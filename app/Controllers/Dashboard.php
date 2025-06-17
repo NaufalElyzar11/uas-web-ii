@@ -6,7 +6,6 @@ use App\Models\WisataModel;
 use App\Models\BeritaModel;
 use App\Models\UserModel;
 use App\Models\ReviewModel;
-use App\Models\StatistikKunjunganModel;
 
 class Dashboard extends BaseController
 {    protected $wisataModel;
@@ -17,13 +16,11 @@ class Dashboard extends BaseController
 
     public function __construct()
     {
-        // Cek apakah user sudah login
         if (!session()->get('isLoggedIn')) {
             header('Location: ' . base_url('auth/login'));
             exit();
         }
 
-        // Load model
         $this->wisataModel = new WisataModel();
         $this->beritaModel = new BeritaModel();
         $this->userModel = new UserModel();
