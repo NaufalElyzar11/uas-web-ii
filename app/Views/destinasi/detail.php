@@ -93,13 +93,12 @@
 
                     <?php if (session()->get('isLoggedIn')): ?>
                         <a href="javascript:void(0);"
-                            id="wishlistButton"
-                            class="btn btn-outline-primary"
-                            data-wisata-id="<?= $wisata['wisata_id'] ?>"
-                            onclick="toggleWishlist(this)">
-                            <i class="fas fa-heart <?= !empty($isInWishlist) ? 'text-danger' : '' ?>"></i>
-                            <span id="wishlistText"><?= !empty($isInWishlist) ? 'Sudah di Wishlist' : 'Tambah ke Wishlist' ?></span>
-                        </a>
+                        id="wishlistButton"
+                        class="btn btn-primary <?= !empty($isInWishlist) ? 'wishlist-added' : '' ?>"
+                        data-wisata-id="<?= $wisata['wisata_id'] ?>">
+                        <i class="fas fa-heart"></i>
+                        <span id="wishlistText"><?= !empty($isInWishlist) ? 'Sudah di Wishlist' : 'Tambah ke Wishlist' ?></span>
+                    </a>
                     <?php endif; ?>
                 </div>
 
@@ -192,126 +191,145 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let currentIndex = 0;
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Logika Modal Gambar ---
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.small-Img');
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeButton = modal.querySelector('.close');
+    const prevButton = modal.querySelector('.prev');
+    const nextButton = modal.querySelector('.next');
 
             function openModal(index) {
-                currentIndex = index;
-                const images = document.querySelectorAll('.small-Img');
-                const modalImage = document.getElementById('modalImage');
-
-                modalImage.src = images[index].src;
-                document.getElementById('imageModal').style.display = "block";
-            }
+        currentIndex = parseInt(index); // Pastikan index adalah angka
+        if (images.length > 0) {
+            modalImage.src = images[currentIndex].src;
+            modal.style.display = "block";
+        }
+    }
 
             function closeModal() {
-                document.getElementById('imageModal').style.display = "none";
-            }
+        modal.style.display = "none";
+    }
 
             function moveImage(step) {
-                const images = document.querySelectorAll('.small-Img');
-                currentIndex += step;
-                if (currentIndex < 0) {
-                    currentIndex = images.length - 1;
-                } else if (currentIndex >= images.length) {
-                    currentIndex = 0;
-                }
-                document.getElementById('modalImage').src = images[currentIndex].src;
+        currentIndex += step;
+        if (currentIndex >= images.length) {
+            currentIndex = 0; // Kembali ke gambar pertama
+        } else if (currentIndex < 0) {
+            currentIndex = images.length - 1; // Mundur ke gambar terakhir
+        }
+        modalImage.src = images[currentIndex].src;
+    }
+
+    // Pasang event listener untuk modal
+    images.forEach(img => {
+        img.addEventListener('click', function() {
+            openModal(this.getAttribute('data-index'));
+        });
+    });
+
+    if(closeButton) closeButton.addEventListener('click', closeModal);
+    if(prevButton) prevButton.addEventListener('click', () => moveImage(-1));
+    if(nextButton) nextButton.addEventListener('click', () => moveImage(1));
+
+                // --- Logika Wishlist ---
+    function toggleWishlist(button) {
+    // Dapatkan elemen span untuk teks
+    const wishlistText = button.querySelector('#wishlistText');
+    const wisataId = button.getAttribute('data-wisata-id');
+
+    // Cek status berdasarkan ada/tidaknya class 'wishlist-added' PADA TOMBOL, bukan 'text-danger' pada ikon.
+    const isWishlisted = button.classList.contains('wishlist-added');
+    
+    // Langsung ubah tampilan tombol (Optimistic UI Update)
+    // Toggle class 'wishlist-added' PADA TOMBOL.
+    button.classList.toggle('wishlist-added', !isWishlisted); 
+    wishlistText.textContent = isWishlisted ? 'Tambah ke Wishlist' : 'Sudah di Wishlist';
+    
+    // Tentukan URL berdasarkan aksi yang akan dilakukan
+    const action = isWishlisted ? 'remove' : 'add';
+    const url = `<?= base_url('wishlist/') ?>${action}/${wisataId}`;
+
+    // Kirim permintaan ke server
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Respon jaringan bermasalah');
             }
-
-            function toggleWishlist(button) {
-                const wishlistButton = button;
-                const wishlistIcon = wishlistButton.querySelector('i');
-                const wishlistText = wishlistButton.querySelector('span');
-                const wisataId = wishlistButton.getAttribute('data-wisata-id');
-                if (wishlistIcon.classList.contains('text-danger')) {
-                    wishlistIcon.classList.remove('text-danger');
-                    wishlistText.textContent = 'Tambah ke Wishlist';
-                    fetch(`<?= base_url('wishlist/remove/') ?>${wisataId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                console.log('Removed from wishlist');
-                            }
-                        });
-                } else {
-                    wishlistIcon.classList.add('text-danger');
-                    wishlistText.textContent = 'Sudah di Wishlist';
-                    fetch(`<?= base_url('wishlist/add/') ?>${wisataId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                console.log('Added to wishlist');
-                            }
-                        });
-                }
-            }
-
-            const deleteReviewButtons = document.querySelectorAll('.btn-delete-review');
-
-            deleteReviewButtons.forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-
-                    const reviewId = this.getAttribute('data-review-id');
-
-                    Swal.fire({
-                        title: 'Hapus Ulasan?',
-                        text: "Anda tidak akan bisa mengembalikan ulasan ini.",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Ya, hapus!',
-                        cancelButtonText: 'Batal'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            fetch(`<?= base_url('destinasi/review/delete/') ?>${reviewId}`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.status === 'success') {
-                                        Swal.fire(
-                                            'Terhapus!',
-                                            'Ulasan Anda telah dihapus.',
-                                            'success'
-                                        ).then(() => {
-                                            // Remove the review element from the DOM
-                                            const reviewElement = button.closest('.review-item-card');
-                                            reviewElement.remove();
-                                            
-                                            // Update the total reviews count
-                                            const totalReviewsElement = document.querySelector('.total-reviews');
-                                            const currentCount = parseInt(totalReviewsElement.textContent.match(/\d+/)[0]);
-                                            totalReviewsElement.textContent = `Berdasarkan ${currentCount - 1} ulasan`;
-                                            
-                                            // If no reviews left, show the "no reviews" message
-                                            if (currentCount - 1 === 0) {
-                                                const reviewsList = document.querySelector('.reviews-list');
-                                                reviewsList.innerHTML = '<div class="alert alert-secondary text-center">Belum ada ulasan untuk destinasi ini.</div>';
-                                            }
-                                        });
-                                    } else {
-                                        Swal.fire(
-                                            'Error!',
-                                            data.message || 'Terjadi kesalahan saat menghapus ulasan.',
-                                            'error'
-                                        );
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                    Swal.fire(
-                                        'Error!',
-                                        'Terjadi kesalahan saat menghapus ulasan.',
-                                        'error'
-                                    );
-                                });
-                        }
-                    });
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Aksi berhasil, tampilkan notifikasi sukses
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: data.message || 'Wishlist diperbarui!',
+                    showConfirmButton: false,
+                    timer: 2000
                 });
+            } else {
+                // Jika server mengirim `success: false`, lempar error
+                throw new Error(data.message || 'Gagal memperbarui wishlist.');
+            }
+        })
+        .catch(error => {
+            // JIKA TERJADI ERROR
+            console.error('Error Wishlist:', error);
+            
+            // Kembalikan tampilan tombol ke kondisi SEMULA karena aksi gagal
+            button.classList.toggle('wishlist-added', isWishlisted); 
+            wishlistText.textContent = isWishlisted ? 'Sudah di Wishlist' : 'Tambah ke Wishlist';
+            
+            // Tampilkan notifikasi error kepada pengguna
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: 'Aksi gagal, coba lagi.',
+                showConfirmButton: false,
+                timer: 3000
             });
         });
-    </script>
+}
+
+            // Pasang event listener untuk tombol wishlist
+    const wishlistButton = document.getElementById('wishlistButton');
+    if (wishlistButton) {
+        wishlistButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Mencegah perilaku default dari tag <a>
+            toggleWishlist(this);
+        });
+    }
+
+    // --- Logika Hapus Ulasan (Bagian ini sudah benar) ---
+    const deleteReviewButtons = document.querySelectorAll('.btn-delete-review');
+    deleteReviewButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const deleteUrl = this.href;
+
+            Swal.fire({
+                title: 'Hapus Ulasan?',
+                text: "Anda tidak akan bisa mengembalikan ulasan ini.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = deleteUrl;
+                }
+            });
+        });
+    });
+});
+</script>
 
     <?= $this->endSection() ?>
