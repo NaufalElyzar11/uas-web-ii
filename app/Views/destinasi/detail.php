@@ -191,7 +191,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-    ocument.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
     
     let currentIndex = 0;
     const images = document.querySelectorAll('.small-Img');
@@ -295,6 +295,7 @@
         button.addEventListener('click', function(event) {
             event.preventDefault();
             const deleteUrl = this.href;
+            const reviewCard = this.closest('.review-item-card');
 
             Swal.fire({
                 title: 'Hapus Ulasan?',
@@ -306,8 +307,44 @@
                 confirmButtonText: 'Ya, hapus!',
                 cancelButtonText: 'Batal'
             }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = deleteUrl;
+                 if (result.isConfirmed) {
+                    
+                    fetch(deleteUrl, {
+                        method: 'GET',
+                        headers: {
+                            "X-Requested-With": "XMLHttpRequest",
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        
+                        if (data.status === 'success') {
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'success',
+                                title: data.message, 
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            reviewCard.style.transition = 'opacity 0.5s ease';
+                            reviewCard.style.opacity = '0';
+                            setTimeout(() => {
+                                reviewCard.remove();
+                            }, 500); 
+
+                        } else {
+                            throw new Error(data.message || 'Gagal menghapus review.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire(
+                            'Gagal!',
+                            'Terjadi kesalahan saat menghapus review.',
+                            'error'
+                        );
+                    });
                 }
             });
         });
