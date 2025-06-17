@@ -19,7 +19,11 @@ class BookingModel extends Model
         'jumlah_orang',
         'total_harga',
         'status', // 'upcoming', 'completed', 'canceled'
-        'created_at'
+        'created_at',
+        'tanggal_booking',
+        'status_pembayaran',
+        'bukti_pembayaran',
+        'kode_booking'
     ];
 
     // Dates
@@ -28,6 +32,16 @@ class BookingModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = '';
     protected $deletedField  = '';
+    protected $cleanValidationRules = true;
+
+    // Callbacks
+    protected $allowCallbacks = true;
+    protected $beforeUpdate   = [];
+    protected $afterUpdate    = [];
+    protected $beforeFind     = [];
+    protected $afterFind      = [];
+    protected $beforeDelete   = [];
+    protected $afterDelete    = [];
 
     /**
      * Get user's bookings with destination details
@@ -81,5 +95,14 @@ class BookingModel extends Model
     public function getCanceledBookings($userId)
     {
         return $this->getUserBookings($userId, 'canceled');
+    }
+
+    public function getTotalPengunjung($wisataId)
+    {
+        $result = $this->selectSum('jumlah_orang')
+                       ->where('wisata_id', $wisataId)
+                       ->first();
+        
+        return $result['jumlah_orang'] ?? 0;
     }
 }

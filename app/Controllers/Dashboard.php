@@ -8,7 +8,7 @@ use App\Models\UserModel;
 use App\Models\ReviewModel;
 
 class Dashboard extends BaseController
-{    protected $wisataModel;
+{   protected $wisataModel;
     protected $beritaModel;
     protected $userModel;
     protected $reviewModel;

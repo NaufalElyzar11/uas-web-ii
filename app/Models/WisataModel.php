@@ -32,6 +32,21 @@ class WisataModel extends Model
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;    
 
+    public function getTrendingWisata($limit = 4)
+    {
+        return $this->select('wisata.*, SUM(bookings.jumlah_orang) as total_kunjungan')
+            ->join('bookings', 'bookings.wisata_id = wisata.wisata_id', 'left')
+            ->groupBy('wisata.wisata_id')
+            ->orderBy('total_kunjungan', 'DESC')
+            ->limit($limit)
+            ->find();
+    }
+
+    public function getPopularWisata($limit = 4)
+    {
+        return $this->getTrendingWisata($limit);
+    }
+
     public function getWisataTerbaru($limit = 4)
     {
         try {
@@ -54,52 +69,6 @@ class WisataModel extends Model
             return [];
         }
     }    
-    public function getWisataPopuler($limit = 5)
-    {
-        try {
-            $db = \Config\Database::connect();
-            
-            $query = $db->table('wisata')
-                ->select('wisata.*, SUM(statistik_kunjungan.jumlah_pengunjung) as total_kunjungan')
-                ->join('statistik_kunjungan', 'statistik_kunjungan.wisata_id = wisata.wisata_id', 'left')
-                ->groupBy('wisata.wisata_id')
-                ->orderBy('total_kunjungan', 'DESC')
-                ->limit($limit);
-                
-            $result = $query->get()->getResultArray();
-            
-            if (empty($result)) {
-                if (in_array('trending_score', $this->allowedFields)) {
-                    return $this->orderBy('trending_score', 'DESC')
-                                ->limit($limit)
-                                ->find();
-                } else {
-                    return $this->orderBy($this->primaryKey, 'DESC')
-                                ->limit($limit)
-                                ->find();
-                }
-            }
-            
-            return $result;
-        } catch (\Exception $e) {
-            log_message('error', 'Error in getWisataPopuler: ' . $e->getMessage());
-            
-            try {
-                if (in_array('trending_score', $this->allowedFields)) {
-                    return $this->orderBy('trending_score', 'DESC')
-                                ->limit($limit)
-                                ->find();
-                } else {
-                    return $this->orderBy($this->primaryKey, 'DESC')
-                                ->limit($limit)
-                                ->find();
-                }
-            } catch (\Exception $e2) {
-                log_message('error', 'Error in getWisataPopuler fallback: ' . $e2->getMessage());
-                return [];
-            }
-        }
-    }
 
     public function getWisataTerdekat($userDaerah, $limit = 4)
     {
@@ -121,17 +90,20 @@ class WisataModel extends Model
         }
     }
     
-    public function search($keyword)
+    public function searchWisata($keyword)
     {
         try {
+            if (in_array('trending_score', $this->allowedFields)) {
+                return $this->orderBy('trending_score', 'DESC')
+                        ->like('nama', $keyword)
+                        ->orLike('daerah', $keyword)
+                        ->findAll();
+            }
             return $this->like('nama', $keyword)
-                      ->orLike('daerah', $keyword)
-                      ->orLike('deskripsi', $keyword)
-                      ->orLike('kategori', $keyword)
-                      ->orderBy($this->primaryKey, 'DESC')
-                      ->find();
+                        ->orLike('daerah', $keyword)
+                        ->findAll();
         } catch (\Exception $e) {
-            log_message('error', 'Error in search: ' . $e->getMessage());
+            log_message('error', 'Error in searchWisata: ' . $e->getMessage());
             return [];
         }
     }

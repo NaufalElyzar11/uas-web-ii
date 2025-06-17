@@ -12,43 +12,32 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="tabel-wisata" class="table table-bordered" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>ID</th>
                             <th>Nama</th>
                             <th>Daerah</th>
-                            <th>Kategori</th>
                             <th>Harga</th>
-                            <th>Trending</th>
+                            <th>Kategori</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = 1;
-                        foreach ($wisata as $w): ?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td><?= esc($w['nama']) ?></td>
-                                <td><?= esc($w['daerah']) ?></td>
-                                <td><?= esc($w['kategori']) ?></td>
-                                <td><?= number_format($w['harga'], 0, ',', '.') ?></td>
-                                <td><?= esc($w['trending_score']) ?></td>
-                                <td>
-                                    <a href="<?= base_url('admin/wisata/edit/' . $w['wisata_id']) ?>"
-                                        class="btn btn-sm btn-warning mr-1">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="<?= base_url('admin/wisata/delete/' . $w['wisata_id']) ?>"
-                                        method="post" style="display:inline;"
-                                        onsubmit="return confirm('Yakin ingin menghapus?')">
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-
-                            </tr>
+                        <?php foreach ($wisata as $w): ?>
+                        <tr>
+                            <td><?= $w['wisata_id'] ?></td>
+                            <td><?= $w['nama'] ?></td>
+                            <td><?= $w['daerah'] ?></td>
+                            <td><?= number_format($w['harga'], 0, ',', '.') ?></td>
+                            <td><?= $w['kategori'] ?></td>
+                            <td>
+                                <a href="<?= base_url('admin/wisata/edit/'.$w['wisata_id']) ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="<?= base_url('admin/wisata/delete/'.$w['wisata_id']) ?>" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -71,7 +60,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#tabel-wisata').DataTable({
+            $('#dataTable').DataTable({
                 dom: 'Bfrtip',
                 buttons: [{
                         extend: 'excelHtml5',

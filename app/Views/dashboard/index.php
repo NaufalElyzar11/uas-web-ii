@@ -63,13 +63,25 @@
   </section>
     <section class="trending-section">
     <h2>Wisata Populer</h2>
-    <div class="trending-grid">      <?php if (empty($wisataPopuler)): ?>
-      <div class="alert alert-info">Belum ada wisata populer saat ini</div>
+    <div class="trending-grid">
+      <?php if (empty($wisataPopuler)): ?>
+        <div class="alert alert-info">Belum ada wisata populer saat ini</div>
       <?php else: ?>
         <?php $i = 1; foreach ($wisataPopuler as $wisata): ?>
         <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="destination-link">
           <div class="destination <?= ($i <= 2) ? 'large' : 'small' ?>">
-            <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
+            <?php
+              $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
+              $imageUrl = base_url('uploads/wisata/default.jpg');
+              if (is_dir($galleryPath)) {
+                  $files = array_diff(scandir($galleryPath), ['.', '..']);
+                  if (!empty($files)) {
+                      $firstImage = reset($files);
+                      $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
+                  }
+              }
+            ?>
+            <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="label"><?= esc($wisata['nama']) ?></div>
             <div class="trending-badge">
               <i class="fas fa-users"></i> <?= number_format($wisata['total_kunjungan'] ?? 0, 0, ',', '.') ?> pengunjung

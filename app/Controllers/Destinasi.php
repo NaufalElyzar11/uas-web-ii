@@ -3,16 +3,20 @@
 namespace App\Controllers;
 
 use App\Models\WisataModel;
+use App\Models\ReviewModel;
+use App\Models\BookingModel;
 
 class Destinasi extends BaseController
 {
     protected $wisataModel;
     protected $reviewModel;
+    protected $bookingModel;
 
     public function __construct()
     {
         $this->wisataModel = new WisataModel();
-        $this->reviewModel = new \App\Models\ReviewModel();
+        $this->reviewModel = new ReviewModel();
+        $this->bookingModel = new BookingModel();
     }
 
     public function index()
@@ -82,6 +86,7 @@ class Destinasi extends BaseController
 
         $reviews = $this->reviewModel->getReviewsByWisataId($wisata['wisata_id']);
         $averageRating = $this->reviewModel->getAverageRating($wisata['wisata_id']);
+        $trendingScore = $this->bookingModel->getTotalPengunjung($wisata['wisata_id']);
         
         $data = [
             'title' => $wisata['nama'],
@@ -89,7 +94,8 @@ class Destinasi extends BaseController
             'galeri' => $galeri,
             'isInWishlist' => $isInWishlist,
             'reviews' => $reviews,
-            'averageRating' => $averageRating
+            'averageRating' => $averageRating,
+            'trendingScore' => $trendingScore
         ];
         
         return view('destinasi/detail', $data);

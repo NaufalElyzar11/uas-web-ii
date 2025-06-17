@@ -194,8 +194,8 @@
                     <div class="detail-item">
                         <i class="fas fa-fire"></i>
                         <div>
-                            <strong>Popularitas</strong>
-                            <span><?= $wisata['trending_score'] ?? 0 ?> point</span>
+                            <strong>Pengunjung</strong>
+                            <span><?= $trendingScore ?? 0 ?></span>
                         </div>
                     </div>
                 </div>
