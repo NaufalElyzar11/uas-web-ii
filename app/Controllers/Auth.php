@@ -83,6 +83,10 @@ class Auth extends BaseController
                     'isLoggedIn' => true
                 ]);
                 
+                if ($user['role'] === 'admin') {
+                    return redirect()->to('/admin/dashboard');
+                }
+                
                 return redirect()->to('/dashboard');
             } else {
                 log_message('debug', 'Password verification failed');

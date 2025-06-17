@@ -134,6 +134,9 @@ class WisataModel extends Model
         }
     }
     
+    /**
+     * Search wisata by keyword (nama or daerah)
+     */
     public function search($keyword)
     {
         try {
