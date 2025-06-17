@@ -28,16 +28,13 @@ class Dashboard extends BaseController
         $this->beritaModel = new BeritaModel();
         $this->userModel = new UserModel();
         $this->reviewModel = new ReviewModel();
-        $this->statistikModel = new StatistikKunjunganModel();
     }    public function index()
     {
         try {
-            // Ambil data user yang sedang login
             $userId = session()->get('user_id');
             $userData = $this->userModel->find($userId);
-            $userDaerah = $userData['daerah'] ?? 'Kalimantan Selatan'; // Default jika tidak ada
+            $userDaerah = $userData['daerah'] ?? 'Kalimantan Selatan'; 
 
-            // Ambil data dari database dengan error handling
             try {
                 $wisataTerbaru = $this->wisataModel->getWisataTerbaru(4);
             } catch (\Exception $e) {
@@ -67,7 +64,6 @@ class Dashboard extends BaseController
         } catch (\Exception $e) {
             log_message('error', 'Error in Dashboard index: ' . $e->getMessage());
             
-            // Set default values for all data in case of error
             $wisataTerbaru = [];
             $wisataPopuler = [];
             $wisataTerdekat = [];
@@ -93,7 +89,6 @@ class Dashboard extends BaseController
             'currentDate' => date('d M Y')
         ];
         
-        // Log count of items for debugging
         log_message('debug', 'Item counts - Wisata Terbaru: ' . count($wisataTerbaru) . 
                             ', Wisata Populer: ' . count($wisataPopuler) . 
                             ', Wisata Terdekat: ' . count($wisataTerdekat) .
