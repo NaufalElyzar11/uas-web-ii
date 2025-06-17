@@ -29,13 +29,6 @@ body {
     color: #484849; 
 }
 
-.wisata-detail {
-    display: grid;
-    grid-template-columns: 1fr 2fr; 
-    gap: 30px;
-    margin-bottom: 40px;
-}
-
 .wisata-images {
     position: relative;
 }
@@ -162,10 +155,11 @@ body {
 }
 .wisata-detail {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   gap: 40px;
   align-items: start;
   margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .wisata-details {
@@ -181,32 +175,6 @@ body {
 }
 
 /*bagian maps*/
-
-.map-container iframe {
-  width: 100%;
-  height: 250px;
-  border: none;
-  border-radius: 10px;
-}
-
-.maps-section {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%;
-    margin-top: 20px;
-    overflow: hidden;
-}
-
-.maps-section iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
 
 .right-column {
   display: flex;
@@ -581,6 +549,7 @@ body {
     align-items: center;
     gap: 15px;
     margin-bottom: 15px;
+    position: relative;
 }
 
 .review-avatar {
@@ -633,6 +602,26 @@ body {
     color: #555;
     line-height: 1.7;
     font-size: 0.95rem;
+}
+
+.btn-delete-review {
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1;
+    color: #aaa;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.btn-delete-review:hover {
+    color: #dc3545; 
 }
 
 /* --- Custom Alert --- */
