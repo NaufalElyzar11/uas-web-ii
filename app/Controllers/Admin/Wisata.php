@@ -32,12 +32,18 @@ class Wisata extends BaseController
     }
     public function store()
     {
+        $daerahList = [
+            'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
+            'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
+            'Kotabaru', 'Barito Timur', 'Balangan'
+        ];
+        $kategoriList = ['Alam', 'Pantai', 'Gunung', 'Budaya', 'Kota', 'Religi'];
         $rules = [
-            'nama' => 'required',
-            'daerah' => 'required',
-            'deskripsi' => 'required',
-            'harga' => 'required|numeric',
-            'kategori' => 'required',
+            'nama' => 'required|min_length[3]|max_length[100]',
+            'daerah' => 'required|in_list['.implode(',', $daerahList).']',
+            'deskripsi' => 'required|min_length[10]',
+            'harga' => 'required|numeric|greater_than[0]',
+            'kategori' => 'required|in_list['.implode(',', $kategoriList).']',
             'gambar' => 'uploaded[gambar]|max_size[gambar,2048]|mime_in[gambar,image/png,image/jpg,image/jpeg]'
         ];
 
@@ -45,14 +51,19 @@ class Wisata extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $nama = strip_tags($this->request->getPost('nama'));
+        $daerah = strip_tags($this->request->getPost('daerah'));
+        $deskripsi = strip_tags($this->request->getPost('deskripsi'));
+        $harga = (int) $this->request->getPost('harga');
+        $kategori = strip_tags($this->request->getPost('kategori'));
+
         $id = $this->wisataModel->insert([
-            'nama' => $this->request->getPost('nama'),
-            'daerah' => $this->request->getPost('daerah'),
-            'deskripsi' => $this->request->getPost('deskripsi'),
-            'harga' => $this->request->getPost('harga'),
-            'kategori' => $this->request->getPost('kategori'),
-            'trending_score' => 0
-        ], true); 
+            'nama' => $nama,
+            'daerah' => $daerah,
+            'deskripsi' => $deskripsi,
+            'harga' => $harga,
+            'kategori' => $kategori
+        ], true);
 
         $files = $this->request->getFileMultiple('gambar');
         $folder = 'uploads/wisata/gallery/' . $id;
@@ -63,8 +74,7 @@ class Wisata extends BaseController
         $i = 1;
         foreach ($files as $file) {
             if ($file->isValid() && !$file->hasMoved()) {
-                if ($i > 7) break; 
-
+                if ($i > 7) break;
                 $namaBaru = 'gallery-' . $i . '.' . $file->getExtension();
                 $file->move(FCPATH . $folder, $namaBaru);
                 $i++;
@@ -88,28 +98,40 @@ class Wisata extends BaseController
 
     public function update($id)
     {
+        $daerahList = [
+            'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
+            'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
+            'Kotabaru', 'Barito Timur', 'Balangan'
+        ];
+        $kategoriList = ['Alam', 'Pantai', 'Gunung', 'Budaya', 'Kota', 'Religi'];
         $rules = [
-            'nama' => 'required',
-            'daerah' => 'required',
-            'deskripsi' => 'required',
-            'harga' => 'required|numeric',
-            'kategori' => 'required',
+            'nama' => 'required|min_length[3]|max_length[100]',
+            'daerah' => 'required|in_list['.implode(',', $daerahList).']',
+            'deskripsi' => 'required|min_length[10]',
+            'harga' => 'required|numeric|greater_than[0]',
+            'kategori' => 'required|in_list['.implode(',', $kategoriList).']',
         ];
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $nama = strip_tags($this->request->getPost('nama'));
+        $daerah = strip_tags($this->request->getPost('daerah'));
+        $deskripsi = strip_tags($this->request->getPost('deskripsi'));
+        $harga = (int) $this->request->getPost('harga');
+        $kategori = strip_tags($this->request->getPost('kategori'));
+
         $data = [
-            'nama' => $this->request->getPost('nama'),
-            'daerah' => $this->request->getPost('daerah'),
-            'deskripsi' => $this->request->getPost('deskripsi'),
-            'harga' => $this->request->getPost('harga'),
-            'kategori' => $this->request->getPost('kategori'),
+            'nama' => $nama,
+            'daerah' => $daerah,
+            'deskripsi' => $deskripsi,
+            'harga' => $harga,
+            'kategori' => $kategori
         ];
 
         $this->wisataModel->update($id, $data);
-        
+
         $files = $this->request->getFileMultiple('gambar');
         if ($files) {
             $folder = 'uploads/wisata/gallery/' . $id;
@@ -121,7 +143,6 @@ class Wisata extends BaseController
             foreach ($files as $file) {
                 if ($file->isValid() && !$file->hasMoved()) {
                     if ($i > 7) break;
-
                     $namaBaru = 'gallery-' . $i . '.' . $file->getExtension();
                     $file->move(FCPATH . $folder, $namaBaru);
                     $i++;

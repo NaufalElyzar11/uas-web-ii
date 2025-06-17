@@ -46,7 +46,7 @@
 
             <div class="form-group">
                 <label>Harga</label>
-                <input type="number" name="harga" class="form-control" value="<?= old('harga', $wisata['harga']) ?>" required>
+                <input type="number" name="harga" class="form-control" value="<?= old('harga', $wisata['harga']) ?>" required min="1" id="inputHarga">
             </div>
 
             <div class="form-group">
@@ -163,6 +163,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
+    var hargaInput = document.getElementById('inputHarga');
+    if(hargaInput) {
+        hargaInput.addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^\d]/g, '');
+        });
+    }
 });
 </script>
 
