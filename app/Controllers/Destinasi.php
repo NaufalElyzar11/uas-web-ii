@@ -138,4 +138,38 @@ class Destinasi extends BaseController
             ]);
         }
     }
+
+    public function deleteReview($reviewId)
+{
+    $review = $this->reviewModel->find($reviewId);
+
+    if (!$review) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Review tidak ditemukan.'
+        ]);
+    }
+
+    if ($review['user_id'] != session()->get('user_id')) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Anda tidak memiliki izin untuk menghapus review ini.'
+        ]);
+    }
+
+    try {
+        $this->reviewModel->delete($reviewId);
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Review berhasil dihapus.'
+        ]);
+    } catch (\Exception $e) {
+        log_message('error', 'Error deleting review: ' . $e->getMessage());
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Terjadi kesalahan saat menghapus review.'
+        ]);
+    }
+}
+
 }

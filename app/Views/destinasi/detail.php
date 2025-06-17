@@ -82,24 +82,24 @@
 
                 <div class="wisata-actions">
                     <?php if (session()->get('isLoggedIn')): ?>
-                    <a href="<?= base_url('booking/pembelian/' . $wisata['wisata_id']) ?>" class="btn btn-primary">
-                        <i class="fas fa-ticket-alt"></i> Beli Sekarang
-                    </a>
+                        <a href="<?= base_url('booking/pembelian/' . $wisata['wisata_id']) ?>" class="btn btn-primary">
+                            <i class="fas fa-ticket-alt"></i> Beli Sekarang
+                        </a>
                     <?php else: ?>
-                    <a href="<?= base_url('auth/login') ?>" class="btn btn-primary">
-                        <i class="fas fa-sign-in-alt"></i> Login untuk Membeli
-                    </a>
+                        <a href="<?= base_url('auth/login') ?>" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Login untuk Membeli
+                        </a>
                     <?php endif; ?>
 
                     <?php if (session()->get('isLoggedIn')): ?>
-                    <a href="javascript:void(0);"
-                        id="wishlistButton"
-                        class="btn btn-outline-primary"
-                        data-wisata-id="<?= $wisata['wisata_id'] ?>"
-                        onclick="toggleWishlist(this)">
-                        <i class="fas fa-heart <?= !empty($isInWishlist) ? 'text-danger' : '' ?>"></i>
-                        <span id="wishlistText"><?= !empty($isInWishlist) ? 'Sudah di Wishlist' : 'Tambah ke Wishlist' ?></span>
-                    </a>
+                        <a href="javascript:void(0);"
+                            id="wishlistButton"
+                            class="btn btn-outline-primary"
+                            data-wisata-id="<?= $wisata['wisata_id'] ?>"
+                            onclick="toggleWishlist(this)">
+                            <i class="fas fa-heart <?= !empty($isInWishlist) ? 'text-danger' : '' ?>"></i>
+                            <span id="wishlistText"><?= !empty($isInWishlist) ? 'Sudah di Wishlist' : 'Tambah ke Wishlist' ?></span>
+                        </a>
                     <?php endif; ?>
                 </div>
 
@@ -136,140 +136,182 @@
     </div>
 
     <!-- Review Section -->
-<div class="review-section mt-5">
-    <div class="container">
-        <h2 class="review-section-title mb-4">Ulasan Pengunjung</h2>
+    <div class="review-section mt-5">
+        <div class="container">
+            <h2 class="review-section-title mb-4">Ulasan Pengunjung</h2>
 
-        <div class="rating-summary-card mb-5">
-            <div class="average-rating-display">
-                <div class="rating-score"><?= number_format($averageRating, 1) ?></div>
-                <div class="rating-stars">
-                    <?php for ($i = 1; $i <= 5; $i++): ?>
-                        <i class="fas fa-star <?= $i <= round($averageRating) ? 'filled' : '' ?>"></i>
-                    <?php endfor; ?>
+            <div class="rating-summary-card mb-5">
+                <div class="average-rating-display">
+                    <div class="rating-score"><?= number_format($averageRating, 1) ?></div>
+                    <div class="rating-stars">
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <i class="fas fa-star <?= $i <= round($averageRating) ? 'filled' : '' ?>"></i>
+                        <?php endfor; ?>
+                    </div>
+                    <div class="total-reviews">Berdasarkan <?= count($reviews) ?> ulasan</div>
                 </div>
-                <div class="total-reviews">Berdasarkan <?= count($reviews) ?> ulasan</div>
+            </div>
+
+            <div class="reviews-list">
+                <?php if (empty($reviews)): ?>
+                    <div class="alert alert-secondary text-center">Belum ada ulasan untuk destinasi ini.</div>
+                <?php else: ?>
+                    <?php foreach ($reviews as $review): ?>
+                        <div class="review-item-card mb-4">
+                            <div class="review-item-header">
+                                <?php if (session()->get('isLoggedIn') && session()->get('user_id') == $review['user_id']): ?>
+                                    <a href="<?= base_url('destinasi/review/delete/' . $review['review_id']) ?>"
+                                        class="btn-delete-review"
+                                        data-review-id="<?= $review['review_id'] ?>"
+                                        title="Hapus ulasan Anda">×</a>
+                                <?php endif; ?>
+
+                                <div class="review-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="review-user-info">
+                                    <h4 class="user-name"><?= esc($review['nama_user']) ?></h4>
+                                    <small class="review-date">
+                                        <?= date('d M Y', strtotime($review['tanggal_review'])) ?>
+                                    </small>
+                                </div>
+                                <div class="review-item-stars">
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                        <i class="fas fa-star <?= $i <= $review['rating'] ? 'filled' : '' ?>"></i>
+                                    <?php endfor; ?>
+                                </div>
+                            </div>
+                            <div class="review-item-content">
+                                <p><?= nl2br(esc($review['komentar'])) ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
-
-        <div class="reviews-list">
-            <?php if (empty($reviews)): ?>
-                <div class="alert alert-secondary text-center">Belum ada ulasan untuk destinasi ini.</div>
-            <?php else: ?>
-                <?php foreach ($reviews as $review): ?>
-                <div class="review-item-card mb-4">
-                    <div class="review-item-header">
-                        <?php if (session()->get('isLoggedIn') && session()->get('user_id') == $review['user_id']): ?>
-                            <a href="<?= base_url('destinasi/deleteReview/' . $review['review_id']) ?>" class="btn-delete-review" title="Hapus ulasan Anda">×</a>
-                        <?php endif; ?>
-
-                        <div class="review-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="review-user-info">
-                            <h4 class="user-name"><?= esc($review['nama_user']) ?></h4>
-                            <small class="review-date">
-                                <?= date('d M Y', strtotime($review['tanggal_review'])) ?>
-                            </small>
-                        </div>
-                        <div class="review-item-stars">
-                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                <i class="fas fa-star <?= $i <= $review['rating'] ? 'filled' : '' ?>"></i>
-                            <?php endfor; ?>
-                        </div>
-                    </div>
-                    <div class="review-item-content">
-                        <p><?= nl2br(esc($review['komentar'])) ?></p>
-                    </div>
-                </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    let currentIndex = 0;
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentIndex = 0;
 
-    function openModal(index) {
-        currentIndex = index;
-        const images = document.querySelectorAll('.small-Img');
-        const modalImage = document.getElementById('modalImage');
+            function openModal(index) {
+                currentIndex = index;
+                const images = document.querySelectorAll('.small-Img');
+                const modalImage = document.getElementById('modalImage');
 
-        modalImage.src = images[index].src;
-        document.getElementById('imageModal').style.display = "block";
-    }
+                modalImage.src = images[index].src;
+                document.getElementById('imageModal').style.display = "block";
+            }
 
-    function closeModal() {
-        document.getElementById('imageModal').style.display = "none";
-    }
+            function closeModal() {
+                document.getElementById('imageModal').style.display = "none";
+            }
 
-    function moveImage(step) {
-        const images = document.querySelectorAll('.small-Img');
-        currentIndex += step;
-        if (currentIndex < 0) {
-            currentIndex = images.length - 1;
-        } else if (currentIndex >= images.length) {
-            currentIndex = 0;
-        }
-        document.getElementById('modalImage').src = images[currentIndex].src;
-    }
-
-    function toggleWishlist(button) {
-        const wishlistButton = button;
-        const wishlistIcon = wishlistButton.querySelector('i');
-        const wishlistText = wishlistButton.querySelector('span');
-        const wisataId = wishlistButton.getAttribute('data-wisata-id');
-        if (wishlistIcon.classList.contains('text-danger')) {
-            wishlistIcon.classList.remove('text-danger');
-            wishlistText.textContent = 'Tambah ke Wishlist';
-            fetch(`<?= base_url('wishlist/remove/') ?>${wisataId}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log('Removed from wishlist');
-                    }
-                });
-        } else {
-            wishlistIcon.classList.add('text-danger');
-            wishlistText.textContent = 'Sudah di Wishlist';
-            fetch(`<?= base_url('wishlist/add/') ?>${wisataId}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log('Added to wishlist');
-                    }
-                });
-        }
-    }
-
-     const deleteReviewButtons = document.querySelectorAll('.btn-delete-review');
-    
-    deleteReviewButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault(); 
-            
-            const deleteUrl = this.href;
-            
-            Swal.fire({
-                title: 'Hapus Ulasan?',
-                text: "Anda tidak akan bisa mengembalikan ulasan ini.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = deleteUrl;
+            function moveImage(step) {
+                const images = document.querySelectorAll('.small-Img');
+                currentIndex += step;
+                if (currentIndex < 0) {
+                    currentIndex = images.length - 1;
+                } else if (currentIndex >= images.length) {
+                    currentIndex = 0;
                 }
+                document.getElementById('modalImage').src = images[currentIndex].src;
+            }
+
+            function toggleWishlist(button) {
+                const wishlistButton = button;
+                const wishlistIcon = wishlistButton.querySelector('i');
+                const wishlistText = wishlistButton.querySelector('span');
+                const wisataId = wishlistButton.getAttribute('data-wisata-id');
+                if (wishlistIcon.classList.contains('text-danger')) {
+                    wishlistIcon.classList.remove('text-danger');
+                    wishlistText.textContent = 'Tambah ke Wishlist';
+                    fetch(`<?= base_url('wishlist/remove/') ?>${wisataId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log('Removed from wishlist');
+                            }
+                        });
+                } else {
+                    wishlistIcon.classList.add('text-danger');
+                    wishlistText.textContent = 'Sudah di Wishlist';
+                    fetch(`<?= base_url('wishlist/add/') ?>${wisataId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log('Added to wishlist');
+                            }
+                        });
+                }
+            }
+
+            const deleteReviewButtons = document.querySelectorAll('.btn-delete-review');
+
+            deleteReviewButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    const reviewId = this.getAttribute('data-review-id');
+
+                    Swal.fire({
+                        title: 'Hapus Ulasan?',
+                        text: "Anda tidak akan bisa mengembalikan ulasan ini.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch(`<?= base_url('destinasi/review/delete/') ?>${reviewId}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.status === 'success') {
+                                        Swal.fire(
+                                            'Terhapus!',
+                                            'Ulasan Anda telah dihapus.',
+                                            'success'
+                                        ).then(() => {
+                                            // Remove the review element from the DOM
+                                            const reviewElement = button.closest('.review-item-card');
+                                            reviewElement.remove();
+                                            
+                                            // Update the total reviews count
+                                            const totalReviewsElement = document.querySelector('.total-reviews');
+                                            const currentCount = parseInt(totalReviewsElement.textContent.match(/\d+/)[0]);
+                                            totalReviewsElement.textContent = `Berdasarkan ${currentCount - 1} ulasan`;
+                                            
+                                            // If no reviews left, show the "no reviews" message
+                                            if (currentCount - 1 === 0) {
+                                                const reviewsList = document.querySelector('.reviews-list');
+                                                reviewsList.innerHTML = '<div class="alert alert-secondary text-center">Belum ada ulasan untuk destinasi ini.</div>';
+                                            }
+                                        });
+                                    } else {
+                                        Swal.fire(
+                                            'Error!',
+                                            data.message || 'Terjadi kesalahan saat menghapus ulasan.',
+                                            'error'
+                                        );
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    Swal.fire(
+                                        'Error!',
+                                        'Terjadi kesalahan saat menghapus ulasan.',
+                                        'error'
+                                    );
+                                });
+                        }
+                    });
+                });
             });
         });
-    });
-});
-</script>
+    </script>
 
-<?= $this->endSection() ?>
+    <?= $this->endSection() ?>

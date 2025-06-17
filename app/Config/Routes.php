@@ -23,6 +23,8 @@ $routes->get('/dashboard', 'Dashboard::index');
 $routes->get('destinasi', 'Destinasi::index');
 $routes->get('destinasi/search', 'Destinasi::search');
 $routes->get('destinasi/detail/(:num)', 'Destinasi::detail/$1');
+$routes->post('destinasi/addReview', 'Destinasi::addReview');;
+$routes->get('destinasi/review/delete/(:num)', 'Destinasi::deleteReview/$1');
 
 $routes->get('wishlist', 'Wishlist::index');
 $routes->get('wishlist/add/(:num)', 'Wishlist::add/$1');
@@ -39,8 +41,6 @@ $routes->get('profile', 'Profile::index');
 $routes->post('profile/update', 'Profile::update');
 $routes->post('profile/change-password', 'Profile::changePassword');
 $routes->post('profile/updatePreferences', 'Profile::updatePreferences');
-
-$routes->post('destinasi/addReview', 'Destinasi::addReview');
 
 // Bagian Admin
 $routes->group('admin', ['filter' => 'admin'], function($routes) {
