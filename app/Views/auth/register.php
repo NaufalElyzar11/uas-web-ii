@@ -50,24 +50,25 @@
                             <i class="bx bxl-gmail icon"></i>
                         </div>
 
+                        
                         <div class="input_box">
-                            <input type="password" class="input-field" id="password" name="password" required>
-                            <label for="password" class="label">Kata Sandi</label>
-                            <i class="bx bx-lock-alt icon"></i>
+                            <input type="text" class="input-field" id="daerah" name="daerah" value="<?= old('daerah') ?>" required>
+                            <label for="daerah" class="label">Daerah</label>
+                            <i class="bx bx-location-plus icon"></i>
                         </div>
                     </div>    
                 
                     <div class="form-column">
                         <div class="input_box">
+                            <input type="password" class="input-field" id="password" name="password" required>
+                            <label for="password" class="label">Kata Sandi</label>
+                            <i class="bx bx-lock-alt icon"></i>
+                        </div>
+                        
+                        <div class="input_box">
                             <input type="password" class="input-field" id="confirm_password" name="confirm_password" required>
                             <label for="confirm_password" class="label">Konfirmasi Kata Sandi</label>
                             <i class="bx bx-lock-alt icon"></i>
-                        </div>
-
-                        <div class="input_box">
-                            <input type="text" class="input-field" id="daerah" name="daerah" value="<?= old('daerah') ?>" required>
-                            <label for="daerah" class="label">Daerah</label>
-                            <i class="bx bx-location-plus icon"></i>
                         </div>
 
                         <div class="input_box">
