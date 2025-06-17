@@ -102,7 +102,6 @@
       <?php endif; ?>
     </div>
   </section>
-
   
   <section class="section-wisata">
     <h2>Wisata Terdekat</h2>
@@ -142,7 +141,6 @@
       <?php endif; ?>
     </div>  </section>
 
-  
   <section class="cta-section">
     <div class="cta-container">
       <h2>Temukan Lebih Banyak Destinasi</h2>
@@ -150,7 +148,6 @@
       <a href="<?= base_url('destinasi') ?>" class="cta-button">Lihat Semua Destinasi</a>
     </div>
   </section>
-  
   
   <section id="news-section">
     <h2>Berita Terbaru</h2>
