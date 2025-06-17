@@ -20,7 +20,7 @@
             <li><a href="<?= base_url('destinasi') ?>"><i class="fas fa-map-marked-alt"></i>Destinasi</a></li>
             <?php if (session()->get('isLoggedIn')): ?>
                 <li><a href="<?= base_url('riwayat') ?>"><i class="fas fa-history"></i>Riwayat</a></li>
-                <li><a href="<?= base_url('wishlist') ?>"><i class="fas fa-heart"></i>Daftar Keinginan</a></li>
+                <li><a href="<?= base_url('wishlist') ?>"><i class="fas fa-heart"></i>Keinginan</a></li>
                 <li><a href="<?= base_url('profile') ?>"><i class="fas fa-user"></i>Profil</a></li>
                 <li><a href="<?= base_url('auth/logout') ?>"><i class="fas fa-sign-out-alt"></i>Keluar</a></li>
             <?php else: ?>

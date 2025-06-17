@@ -5,7 +5,7 @@
 <div class="wishlist-page-wrapper">
 
   <header>
-    <h1>Wishlist Saya</h1>
+    <h1>Keinginan Saya</h1>
   </header>
 
   <main class="wishlist-container">
