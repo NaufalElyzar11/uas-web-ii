@@ -5,7 +5,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1 class="h3 text-gray-800 mb-0">Manajemen Wisata</h1>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Berita</h6>
             <a href="<?= base_url('admin/wisata/create') ?>" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Tambah Wisata
             </a>
@@ -32,10 +32,19 @@
                             <td><?= number_format($w['harga'], 0, ',', '.') ?></td>
                             <td><?= $w['kategori'] ?></td>
                             <td>
-                                <a href="<?= base_url('admin/wisata/edit/'.$w['wisata_id']) ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="<?= base_url('admin/wisata/delete/'.$w['wisata_id']) ?>" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                                </form>
+                                <div class="d-flex" style="gap: 0.5rem;">
+                                    <a href="<?= base_url('admin/wisata/edit/' . $w['wisata_id']) ?>"
+                                        class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="<?= base_url('admin/wisata/delete/' . $w['wisata_id']) ?>"
+                                        method="post"
+                                        onsubmit="return confirm('Yakin ingin menghapus?')">
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         <?php endforeach; ?>
