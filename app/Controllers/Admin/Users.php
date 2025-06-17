@@ -58,29 +58,41 @@ class Users extends BaseController
 
     public function update($id)
     {
+        $daerahList = [
+            'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
+            'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
+            'Kotabaru', 'Barito Timur', 'Balangan'
+        ];
+        $roleList = ['user', 'admin'];
         $rules = [
-            'username' => 'required',
+            'nama' => 'required|min_length[3]|max_length[100]',
+            'username' => 'required|min_length[3]|max_length[50]',
             'email' => 'required|valid_email',
-            'role' => 'required'
+            'daerah' => 'required|in_list['.implode(',', $daerahList).']',
+            'role' => 'required|in_list['.implode(',', $roleList).']',
         ];
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $data = [
-            'username' => $this->request->getPost('username'),
-            'email' => $this->request->getPost('email'),
-            'role' => $this->request->getPost('role')
-        ];
+        $nama = strip_tags($this->request->getPost('nama'));
+        $username = strip_tags($this->request->getPost('username'));
+        $email = strip_tags($this->request->getPost('email'));
+        $daerah = strip_tags($this->request->getPost('daerah'));
+        $role = strip_tags($this->request->getPost('role'));
 
-        if ($this->request->getPost('password')) {
-            $data['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
-        }
+        $data = [
+            'nama' => $nama,
+            'username' => $username,
+            'email' => $email,
+            'daerah' => $daerah,
+            'role' => $role
+        ];
 
         $this->userModel->update($id, $data);
 
-        return redirect()->to('admin/users')->with('success', 'User berhasil diperbarui');
+        return redirect()->to('admin/users')->with('success', 'User berhasil diupdate');
     }
 
     public function delete($id)

@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="input_box">
-                            <input type="number" class="input-field" id="umur" name="umur" value="<?= old('umur') ?>" required>
+                            <input type="number" class="input-field" id="umur" name="umur" value="<?= old('umur') ?>" required min="1">
                             <label for="umur" class="label">Umur</label>
                             <i class="bx bx-user icon"></i>
                         </div>
@@ -109,4 +109,18 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var umurInput = document.getElementById('umur');
+    if(umurInput) {
+        umurInput.addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^\d]/g, '');
+        });
+    }
+});
+</script>
+
 <?= $this->endSection() ?>
