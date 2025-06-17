@@ -18,8 +18,7 @@ class WisataModel extends Model
         'deskripsi', 
         'harga', 
         'kategori', 
-        'trending_score', 
-        'gambar_wisata'
+        'trending_score'
     ];
 
     protected $useTimestamps = false;

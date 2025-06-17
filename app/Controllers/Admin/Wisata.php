@@ -31,57 +31,48 @@ class Wisata extends BaseController
         return view('admin/wisata/create', $data);
     }
     public function store()
-{
-    $rules = [
-        'nama' => 'required',
-        'daerah' => 'required',
-        'deskripsi' => 'required',
-        'harga' => 'required|numeric',
-        'kategori' => 'required',
-        'gambar' => 'uploaded[gambar]|max_size[gambar,2048]|mime_in[gambar,image/png,image/jpg,image/jpeg]'
-    ];
+    {
+        $rules = [
+            'nama' => 'required',
+            'daerah' => 'required',
+            'deskripsi' => 'required',
+            'harga' => 'required|numeric',
+            'kategori' => 'required',
+            'gambar' => 'uploaded[gambar]|max_size[gambar,2048]|mime_in[gambar,image/png,image/jpg,image/jpeg]'
+        ];
 
-    if (!$this->validate($rules)) {
-        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-    }
-
-    $id = $this->wisataModel->insert([
-        'nama' => $this->request->getPost('nama'),
-        'daerah' => $this->request->getPost('daerah'),
-        'deskripsi' => $this->request->getPost('deskripsi'),
-        'harga' => $this->request->getPost('harga'),
-        'kategori' => $this->request->getPost('kategori'),
-        'trending_score' => 0,
-        'gambar' => null  
-    ], true); 
-
-    $files = $this->request->getFileMultiple('gambar');
-    $folder = 'uploads/wisata/gallery/' . $id;
-    if (!is_dir(FCPATH . $folder)) {
-        mkdir(FCPATH . $folder, 0777, true);
-    }
-
-    $gambarUtama = null;
-    $i = 1;
-    foreach ($files as $file) {
-        if ($file->isValid() && !$file->hasMoved()) {
-            if ($i > 7) break; 
-
-            $namaBaru = 'gallery-' . $i . '.' . $file->getExtension();
-            $file->move(FCPATH . $folder, $namaBaru);
- 
-            if ($i === 1) {
-                $gambarUtama = $folder . '/' . $namaBaru;
-                $this->wisataModel->update($id, ['gambar' => $gambarUtama]);
-            }
-
-            $i++;
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
+
+        $id = $this->wisataModel->insert([
+            'nama' => $this->request->getPost('nama'),
+            'daerah' => $this->request->getPost('daerah'),
+            'deskripsi' => $this->request->getPost('deskripsi'),
+            'harga' => $this->request->getPost('harga'),
+            'kategori' => $this->request->getPost('kategori'),
+            'trending_score' => 0
+        ], true); 
+
+        $files = $this->request->getFileMultiple('gambar');
+        $folder = 'uploads/wisata/gallery/' . $id;
+        if (!is_dir(FCPATH . $folder)) {
+            mkdir(FCPATH . $folder, 0777, true);
+        }
+
+        $i = 1;
+        foreach ($files as $file) {
+            if ($file->isValid() && !$file->hasMoved()) {
+                if ($i > 7) break; 
+
+                $namaBaru = 'gallery-' . $i . '.' . $file->getExtension();
+                $file->move(FCPATH . $folder, $namaBaru);
+                $i++;
+            }
+        }
+
+        return redirect()->to('admin/wisata')->with('success', 'Wisata berhasil ditambahkan');
     }
-
-    return redirect()->to('admin/wisata')->with('success', 'Wisata berhasil ditambahkan');
-}
-
 
     public function edit($id)
     {
@@ -118,21 +109,24 @@ class Wisata extends BaseController
         ];
 
         $this->wisataModel->update($id, $data);
-
         
-        $file = $this->request->getFile('gambar');
-        if ($file && $file->isValid() && !$file->hasMoved()) {
+        $files = $this->request->getFileMultiple('gambar');
+        if ($files) {
             $folder = 'uploads/wisata/gallery/' . $id;
             if (!is_dir(FCPATH . $folder)) {
                 mkdir(FCPATH . $folder, 0777, true);
             }
 
-            $namaBaru = 'gallery-' . $id . '.' . $file->getExtension();
-            $file->move(FCPATH . $folder, $namaBaru);
+            $i = 1;
+            foreach ($files as $file) {
+                if ($file->isValid() && !$file->hasMoved()) {
+                    if ($i > 7) break;
 
-            $this->wisataModel->update($id, [
-                'gambar' => $folder . '/' . $namaBaru
-            ]);
+                    $namaBaru = 'gallery-' . $i . '.' . $file->getExtension();
+                    $file->move(FCPATH . $folder, $namaBaru);
+                    $i++;
+                }
+            }
         }
 
         return redirect()->to('admin/wisata')->with('success', 'Wisata berhasil diupdate');
@@ -142,5 +136,22 @@ class Wisata extends BaseController
     {
         $this->wisataModel->delete($id);
         return redirect()->to('admin/wisata')->with('success', 'Wisata berhasil dihapus');
+    }
+
+    public function deleteImage($wisataId, $filename)
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Invalid request']);
+        }
+
+        $filePath = FCPATH . 'uploads/wisata/gallery/' . $wisataId . '/' . $filename;
+        
+        if (file_exists($filePath)) {
+            if (unlink($filePath)) {
+                return $this->response->setJSON(['success' => true, 'message' => 'Gambar berhasil dihapus']);
+            }
+        }
+        
+        return $this->response->setJSON(['success' => false, 'message' => 'Gagal menghapus gambar']);
     }
 }

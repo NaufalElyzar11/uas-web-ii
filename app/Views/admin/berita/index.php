@@ -33,23 +33,23 @@
                                     alt="<?= esc($b['judul']) ?>"
                                     style="max-width: 80px; height: auto;"
                                     onerror="this.src='<?= base_url('uploads/berita/default.jpg') ?>'">
-
                             </td>
                             <td><?= esc($b['judul']) ?></td>
                             <td><?= date('d M Y', strtotime($b['tanggal_post'])) ?></td>
                             <td>
-                                <a href="<?= base_url('admin/berita/edit/' . $b['berita_id']) ?>"
-                                    class="btn btn-sm btn-warning">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form action="<?= base_url('admin/berita/delete/' . $b['berita_id']) ?>"
-                                    method="post"
-                                    style="display:inline;"
-                                    onsubmit="return confirm('Yakin ingin menghapus?')">
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
+                                <div class="d-flex" style="gap: 0.5rem;">
+                                    <a href="<?= base_url('admin/berita/edit/' . $b['berita_id']) ?>"
+                                        class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="<?= base_url('admin/berita/delete/' . $b['berita_id']) ?>"
+                                        method="post"
+                                        onsubmit="return confirm('Yakin ingin menghapus?')">
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
