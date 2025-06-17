@@ -23,7 +23,7 @@
     <?php else: ?>
       <div class="wishlist-list">
         <?php foreach ($wishlist as $item): ?>
-          <div class="wishlist-item">
+          <div class="wishlist-item" id="wishlist-item-<?= $item['wisata_id'] ?>">
             <img src="<?= (filter_var($item['gambar_wisata'], FILTER_VALIDATE_URL)) ? $item['gambar_wisata'] : base_url('uploads/wisata/' . ($item['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($item['nama']) ?>" />
             <div class="product-info">
               <h3><?= esc($item['nama']) ?></h3>
@@ -35,8 +35,7 @@
               <p class="stock">Tersedia</p>
             </div>
             <a href="<?= base_url('destinasi/detail/' . $item['wisata_id']) ?>" class="add-to-cart">Lihat</a>
-            <a href="<?= base_url('wishlist/remove/' . $item['wisata_id']) ?>" class="remove">×</a>
-          </div>
+            <a href="<?= base_url('wishlist/remove/' . $item['wisata_id']) ?>" class="remove" data-id="<?= $item['wisata_id'] ?>">×</a>          </div>
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
@@ -45,17 +44,21 @@
   </div> 
   <link rel="stylesheet" href="<?= base_url('css/wishlist.css') ?>">
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Cari semua tombol hapus dengan class .remove
     const removeButtons = document.querySelectorAll('.remove');
     
     removeButtons.forEach(button => {
         button.addEventListener('click', function(event) {
-            event.preventDefault(); 
+            event.preventDefault(); // Mencegah link pindah halaman
             
             const removalUrl = this.href;
-            
+            const wisataId = this.getAttribute('data-id'); // Ambil ID dari data-id
+            const wishlistItemElement = document.getElementById(`wishlist-item-${wisataId}`); // Target elemen div yang akan dihapus
+
+            // Tampilkan dialog konfirmasi
             Swal.fire({
                 title: 'Apakah Anda yakin?',
                 text: "Destinasi ini akan dihapus dari wishlist Anda.",
@@ -66,8 +69,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 confirmButtonText: 'Ya, hapus!',
                 cancelButtonText: 'Batal'
             }).then((result) => {
+                // JIKA PENGGUNA MENEKAN "YA, HAPUS!"
                 if (result.isConfirmed) {
-                    window.location.href = removalUrl;
+                    
+                    // GANTI window.location.href DENGAN FETCH
+                    fetch(removalUrl)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Masalah jaringan atau server.');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Jika server merespons dengan { success: true }
+                            if (data.success) {
+                                // Tampilkan notifikasi sukses
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: data.message || 'Berhasil dihapus!',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                });
+
+                                // Hapus item dari halaman dengan animasi fade-out
+                                wishlistItemElement.style.transition = 'opacity 0.3s ease-out';
+                                wishlistItemElement.style.opacity = '0';
+                                setTimeout(() => {
+                                    wishlistItemElement.remove();
+                                }, 300);
+
+                            } else {
+                                // Jika server merespons dengan { success: false }
+                                Swal.fire('Gagal', data.message || 'Gagal menghapus item.', 'error');
+                            }
+                        })
+                        .catch(error => {
+                            // Jika terjadi error saat fetch (misal: server down)
+                            console.error('Error:', error);
+                            Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
+                        });
                 }
             });
         });
