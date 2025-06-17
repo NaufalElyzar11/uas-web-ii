@@ -229,19 +229,16 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-    if (data.status === 'success') { // <--- INI PERBAIKANNYA
-        // Sembunyikan modal dulu sebelum menampilkan alert
+    if (data.status === 'success') { 
         document.getElementById('reviewModal').style.display = 'none'; 
         
         Swal.fire({
             title: 'Berhasil!',
             text: 'Ulasan berhasil ditambahkan!',
             icon: 'success',
-            timer: 2000, // Alert hilang setelah 2 detik
+            timer: 2000, 
             showConfirmButton: false
         }).then(() => {
-            // Muat ulang halaman agar review baru muncul (jika perlu)
-            // Atau Anda bisa menambahkan review baru ke halaman secara dinamis tanpa reload
             location.reload(); 
         });
 
