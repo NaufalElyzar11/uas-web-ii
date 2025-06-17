@@ -117,16 +117,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return 0;
         });
 
-
         wisataCards.forEach(card => {
             card.style.display = 'none';
         });
 
-
         wisataArray.forEach(card => {
             const cardKategori = card.dataset.kategori;
             const cardDaerah = card.dataset.daerah;
-            
     
             if ((selectedKategori === '' || cardKategori === selectedKategori) && 
                 (selectedDaerah === '' || cardDaerah === selectedDaerah)) {

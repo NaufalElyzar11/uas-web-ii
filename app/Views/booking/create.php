@@ -3,7 +3,6 @@
 <?= $this->section('content') ?>
 <head>
 <link rel="stylesheet" href="<?= base_url('css/create.css') ?>">
-<!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -89,19 +88,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const jumlahInput = document.getElementById('jumlah_orang');
     const totalHargaInput = document.getElementById('total_harga');
     
-    // Calculate total when quantity changes
     jumlahInput.addEventListener('input', function() {
         const jumlah = parseInt(jumlahInput.value) || 1;
         const total = hargaSatuan * jumlah;
         totalHargaInput.textContent = new Intl.NumberFormat('id-ID').format(total);
     });
     
-    // Set min date to today
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('tanggal_kunjungan').setAttribute('min', today);
 
-    // Validate jumlah_orang input
-    jumlahInput.addEventListener('change', function() {
+   jumlahInput.addEventListener('change', function() {
         if (this.value < 1) {
             this.value = 1;
             const total = hargaSatuan * 1;

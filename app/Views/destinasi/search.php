@@ -4,7 +4,6 @@
 <div class="container mt-4">
     <h1 class="mb-4"><?= $title ?></h1>
     
-    <!-- Search Form -->
     <div class="search-container mb-4">
         <form action="<?= base_url('destinasi/search') ?>" method="get" class="search-form">
             <input type="text" name="keyword" placeholder="Cari destinasi wisata..." value="<?= $keyword ?? '' ?>" required>

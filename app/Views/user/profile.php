@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="username">Username</label>
+                                <label for="username">Nama Pengguna</label>
                                 <input type="text" id="username" name="username" class="form-control" value="<?= esc($user['username']) ?>" required>
                             </div>
 
@@ -89,7 +89,6 @@
                                 </select>
                             </div>
 
-
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                             </div>
@@ -99,7 +98,7 @@
                     <div class="tab-pane fade" id="preferences" role="tabpanel" aria-labelledby="preferences-tab">
                         <form action="/profile/updatePreferences" method="POST" class="profile-form">
                             <div class="form-group">
-                                <label>Kategori Wisata Favorit</label>
+                                <label>Kategori Destinasi Wisata Favorit</label>
                                 <div class="checkbox-group">
                                     <label class="checkbox-item">
                                         <input type="checkbox" name="kategori[]" value="Alam" <?= in_array('Alam', $userPreferences) ? 'checked' : '' ?>> Wisata Alam
@@ -138,22 +137,22 @@
                 <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
                     <form action="profile/change-password" method="POST" class="profile-form">
                         <div class="form-group">
-                            <label for="current_password">Password Saat Ini</label>
+                            <label for="current_password">Kata Sandi Saat Ini</label>
                             <input type="password" id="current_password" name="current_password" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="new_password">Password Baru</label>
+                            <label for="new_password">Kata Sandi Baru</label>
                             <input type="password" id="new_password" name="new_password" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="confirm_password">Konfirmasi Password Baru</label>
+                            <label for="confirm_password">Konfirmasi Kata Sandi Baru</label>
                             <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Ubah Password</button>
+                            <button type="submit" class="btn btn-primary">Ubah Kata Sandi</button>
                         </div>
                     </form>
                 </div>

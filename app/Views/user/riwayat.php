@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="<?= base_url('css/riwayat.css') ?>">
 
     <header>
-        <h1>History</h1>
+        <h1>Riwayat Anda</h1>
     </header>
 
 <div class="orders-container">
@@ -22,7 +22,6 @@
     </div>
     <?php endif; ?>
 
-    <!-- Upcoming Bookings -->
     <?php if (!empty($upcomingBookings)): ?>
         <?php foreach ($upcomingBookings as $booking): ?>
         <div class="order-item">
@@ -54,7 +53,7 @@
 
             <div class="order-footer">
                 <div class="total-price-summary">
-                    <span>Total Pesanan:</span>
+                    <span>Total Harga:</span>
                     <span class="total-price">Rp <?= number_format($booking['total_harga'], 0, ',', '.') ?></span>
                 </div>
                 <div class="order-actions-bottom">
@@ -69,7 +68,6 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <!-- Completed Bookings -->
     <?php if (!empty($completedBookings)): ?>
         <?php foreach ($completedBookings as $booking): ?>
         <div class="order-item">
@@ -101,7 +99,7 @@
 
             <div class="order-footer">
                 <div class="total-price-summary">
-                    <span>Total Pesanan:</span>
+                    <span>Total Harga:</span>
                     <span class="total-price">Rp <?= number_format($booking['total_harga'], 0, ',', '.') ?></span>
                 </div>
                 <div class="order-actions-bottom">
@@ -113,7 +111,6 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <!-- Canceled Bookings -->
     <?php if (!empty($canceledBookings)): ?>
         <?php foreach ($canceledBookings as $booking): ?>
         <div class="order-item">
@@ -145,7 +142,7 @@
 
             <div class="order-footer">
                 <div class="total-price-summary">
-                    <span>Total Pesanan:</span>
+                    <span>Total Harga:</span>
                     <span class="total-price">Rp <?= number_format($booking['total_harga'], 0, ',', '.') ?></span>
                 </div>
                 <div class="order-actions-bottom">
@@ -164,13 +161,12 @@
         <h3 class="mt-3">Belum Ada Riwayat Kunjungan</h3>
         <p class="text-muted">Anda belum memiliki riwayat kunjungan.</p>
         <a href="<?= base_url('destinasi') ?>" class="btn-action primary-btn mt-3">
-            Booking Sekarang
+            Beli Sekarang
         </a>
     </div>
     <?php endif; ?>
 </div>
 
-<!-- Review Modal -->
 <div id="reviewModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -188,7 +184,7 @@
             </div>
             <div class="mb-3">
                 <label for="komentar" class="form-label">Komentar Anda</label>
-                <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi ini..."></textarea>
+                <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi wisata ini..."></textarea>
             </div>
             <div class="review-button-container">
                 <button type="submit" class="btn btn-submit-review">Kirim Ulasan</button>
@@ -201,9 +197,8 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     
-    // --- KODE UNTUK MODAL REVIEW (SUDAH ADA) ---
     const modal = document.getElementById('reviewModal');
-    const closeBtn = document.querySelector('#reviewModal .close'); // Selector lebih spesifik
+    const closeBtn = document.querySelector('#reviewModal .close');
 
     window.openReviewModal = function(wisataId) {
         document.getElementById('wisata_id').value = wisataId;
@@ -247,8 +242,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
-    // --- KODE BARU UNTUK HAPUS RIWAYAT ---
     const deleteButtons = document.querySelectorAll('.btn-delete-history');
 
     deleteButtons.forEach(button => {
@@ -259,7 +252,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const url = `<?= base_url('riwayat/delete/') ?>${bookingId}`;
             const historyItemElement = this.closest('.order-item');
 
-            // Tampilkan konfirmasi SweetAlert
             Swal.fire({
                 title: 'Apakah kamu yakin?',
                 text: "Riwayat ini akan dihapus permanen!",
@@ -270,21 +262,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 confirmButtonText: 'Ya, hapus!',
                 cancelButtonText: 'Batal'
             }).then((result) => {
-                // Jika pengguna menekan "Ya, hapus!"
                 if (result.isConfirmed) {
                     
-                    // Kirim permintaan hapus ke server
                     fetch(url, {
-                        method: 'GET', // atau 'POST'/'DELETE' sesuai route Anda
+                        method: 'GET',
                         headers: { 'X-Requested-With': 'XMLHttpRequest' }
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Tampilkan notifikasi sukses
                             Swal.fire('Terhapus!', 'Riwayat berhasil dihapus.', 'success');
                             
-                            // Hapus elemen dari halaman
                             historyItemElement.style.transition = 'opacity 0.3s, transform 0.3s';
                             historyItemElement.style.opacity = '0';
                             historyItemElement.style.transform = 'scale(0.95)';
@@ -293,7 +281,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             }, 300);
 
                         } else {
-                            // Tampilkan notifikasi gagal dari server
                             Swal.fire('Gagal', data.message || 'Gagal menghapus riwayat.', 'error');
                         }
                     })

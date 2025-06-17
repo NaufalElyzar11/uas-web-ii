@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Created By CodingNepal -->
 <html lang="en" dir="ltr">
 
 <head>
@@ -17,15 +16,15 @@
     <div class="sidebar">
         <header>BanuaTour</header>
         <ul>
-            <li><a href="<?= base_url('dashboard') ?>"><i class="fas fa-home"></i>Dashboard</a></li>
+            <li><a href="<?= base_url('dashboard') ?>"><i class="fas fa-home"></i>Beranda</a></li>
             <li><a href="<?= base_url('destinasi') ?>"><i class="fas fa-map-marked-alt"></i>Destinasi</a></li>
             <?php if (session()->get('isLoggedIn')): ?>
-                <li><a href="<?= base_url('riwayat') ?>"><i class="fas fa-history"></i>History</a></li>
-                <li><a href="<?= base_url('wishlist') ?>"><i class="fas fa-heart"></i>Wishlist</a></li>
-                <li><a href="<?= base_url('profile') ?>"><i class="fas fa-user"></i>Profile</a></li>
-                <li><a href="<?= base_url('auth/logout') ?>"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+                <li><a href="<?= base_url('riwayat') ?>"><i class="fas fa-history"></i>Riwayat</a></li>
+                <li><a href="<?= base_url('wishlist') ?>"><i class="fas fa-heart"></i>Daftar Keinginan</a></li>
+                <li><a href="<?= base_url('profile') ?>"><i class="fas fa-user"></i>Profil</a></li>
+                <li><a href="<?= base_url('auth/logout') ?>"><i class="fas fa-sign-out-alt"></i>Keluar</a></li>
             <?php else: ?>
-                <li><a href="<?= base_url('auth/login') ?>"><i class="fas fa-sign-in-alt"></i>Login</a></li>
+                <li><a href="<?= base_url('auth/login') ?>"><i class="fas fa-sign-in-alt"></i>Masuk</a></li>
             <?php endif; ?>
         </ul>
     </div>
@@ -55,7 +54,5 @@
             }
         });
     </script>
-
 </body>
-
 </html>

@@ -6,7 +6,7 @@
 <div class="container mt-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?= base_url('destinasi') ?>">Destinasi Lainnya</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url('destinasi') ?>">Destinasi Wisata Lainnya</a></li>
             <li class="breadcrumb-item active" aria-current="page"><?= esc($wisata['nama']) ?></li>
         </ol>
     </nav>
@@ -87,7 +87,7 @@
                         </a>
                     <?php else: ?>
                         <a href="<?= base_url('auth/login') ?>" class="btn btn-primary">
-                            <i class="fas fa-sign-in-alt"></i> Login untuk Membeli
+                            <i class="fas fa-sign-in-alt"></i> Masuk untuk Membeli
                         </a>
                     <?php endif; ?>
 
@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="wisata-description">
-                    <h3>Tentang Destinasi</h3>
+                    <h3>Tentang Destinasi Wisata</h3>
                     <p><?= nl2br(esc($wisata['deskripsi'] ?? 'Tidak ada deskripsi')) ?></p>
                 </div>
 
@@ -134,7 +134,6 @@
         </div>
     </div>
 
-    <!-- Review Section -->
     <div class="review-section mt-5">
         <div class="container">
             <h2 class="review-section-title mb-4">Ulasan Pengunjung</h2>
@@ -153,7 +152,7 @@
 
             <div class="reviews-list">
                 <?php if (empty($reviews)): ?>
-                    <div class="alert alert-secondary text-center">Belum ada ulasan untuk destinasi ini.</div>
+                    <div class="alert alert-secondary text-center">Belum ada ulasan untuk destinasi wisata ini</div>
                 <?php else: ?>
                     <?php foreach ($reviews as $review): ?>
                         <div class="review-item-card mb-4">
@@ -191,9 +190,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // --- Logika Modal Gambar ---
+    <script>
+    ocument.addEventListener('DOMContentLoaded', function() {
+    
     let currentIndex = 0;
     const images = document.querySelectorAll('.small-Img');
     const modal = document.getElementById('imageModal');
@@ -201,30 +200,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeButton = modal.querySelector('.close');
     const prevButton = modal.querySelector('.prev');
     const nextButton = modal.querySelector('.next');
-
-            function openModal(index) {
-        currentIndex = parseInt(index); // Pastikan index adalah angka
+    
+    function openModal(index) {
+        currentIndex = parseInt(index); 
         if (images.length > 0) {
             modalImage.src = images[currentIndex].src;
             modal.style.display = "block";
         }
     }
-
-            function closeModal() {
+    
+    function closeModal() {
         modal.style.display = "none";
     }
 
             function moveImage(step) {
         currentIndex += step;
         if (currentIndex >= images.length) {
-            currentIndex = 0; // Kembali ke gambar pertama
+            currentIndex = 0;
         } else if (currentIndex < 0) {
-            currentIndex = images.length - 1; // Mundur ke gambar terakhir
+            currentIndex = images.length - 1;
         }
         modalImage.src = images[currentIndex].src;
     }
 
-    // Pasang event listener untuk modal
     images.forEach(img => {
         img.addEventListener('click', function() {
             openModal(this.getAttribute('data-index'));
@@ -235,25 +233,17 @@ document.addEventListener('DOMContentLoaded', function() {
     if(prevButton) prevButton.addEventListener('click', () => moveImage(-1));
     if(nextButton) nextButton.addEventListener('click', () => moveImage(1));
 
-                // --- Logika Wishlist ---
     function toggleWishlist(button) {
-    // Dapatkan elemen span untuk teks
     const wishlistText = button.querySelector('#wishlistText');
     const wisataId = button.getAttribute('data-wisata-id');
-
-    // Cek status berdasarkan ada/tidaknya class 'wishlist-added' PADA TOMBOL, bukan 'text-danger' pada ikon.
     const isWishlisted = button.classList.contains('wishlist-added');
-    
-    // Langsung ubah tampilan tombol (Optimistic UI Update)
-    // Toggle class 'wishlist-added' PADA TOMBOL.
+
     button.classList.toggle('wishlist-added', !isWishlisted); 
     wishlistText.textContent = isWishlisted ? 'Tambah ke Wishlist' : 'Sudah di Wishlist';
-    
-    // Tentukan URL berdasarkan aksi yang akan dilakukan
+
     const action = isWishlisted ? 'remove' : 'add';
     const url = `<?= base_url('wishlist/') ?>${action}/${wisataId}`;
 
-    // Kirim permintaan ke server
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -263,7 +253,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             if (data.success) {
-                // Aksi berhasil, tampilkan notifikasi sukses
                 Swal.fire({
                     toast: true,
                     position: 'top-end',
@@ -273,19 +262,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     timer: 2000
                 });
             } else {
-                // Jika server mengirim `success: false`, lempar error
                 throw new Error(data.message || 'Gagal memperbarui wishlist.');
             }
         })
         .catch(error => {
-            // JIKA TERJADI ERROR
             console.error('Error Wishlist:', error);
             
-            // Kembalikan tampilan tombol ke kondisi SEMULA karena aksi gagal
             button.classList.toggle('wishlist-added', isWishlisted); 
             wishlistText.textContent = isWishlisted ? 'Sudah di Wishlist' : 'Tambah ke Wishlist';
             
-            // Tampilkan notifikasi error kepada pengguna
             Swal.fire({
                 toast: true,
                 position: 'top-end',
@@ -295,18 +280,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 timer: 3000
             });
         });
-}
-
-            // Pasang event listener untuk tombol wishlist
+    }
+    
     const wishlistButton = document.getElementById('wishlistButton');
     if (wishlistButton) {
         wishlistButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Mencegah perilaku default dari tag <a>
+            event.preventDefault();
             toggleWishlist(this);
         });
     }
 
-    // --- Logika Hapus Ulasan (Bagian ini sudah benar) ---
     const deleteReviewButtons = document.querySelectorAll('.btn-delete-review');
     deleteReviewButtons.forEach(button => {
         button.addEventListener('click', function(event) {
@@ -331,5 +314,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
-    <?= $this->endSection() ?>
+<?= $this->endSection() ?>

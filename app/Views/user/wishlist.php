@@ -16,8 +16,8 @@
     <?php if (empty($wishlist)): ?>
       <div class="empty-wishlist">
 
-        <h3>Wishlist Anda Kosong</h3>
-        <p>Sepertinya Anda belum menambahkan destinasi apa pun. Mari jelajahi!</p>
+        <h3>Daftar Keinginan Anda Kosong</h3>
+        <p>Sepertinya Anda belum menambahkan destinasi wisata apa pun. Mari jelajahi!</p>
         <a href="<?= base_url('destinasi') ?>" class="btn btn-primary"><i class="fas fa-search"></i> Jelajahi Destinasi</a>
       </div>
     <?php else: ?>
@@ -47,32 +47,28 @@
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Cari semua tombol hapus dengan class .remove
     const removeButtons = document.querySelectorAll('.remove');
     
     removeButtons.forEach(button => {
         button.addEventListener('click', function(event) {
-            event.preventDefault(); // Mencegah link pindah halaman
+            event.preventDefault(); 
             
             const removalUrl = this.href;
-            const wisataId = this.getAttribute('data-id'); // Ambil ID dari data-id
+            const wisataId = this.getAttribute('data-id'); 
             const wishlistItemElement = document.getElementById(`wishlist-item-${wisataId}`); // Target elemen div yang akan dihapus
 
-            // Tampilkan dialog konfirmasi
             Swal.fire({
                 title: 'Apakah Anda yakin?',
-                text: "Destinasi ini akan dihapus dari wishlist Anda.",
-                icon: 'warning',
+                text: "Destinasi ini akan dihapus dari daftar keinginan Anda.",
+                icon: 'Peringatan',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
                 confirmButtonText: 'Ya, hapus!',
                 cancelButtonText: 'Batal'
             }).then((result) => {
-                // JIKA PENGGUNA MENEKAN "YA, HAPUS!"
                 if (result.isConfirmed) {
                     
-                    // GANTI window.location.href DENGAN FETCH
                     fetch(removalUrl)
                         .then(response => {
                             if (!response.ok) {
@@ -81,9 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             return response.json();
                         })
                         .then(data => {
-                            // Jika server merespons dengan { success: true }
                             if (data.success) {
-                                // Tampilkan notifikasi sukses
                                 Swal.fire({
                                     toast: true,
                                     position: 'top-end',
@@ -92,8 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                     showConfirmButton: false,
                                     timer: 2000
                                 });
-
-                                // Hapus item dari halaman dengan animasi fade-out
                                 wishlistItemElement.style.transition = 'opacity 0.3s ease-out';
                                 wishlistItemElement.style.opacity = '0';
                                 setTimeout(() => {
@@ -101,12 +93,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                 }, 300);
 
                             } else {
-                                // Jika server merespons dengan { success: false }
                                 Swal.fire('Gagal', data.message || 'Gagal menghapus item.', 'error');
                             }
                         })
                         .catch(error => {
-                            // Jika terjadi error saat fetch (misal: server down)
                             console.error('Error:', error);
                             Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
                         });
