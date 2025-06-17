@@ -25,7 +25,18 @@
 
             <div class="form-group">
                 <label>Daerah</label>
-                <input type="text" name="daerah" class="form-control" value="<?= old('daerah', $wisata['daerah']) ?>" required>
+                <select name="daerah" class="form-control" required>
+                    <option value="" disabled>Pilih Daerah</option>
+                    <?php
+                    $daerahList = [
+                        'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
+                        'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
+                        'Kotabaru', 'Barito Timur', 'Balangan'
+                    ];
+                    foreach ($daerahList as $daerah): ?>
+                        <option value="<?= $daerah ?>" <?= old('daerah', $wisata['daerah']) === $daerah ? 'selected' : '' ?>><?= $daerah ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="form-group">
