@@ -10,19 +10,21 @@ class Wishlist extends BaseController
     protected $wishlistModel;
     protected $wisataModel;
     
-        public function __construct()
+    public function __construct()
     {
-        if (!session()->get('isLoggedIn')) {
-            header('Location: ' . base_url('auth/login'));
-            exit();
-        }
-        
+        // Pengecekan login lebih baik dilakukan per method untuk endpoint API/AJAX
+        // agar bisa memberikan respons JSON, bukan redirect.
         $this->wishlistModel = new WishlistModel();
         $this->wisataModel = new WisataModel();
     }
 
     public function index()
     {
+        // Pastikan pengguna login untuk melihat halaman ini
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to(base_url('auth/login'));
+        }
+
         $userId = session()->get('user_id');
         $wishlistItems = $this->wishlistModel->getUserWishlist($userId);
         
@@ -44,29 +46,64 @@ class Wishlist extends BaseController
     
     public function add($wisataId)
     {
+        // Cek login di sini untuk memberikan respons JSON jika gagal
+        if (!session()->get('isLoggedIn')) {
+            return $this->response->setJSON([
+                'success' => false, 
+                'message' => 'Anda harus login terlebih dahulu.'
+            ]);
+        }
+        
         $userId = session()->get('user_id');
+
+        // Cek apakah sudah ada di wishlist
         if ($this->wishlistModel->isInWishlist($userId, $wisataId)) {
-            if ($this->request->isAJAX()) {
-                return $this->response->setJSON(['success' => false, 'message' => 'Sudah di wishlist']);
-            }
-            return redirect()->back()->with('info', 'Destinasi sudah ada di wishlist Anda.');
+            return $this->response->setJSON([
+                'success' => true, // Kirim true agar UI tetap di state "Sudah di Wishlist"
+                'message' => 'Destinasi ini memang sudah ada di wishlist Anda.'
+            ]);
         }
+
+        // Lakukan penambahan
         $result = $this->wishlistModel->addToWishlist($userId, $wisataId);
-        if ($this->request->isAJAX()) {
-            return $this->response->setJSON(['success' => $result]);
+        
+        // Kirim respons berdasarkan hasil operasi
+        if ($result) {
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Berhasil ditambahkan ke wishlist!'
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Gagal menambahkan ke wishlist, silakan coba lagi.'
+            ]);
         }
-        return redirect()->back()->with('success', 'Berhasil menambah ke wishlist.');
     }
 
     public function remove($wisataId)
     {
+        // Cek login di sini
+        if (!session()->get('isLoggedIn')) {
+            return $this->response->setJSON([
+                'success' => false, 
+                'message' => 'Anda harus login terlebih dahulu.'
+            ]);
+        }
+
         $userId = session()->get('user_id');
         $result = $this->wishlistModel->removeFromWishlist($userId, $wisataId);
-        if ($this->request->isAJAX()) {
-            return $this->response->setJSON(['success' => $result]);
+        
+        if ($result) {
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Berhasil dihapus dari wishlist!'
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Gagal menghapus dari wishlist atau item tidak ditemukan.'
+            ]);
         }
-        return redirect()->back()->with('success', 'Berhasil menghapus dari wishlist.');
     }
-
-
 }

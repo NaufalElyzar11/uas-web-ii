@@ -6,8 +6,8 @@
 
 <section class="hero">
   <div class="hero-content">
-    <h1>Jelajahi Wisata Kalimantan Selatan</h1>
-    <p>Temukan destinasi impian, inspirasi liburan, dan pengalaman tak terlupakan di seluruh Kalimantan Selatan.</p>
+    <h1>Jelajahi Destinasi Wisata Kalimantan Selatan</h1>
+    <p>Temukan destinasi impian, inspirasi liburan, dan pengalaman tak terlupakan di Kalimantan Selatan</p>
     
     <div class="search-container mt-4">
       <form action="<?= base_url('destinasi/search') ?>" method="get" class="search-form">
@@ -39,7 +39,8 @@
     <div class="card-container">
       <?php if (empty($wisataTerbaru)): ?>
       <div class="alert alert-info">Belum ada wisata terbaru dalam 1 bulan terakhir</div>
-      <?php else: ?>        <?php foreach ($wisataTerbaru as $wisata): ?>
+      <?php else: ?>        
+        <?php foreach ($wisataTerbaru as $wisata): ?>
         <div class="card" data-wisata="<?= esc($wisata['nama']) ?>" data-price="<?= $wisata['harga'] ?? 0 ?>">
           <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="card-link">
             <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
@@ -62,8 +63,9 @@
     </div>
   </section>
     <section class="trending-section">
-    <h2>Wisata Populer</h2>
-    <div class="trending-grid">      <?php if (empty($wisataPopuler)): ?>
+    <h2>Wisata Terpopuler</h2>
+    <div class="trending-grid">      
+      <?php if (empty($wisataPopuler)): ?>
       <div class="alert alert-info">Belum ada wisata populer saat ini</div>
       <?php else: ?>
         <?php $i = 1; foreach ($wisataPopuler as $wisata): ?>
@@ -84,7 +86,8 @@
   
   <section class="section-wisata">
     <h2>Wisata Terdekat</h2>
-    <div class="card-container">      <?php if (empty($wisataTerdekat)): ?>
+    <div class="card-container">      
+      <?php if (empty($wisataTerdekat)): ?>
       <div class="alert alert-info">Belum ada wisata di daerah <?= esc($user['daerah'] ?? 'Anda') ?></div>
       <?php else: ?>
         <?php foreach ($wisataTerdekat as $wisata): ?>
@@ -109,19 +112,19 @@
       <?php endif; ?>
     </div>  </section>
 
-  
   <section class="cta-section">
     <div class="cta-container">
-      <h2>Temukan Lebih Banyak Destinasi</h2>
+      <h2>Temukan Lebih Banyak  Wisata</h2>
       <p>Jelajahi ratusan destinasi wisata terbaik di Kalimantan Selatan</p>
-      <a href="<?= base_url('destinasi') ?>" class="cta-button">Lihat Semua Destinasi</a>
+      <a href="<?= base_url('destinasi') ?>" class="cta-button">Lihat Semua Destinasi Wisata</a>
     </div>
   </section>
   
   
   <section id="news-section">
     <h2>Berita Terbaru</h2>
-    <div class="news-container">      <?php if (empty($berita)): ?>
+    <div class="news-container">      
+      <?php if (empty($berita)): ?>
       <div class="alert alert-info">Belum ada berita wisata terbaru</div>
       <?php else: ?>
         <?php foreach ($berita as $item): ?>
@@ -151,7 +154,7 @@
 
 <footer>
   <div class="footer-content">
-    <p>&copy; <?= date('Y') ?> Wisata Kalsel. Temukan destinasi impianmu.</p>
+    <p>&copy; <?= date('Y') ?> Wisata Kalsel. Temukan destinasi wisata impianmu.</p>
     <p class="small text-muted">Terakhir diperbarui: <?= $currentDate ?? date('d M Y') ?></p>
   </div>
 </footer>

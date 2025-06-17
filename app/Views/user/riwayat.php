@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="<?= base_url('css/riwayat.css') ?>">
 
     <header>
-        <h1>History</h1>
+        <h1>Riwayat Anda</h1>
     </header>
 
 <div class="orders-container">
@@ -22,10 +22,16 @@
     </div>
     <?php endif; ?>
 
-    <!-- Upcoming Bookings -->
     <?php if (!empty($upcomingBookings)): ?>
         <?php foreach ($upcomingBookings as $booking): ?>
         <div class="order-item">
+            <a href="javascript:void(0);" 
+           class="btn-delete-history" 
+           data-booking-id="<?= $booking['booking_id'] ?>" 
+           title="Hapus riwayat ini">
+            &times;
+        </a>
+
             <div class="order-header">
                 <div class="order-status">
                     <span class="status-tag upcoming">AKAN DATANG</span>
@@ -47,7 +53,7 @@
 
             <div class="order-footer">
                 <div class="total-price-summary">
-                    <span>Total Pesanan:</span>
+                    <span>Total Harga:</span>
                     <span class="total-price">Rp <?= number_format($booking['total_harga'], 0, ',', '.') ?></span>
                 </div>
                 <div class="order-actions-bottom">
@@ -62,10 +68,16 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <!-- Completed Bookings -->
     <?php if (!empty($completedBookings)): ?>
         <?php foreach ($completedBookings as $booking): ?>
         <div class="order-item">
+            <a href="javascript:void(0);" 
+           class="btn-delete-history" 
+           data-booking-id="<?= $booking['booking_id'] ?>" 
+           title="Hapus riwayat ini">
+            &times;
+        </a>
+
             <div class="order-header">
                 <div class="order-status">
                     <span class="status-tag delivered">SELESAI</span>
@@ -87,7 +99,7 @@
 
             <div class="order-footer">
                 <div class="total-price-summary">
-                    <span>Total Pesanan:</span>
+                    <span>Total Harga:</span>
                     <span class="total-price">Rp <?= number_format($booking['total_harga'], 0, ',', '.') ?></span>
                 </div>
                 <div class="order-actions-bottom">
@@ -99,10 +111,16 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <!-- Canceled Bookings -->
     <?php if (!empty($canceledBookings)): ?>
         <?php foreach ($canceledBookings as $booking): ?>
         <div class="order-item">
+            <a href="javascript:void(0);" 
+           class="btn-delete-history" 
+           data-booking-id="<?= $booking['booking_id'] ?>" 
+           title="Hapus riwayat ini">
+            &times;
+        </a>
+
             <div class="order-header">
                 <div class="order-status">
                     <span class="status-tag canceled">DIBATALKAN</span>
@@ -124,7 +142,7 @@
 
             <div class="order-footer">
                 <div class="total-price-summary">
-                    <span>Total Pesanan:</span>
+                    <span>Total Harga:</span>
                     <span class="total-price">Rp <?= number_format($booking['total_harga'], 0, ',', '.') ?></span>
                 </div>
                 <div class="order-actions-bottom">
@@ -143,13 +161,12 @@
         <h3 class="mt-3">Belum Ada Riwayat Kunjungan</h3>
         <p class="text-muted">Anda belum memiliki riwayat kunjungan.</p>
         <a href="<?= base_url('destinasi') ?>" class="btn-action primary-btn mt-3">
-            Booking Sekarang
+            Beli Sekarang
         </a>
     </div>
     <?php endif; ?>
 </div>
 
-<!-- Review Modal -->
 <div id="reviewModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -167,7 +184,7 @@
             </div>
             <div class="mb-3">
                 <label for="komentar" class="form-label">Komentar Anda</label>
-                <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi ini..."></textarea>
+                <textarea class="form-control" id="komentar" name="komentar" rows="4" required placeholder="Ceritakan detail pengalaman Anda di destinasi wisata ini..."></textarea>
             </div>
             <div class="review-button-container">
                 <button type="submit" class="btn btn-submit-review">Kirim Ulasan</button>
@@ -176,50 +193,106 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-const modal = document.getElementById('reviewModal');
-const closeBtn = document.getElementsByClassName('close')[0];
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const modal = document.getElementById('reviewModal');
+    const closeBtn = document.querySelector('#reviewModal .close');
 
-function openReviewModal(wisataId) {
-    document.getElementById('wisata_id').value = wisataId;
-    modal.style.display = "block";
-}
-
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    window.openReviewModal = function(wisataId) {
+        document.getElementById('wisata_id').value = wisataId;
+        modal.style.display = "block";
     }
-}
 
-document.getElementById('reviewForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(this);
-    
-    fetch('<?= base_url('destinasi/addReview') ?>', {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
+    if(closeBtn) {
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Ulasan berhasil ditambahkan!');
-            location.reload();
-        } else {
-            alert(data.message || 'Gagal menambahkan ulasan');
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Terjadi kesalahan saat mengirim ulasan');
+    }
+
+    const reviewForm = document.getElementById('reviewForm');
+    if(reviewForm) {
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch('<?= base_url('destinasi/addReview') ?>', {
+                method: 'POST',
+                body: formData,
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire('Berhasil!', 'Ulasan berhasil ditambahkan!', 'success').then(() => location.reload());
+                } else {
+                    Swal.fire('Gagal', data.message || 'Gagal menambahkan ulasan.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('Error', 'Terjadi kesalahan saat mengirim ulasan.', 'error');
+            });
+        });
+    }
+
+    const deleteButtons = document.querySelectorAll('.btn-delete-history');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const bookingId = this.getAttribute('data-booking-id');
+            const url = `<?= base_url('riwayat/delete/') ?>${bookingId}`;
+            const historyItemElement = this.closest('.order-item');
+
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Riwayat ini akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#555',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    fetch(url, {
+                        method: 'GET',
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire('Terhapus!', 'Riwayat berhasil dihapus.', 'success');
+                            
+                            historyItemElement.style.transition = 'opacity 0.3s, transform 0.3s';
+                            historyItemElement.style.opacity = '0';
+                            historyItemElement.style.transform = 'scale(0.95)';
+                            setTimeout(() => {
+                                historyItemElement.remove();
+                            }, 300);
+
+                        } else {
+                            Swal.fire('Gagal', data.message || 'Gagal menghapus riwayat.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
+                    });
+                }
+            });
+        });
     });
+
 });
 </script>
 

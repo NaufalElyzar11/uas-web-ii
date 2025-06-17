@@ -356,17 +356,10 @@ body {
     opacity: 0.7;
 }
 
-#wishlistButton.added {
-    background-color: #0d6566;
-    color: white;
-}
-
-#wishlistButton.added i {
-    color: #efff42;
-}
-
-#wishlistButton.added span {
-    color: #efff42;
+.btn-primary.wishlist-added i,
+.btn-primary.wishlist-added span#wishlistText {
+    color: #efff42; /* Warna kuning sesuai permintaan */
+    transition: color 0.2s ease-in-out;
 }
 
 .review-section {
@@ -651,3 +644,4 @@ body {
 .form-control {
     width: 100%;
 }
+

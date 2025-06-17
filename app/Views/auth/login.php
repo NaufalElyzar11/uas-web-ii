@@ -14,7 +14,7 @@
   <div class="wrapper">
     <div class="login_box">
       <div class="login-header">
-        <span>Login</span>
+        <span>Masuk</span>
       </div>
 
       <?php if (session()->getFlashdata('error')) : ?>
@@ -34,24 +34,24 @@
 
         <div class="input_box">
           <input type="text" id="email" name="email" class="input-field" required>
-          <label for="email" class="label">Email atau Username</label>
+          <label for="email" class="label">Email atau Nama Pengguna</label>
           <i class="bx bx-user icon"></i>
         </div>
 
         <div class="input_box">
           <input type="password" id="password" name="password" class="input-field" required>
-          <label for="password" class="label">Password</label>
+          <label for="password" class="label">Kata Sandi</label>
           <i class="bx bx-lock-alt icon"></i>
         </div>
 
         <div class="remember-forgot">
           <div class="remember-me">
             <input type="checkbox" id="remember">
-            <label for="remember">Remember me</label>
+            <label for="remember">Ingat saya</label>
           </div>
 
           <div class="forgot">
-            <a href="#">Forgot password?</a>
+            <a href="#">Lupa kata sandi?</a>
           </div>
         </div>
 
@@ -61,11 +61,9 @@
       </form>
 
       <div class="register">
-        <span>Don't have an account? <a href="<?= base_url('auth/register') ?>">Register here</a></span>
+        <span>Anda Tidak Punya Akun? <a href="<?= base_url('auth/register') ?>">Daftar di sini</a></span>
       </div>
     </div>
   </div>
-
 </body>
-
 <?= $this->endSection() ?>

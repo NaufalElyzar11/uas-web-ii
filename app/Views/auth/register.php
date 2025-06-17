@@ -13,7 +13,7 @@
 <div class="wrapper">
     <div class="register_box">
         <div class="login-header">
-            <span>Register</span>
+            <span>Registrasi</span>
         </div>
         <div class="card-body">
             <?php if (session()->has('errors')) : ?>
@@ -40,7 +40,7 @@
 
                         <div class="input_box">
                             <input type="text" class="input-field" id="username" name="username" value="<?= old('username') ?>" required>
-                            <label for="username" class="label">Username</label>
+                            <label for="username" class="label">Nama Pengguna</label>
                             <i class="bx bx-user icon"></i>
                         </div>
 
@@ -52,16 +52,15 @@
 
                         <div class="input_box">
                             <input type="password" class="input-field" id="password" name="password" required>
-                            <label for="password" class="label">Password</label>
+                            <label for="password" class="label">Kata Sandi</label>
                             <i class="bx bx-lock-alt icon"></i>
                         </div>
                     </div>    
                 
-                    <!-- Kolom Kanan -->
                     <div class="form-column">
                         <div class="input_box">
                             <input type="password" class="input-field" id="confirm_password" name="confirm_password" required>
-                            <label for="confirm_password" class="label">Konfirmasi Password</label>
+                            <label for="confirm_password" class="label">Konfirmasi Kata Sandi</label>
                             <i class="bx bx-lock-alt icon"></i>
                         </div>
 
@@ -89,12 +88,12 @@
                 </div>
 
                     <div class="input_box">
-                        <button type="submit" class="input-submit">Register</button>
+                        <button type="submit" class="input-submit">Daftar</button>
                     </div>
                 </form>
 
                 <div class="text-center mt-3">
-                    <p>Sudah punya akun? <a href="<?= base_url('auth/login') ?>">Login disini</a></p>
+                    <p>Sudah punya akun? <a href="<?= base_url('auth/login') ?>">Masuk di sini</a></p>
                 </div>
             </div>
         </div>

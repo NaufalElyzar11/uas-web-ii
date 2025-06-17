@@ -8,9 +8,9 @@ header {
   background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
   box-shadow: 0 2px 4px #224d32;
   margin-bottom: 20px;
-  position: -webkit-sticky; 
-    position: sticky;       
-    top: 0;                
+  position: sticky;       
+  top: 0;
+  z-index: 1;                 
 }
 
 header h1 {
@@ -29,6 +29,7 @@ header h1 {
 }
 
 .order-item {
+    position: relative;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -46,11 +47,29 @@ header h1 {
     color: #666;
 }
 
+.btn-delete-history {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    text-decoration: none;
+    line-height: 1;
+    z-index: 10; /* Pastikan tombol di atas elemen lain */
+    padding: 2px 5px; /* Area klik yang lebih besar */
+    transition: color 0.2s ease;
+}
+
+.btn-delete-history:hover {
+    color: #d33; /* Merah saat disentuh mouse */
+}
+
 .order-status {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-left: auto;
+    margin-right: auto;
 }
 
 .status-tag {
