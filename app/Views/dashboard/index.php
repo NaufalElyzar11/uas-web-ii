@@ -144,7 +144,7 @@
   <section class="cta-section">
     <div class="cta-container">
       <h2>Temukan Lebih Banyak Destinasi</h2>
-      <p>Jelajahi ratusan destinasi wisata terbaik di seluruh Indonesia</p>
+      <p>Jelajahi ratusan destinasi wisata terbaik di seluruh Kalsel</p>
       <a href="<?= base_url('destinasi') ?>" class="cta-button">Lihat Semua Destinasi</a>
     </div>
   </section>
