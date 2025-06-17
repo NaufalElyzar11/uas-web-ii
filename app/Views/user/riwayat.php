@@ -229,12 +229,26 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    Swal.fire('Berhasil!', 'Ulasan berhasil ditambahkan!', 'success').then(() => location.reload());
-                } else {
-                    Swal.fire('Gagal', data.message || 'Gagal menambahkan ulasan.', 'error');
-                }
-            })
+    if (data.status === 'success') { // <--- INI PERBAIKANNYA
+        // Sembunyikan modal dulu sebelum menampilkan alert
+        document.getElementById('reviewModal').style.display = 'none'; 
+        
+        Swal.fire({
+            title: 'Berhasil!',
+            text: 'Ulasan berhasil ditambahkan!',
+            icon: 'success',
+            timer: 2000, // Alert hilang setelah 2 detik
+            showConfirmButton: false
+        }).then(() => {
+            // Muat ulang halaman agar review baru muncul (jika perlu)
+            // Atau Anda bisa menambahkan review baru ke halaman secara dinamis tanpa reload
+            location.reload(); 
+        });
+
+    } else {
+        Swal.fire('Gagal', data.message || 'Gagal menambahkan ulasan.', 'error');
+    }
+})
             .catch(error => {
                 console.error('Error:', error);
                 Swal.fire('Error', 'Terjadi kesalahan saat mengirim ulasan.', 'error');
