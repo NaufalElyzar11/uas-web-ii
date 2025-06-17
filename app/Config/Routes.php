@@ -18,38 +18,31 @@ $routes->group('auth', function($routes) {
     $routes->get('logout', 'Auth::logout');
 });
 
-// Dashboard routes
 $routes->get('/dashboard', 'Dashboard::index');
 
-// Destinasi routes
 $routes->get('destinasi', 'Destinasi::index');
 $routes->get('destinasi/search', 'Destinasi::search');
 $routes->get('destinasi/detail/(:num)', 'Destinasi::detail/$1');
 
-// Wishlist routes
 $routes->get('wishlist', 'Wishlist::index');
 $routes->get('wishlist/add/(:num)', 'Wishlist::add/$1');
 $routes->get('wishlist/remove/(:num)', 'Wishlist::remove/$1');
 
-// Booking routes
 $routes->get('booking', 'Booking::index');
 $routes->get('booking/pembelian/(:num)', 'Booking::create/$1');
 $routes->post('booking/store', 'Booking::store');
 
-// Booking history routes
 $routes->get('riwayat', 'Riwayat::index');
 $routes->get('riwayat/cancel/(:num)', 'Riwayat::cancel/$1');
 
-// Profile routes
 $routes->get('profile', 'Profile::index');
 $routes->post('profile/update', 'Profile::update');
 $routes->post('profile/change-password', 'Profile::changePassword');
 $routes->post('profile/updatePreferences', 'Profile::updatePreferences');
 
-// Review routes
 $routes->post('destinasi/addReview', 'Destinasi::addReview');
 
-// Admin Routes
+// Bagian Admin
 $routes->group('admin', ['filter' => 'admin'], function($routes) {
     $routes->get('/', 'Admin\Dashboard::index');
     $routes->get('dashboard', 'Admin\Dashboard::index');
