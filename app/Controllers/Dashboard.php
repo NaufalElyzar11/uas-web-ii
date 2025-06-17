@@ -40,7 +40,7 @@ class Dashboard extends BaseController
             }
             
             try {
-                $wisataPopuler = $this->wisataModel->getWisataPopuler(5);
+                $wisataPopuler = $this->wisataModel->getTrendingWisata(5);
             } catch (\Exception $e) {
                 log_message('error', 'Error fetching wisataPopuler: ' . $e->getMessage());
                 $wisataPopuler = [];
@@ -53,7 +53,7 @@ class Dashboard extends BaseController
                 $wisataTerdekat = [];
             }
               try {
-                $berita = $this->beritaModel->getBeritaTerbaru(6);
+                $berita = $this->beritaModel->getLatest(3);
             } catch (\Exception $e) {
                 log_message('error', 'Error fetching berita: ' . $e->getMessage());
                 $berita = [];

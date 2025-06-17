@@ -32,9 +32,9 @@ class WisataModel extends Model
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;    
 
-    public function getTrendingWisata($limit = 4)
+    public function getTrendingWisata($limit = 5)
     {
-        return $this->select('wisata.*, SUM(bookings.jumlah_orang) as total_kunjungan')
+        return $this->select('wisata.*, COALESCE(SUM(bookings.jumlah_orang),0) as total_kunjungan')
             ->join('bookings', 'bookings.wisata_id = wisata.wisata_id', 'left')
             ->groupBy('wisata.wisata_id')
             ->orderBy('total_kunjungan', 'DESC')

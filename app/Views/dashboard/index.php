@@ -26,7 +26,6 @@
     </div>
   <?php endif; ?>
 
-  
   <div class="user-region">
     <div class="region-container">
       <i class="fas fa-map-marker-alt"></i>
@@ -42,7 +41,18 @@
       <?php else: ?>        <?php foreach ($wisataTerbaru as $wisata): ?>
         <div class="card" data-wisata="<?= esc($wisata['nama']) ?>" data-price="<?= $wisata['harga'] ?? 0 ?>">
           <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="card-link">
-            <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
+            <?php
+              $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
+              $imageUrl = base_url('uploads/wisata/default.jpg');
+              if (is_dir($galleryPath)) {
+                  $files = array_diff(scandir($galleryPath), ['.', '..']);
+                  if (!empty($files)) {
+                      $firstImage = reset($files);
+                      $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
+                  }
+              }
+            ?>
+            <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="card-content">
               <div class="card-labels">
                 <span class="badge"><?= esc($wisata['kategori'] ?? 'Umum') ?></span>
@@ -62,10 +72,10 @@
     </div>
   </section>
     <section class="trending-section">
-    <h2>Wisata Populer</h2>
+    <h2>Wisata Trending</h2>
     <div class="trending-grid">
       <?php if (empty($wisataPopuler)): ?>
-        <div class="alert alert-info">Belum ada wisata populer saat ini</div>
+        <div class="alert alert-info">Belum ada wisata yang sedang trending saat ini</div>
       <?php else: ?>
         <?php $i = 1; foreach ($wisataPopuler as $wisata): ?>
         <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="destination-link">
@@ -102,7 +112,18 @@
         <?php foreach ($wisataTerdekat as $wisata): ?>
         <div class="card" data-wisata="<?= esc($wisata['nama']) ?>" data-price="<?= $wisata['harga'] ?? 0 ?>">
           <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="card-link">
-            <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
+            <?php
+              $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
+              $imageUrl = base_url('uploads/wisata/default.jpg');
+              if (is_dir($galleryPath)) {
+                  $files = array_diff(scandir($galleryPath), ['.', '..']);
+                  if (!empty($files)) {
+                      $firstImage = reset($files);
+                      $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
+                  }
+              }
+            ?>
+            <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="card-content">
               <div class="card-labels">
                 <span class="badge"><?= esc($wisata['kategori'] ?? 'Umum') ?></span>
@@ -139,7 +160,7 @@
         <?php foreach ($berita as $item): ?>
         <div class="news-item">
           <div class="news-content">
-            <img src="<?= (filter_var($item['gambar'], FILTER_VALIDATE_URL)) ? $item['gambar'] : base_url('uploads/wisata/' . ($item['gambar'] ?? 'default.jpg')) ?>" alt="<?= esc($item['judul']) ?>">
+            <img src="<?= (filter_var($item['gambar'], FILTER_VALIDATE_URL)) ? $item['gambar'] : base_url('uploads/berita/' . ($item['gambar'] ?? 'default.jpg')) ?>" alt="<?= esc($item['judul']) ?>">
             <div class="text-content">
               <h3><?= esc($item['judul']) ?></h3>
               <p><?= esc(substr($item['konten'] ?? '', 0, 120)) ?>...</p>
