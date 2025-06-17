@@ -1,247 +1,352 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     background: linear-gradient(135deg, #ddf6e1 0%, #f5f7fa 100%);
+    font-family: 'Helvetica', 'Arial', sans-serif; /* Fallback font */
+}
+
+.container {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .breadcrumb {
     background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
-    padding: 20px 20px;
+    padding: 15px;
     margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
+    border-radius: 0 0 8px 8px;
 }
-
 .breadcrumb-item a {
     color: #0d6566;
     text-decoration: underline;
-    font-size: 16px;
+    font-size: 14px;
 }
-
 .breadcrumb-item a:hover {
-    color: #efff42; /* Warna berubah menjadi putih agar kontras dengan background */
-    text-decoration: underline; /* Menambahkan garis bawah */
+    color: #efff42;
 }
-
 .breadcrumb-item + .breadcrumb-item::before {
     content: "|";
     padding: 0 8px;
-    color: #484849; 
+    color: #484849;
 }
 
-.wisata-images {
-    position: relative;
+.wisata-detail {
+    display: flex;
+    flex-direction: column; 
+    gap: 30px;
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
-.main-image {
+.media-box, .main-image {
     width: 100%;
-    height: 400px;
+    height: 250px; 
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: none;
+    display: block;
 }
-
 .small-Card {
     display: flex;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 15px;
+    flex-wrap: wrap; 
 }
-
 .small-Img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
     border-radius: 5px;
     cursor: pointer;
+    transition: 0.3s;
+}
+.small-Img:hover {
+    opacity: 0.7;
+}
+.left-column iframe {
+    width: 100%;
+    height: 250px;
+    margin-top: 20px;
 }
 
-.wisata-header {
-    margin-bottom: 20px;
+.wisata-header h1 {
+    font-size: 1.8rem; 
+    color: #000000;
 }
-
 .badges {
     margin-bottom: 10px;
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
-
 .badge {
     background-color: #0d6566;
     color: white;
     padding: 5px 12px;
     border-radius: 5px;
-    font-size: 0.9rem;
-    display: inline-block;
+    font-size: 0.8rem;
 }
-
 .badge.daerah {
     background-color: #362605;
-    color: #fff;
 }
-
-.wisata-header h1 {
-    font-size: 2rem;
-    margin: 0;
-    color: #000000;
-}
-
 .price-box {
     background-color: #bddabd;
     border-radius: 10px;
     padding: 15px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     display: flex;
     align-items: baseline;
     gap: 8px;
 }
-
 .price-box h2 {
-    margin: 0;
+    font-size: 1.6rem; 
     color: #224d32;
-    font-size: 1.8rem;
 }
-
 .wisata-actions {
     display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
+    flex-direction: column; 
+    gap: 10px;
+    margin-bottom: 20px;
 }
-
-.btn {
+.btn-primary {
+    background-color: #0d6566;
+    color: white;
+    border: none;
     padding: 12px 20px;
     border-radius: 5px;
     font-weight: 600;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
+    justify-content: center; 
     gap: 8px;
     cursor: pointer;
     transition: all 0.2s;
 }
-
-.btn-primary {
-    background-color: #0d6566;
-    color: white;
-    border: none;
-}
-
 .btn-primary:hover {
     background-color: #0a4647;
 }
-
-.btn-outline {
-    background-color: transparent;
-    color: #0d6566;
-    border: 1px solid #0a4647;
+.btn-primary.wishlist-added i,
+.btn-primary.wishlist-added span#wishlistText {
+    color: #efff42;
+    transition: color 0.2s ease-in-out;
 }
-
-.btn-outline:hover {
-    background-color: #c8dfcc;
-}
-
-.wisata-description {
-    margin-bottom: 30px;
-}
-
 .wisata-description h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 10px;
-    color: #000000;
 }
-
 .wisata-description p {
     color: #555;
     line-height: 1.6;
+    font-size: 0.95rem;
 }
-.wisata-detail {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 40px;
-  align-items: start;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
 .wisata-details {
     background-color: #bddabd;
     border-radius: 10px;
     padding: 20px;
+    margin-top: 20px;
 }
-
-.left-column {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/*bagian maps*/
-
-.right-column {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-@media (max-width: 768px) {
-  .wisata-detail {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-
 .detail-item {
     display: flex;
     align-items: center;
     gap: 15px;
     margin-bottom: 15px;
 }
-
 .detail-item i {
     font-size: 1.2rem;
     color: #224d32;
     width: 20px;
     text-align: center;
 }
+.detail-item strong { font-size: 0.9rem; color: #555555; }
+.detail-item span { font-size: 1rem; color: #2d3a4a; }
 
-.detail-item div {
+.review-section {
+    background-color: #ffffff;
+    padding: 30px 15px;
+    border-radius: 15px;
+    margin-top: 40px;
+}
+.review-section-title {
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 15px;
+    font-size: 1.5rem;
+}
+.review-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
+    border-radius: 2px;
+}
+
+.rating-summary-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f8ec 100%);
+    padding: 30px 20px;
+    border-radius: 12px;
     display: flex;
-    flex-direction: column;
-}
-
-.detail-item strong {
-    font-size: 0.9rem;
-    color: #555555;
-}
-
-.detail-item span {
-    font-size: 1.1rem;
-    color: #2d3a4a;
-}
-
-.container {
-    padding-left: 16px;
-    padding-right: 16px;
+    justify-content: center;
+    align-items: center;
+    max-width: 900px; 
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
+    margin-bottom: 40px;
 }
 
-@media (min-width: 576px) {
-    .container {
-        max-width: 540px;
-    }
+.average-rating-display {
+    text-align: center;
 }
+.average-rating-display .rating-score {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #0d6566;
+}
+.average-rating-display .rating-stars {
+    font-size: 1.2rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.fas.fa-star.filled { color: #ffc107; }
+.fas.fa-star { color: #d4d4d4; }
+.total-reviews { font-size: 0.9rem; color: #666; }
+
+.reviews-list { margin-top: 30px; }
+
+.review-item-card {
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto; 
+    margin-bottom: 20px; 
+}
+
+.review-item-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    position: relative;
+}
+.review-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.user-name { font-size: 1rem; }
+.review-item-content {
+    padding-left: 20px;
+    margin-left: 18px;
+    border-left: 2px solid #f0f0f0;
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+}
+.review-item-content p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+.btn-delete-review {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    font-size: 1.5rem;
+    color: #aaa;
+}
+
+.modal { display: none; position: fixed; z-index: 1050; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); }
+.modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block; max-width: 90%; max-height: 85%; }
+.close { position: absolute; top: 15px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; }
+.prev, .next { position: absolute; top: 50%; transform: translateY(-50%); font-size: 24px; color: #fff; padding: 16px; cursor: pointer; user-select: none; }
+.prev { left: 5px; }
+.next { right: 5px; }
 
 @media (min-width: 768px) {
     .container {
         max-width: 720px;
+    }
+
+    .media-box, .main-image {
+        height: 400px;
+    }
+
+    .small-Img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .wisata-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .price-box h2 {
+        font-size: 1.8rem;
+    }
+
+    .wisata-actions {
+        flex-direction: row; 
+    }
+
+    .review-section-title {
+        font-size: 1.8rem;
+    }
+
+    .review-item-content {
+        padding-left: 20px;
+        margin-left: 18px; 
+        border-left: 2px solid #f0f0f0;
+        border-top: none;
+        padding-top: 0;
+        margin-top: 0;
     }
 }
 
 @media (min-width: 992px) {
     .container {
         max-width: 960px;
+    }
+    
+    .wisata-detail {
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        gap: 40px;
+        align-items: start;
+    }
+
+    .left-column iframe {
+        height: 300px;
+    }
+    
+    .breadcrumb {
+        justify-content: flex-end; 
     }
 }
 
@@ -250,398 +355,3 @@ body {
         max-width: 1140px;
     }
 }
-
-@media (min-width: 1400px) {
-    .container {
-        max-width: 1320px;
-    }
-}
-
-
-@media (max-width: 768px) {
-    .wisata-detail {
-        grid-template-columns: 1fr;
-    }
-
-    .main-image {
-        height: 300px;
-    }
-
-    .small-Card {
-        flex-wrap: wrap;
-    }
-
-    .small-Img {
-        width: 70px;
-        height: 70px;
-    }
-}
-
-.media-box {
-    width: 100%;
-    height: 400px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    border: none; 
-    display: block; 
-}
-
-@media (max-width: 768px) {
-    .media-box {
-        height: 250px; 
-    }
-}
-
-.modal {
-    display: none; 
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.9);
-}
-
-.modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: auto;
-    display: block;
-    max-width: 90%;
-    max-height: 80%;
-    border-radius: 10px;
-    margin: auto;
-    display: block;
-}
-
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.prev, .next {
-    position: absolute;
-    top: 50%;
-    font-size: 24px;
-    color: #fff;
-    padding: 16px;
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-.prev {
-    left: 0;
-}
-
-.next {
-    right: 0;
-}
-
-.small-Img {
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.small-Img:hover {
-    opacity: 0.7;
-}
-
-.btn-primary.wishlist-added i,
-.btn-primary.wishlist-added span#wishlistText {
-    color: #efff42; /* Warna kuning sesuai permintaan */
-    transition: color 0.2s ease-in-out;
-}
-
-.review-section {
-    background-color: #ffffff;
-    padding: 50px 0;
-    border-radius: 15px;
-    margin-top: 40px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
-}
-
-.review-section .container {
-    max-width: 1200px; /* Sesuaikan dengan max-width container Anda */
-    width: 100%;
-    padding-right: 15px; /* Standar padding container */
-    padding-left: 15px;  /* Standar padding container */
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.review-section-title {
-    font-family: 'Poppins', sans-serif; 
-    color: #333;
-    text-align: center;
-    font-weight: 600;
-    position: relative;
-    padding-bottom: 15px;
-}
-
-.review-section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
-    border-radius: 2px;
-}
-
-/* --- Kartu Ringkasan Rating --- */
-.rating-summary-card {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e8f8ec 100%);
-    border: 1px solid #e0e0e0;
-    padding: 30px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.average-rating-display {
-    text-align: center;
-}
-
-.average-rating-display .rating-score {
-    font-size: 4rem;
-    font-weight: 700;
-    color: #0d6566;
-    line-height: 1;
-}
-
-.average-rating-display .rating-stars {
-    margin: 10px 0;
-    font-size: 1.5rem;
-}
-
-.average-rating-display .rating-stars .fas.fa-star.filled {
-    color: #ffc107;
-}
-
-.average-rating-display .rating-stars .fas.fa-star {
-    color: #d4d4d4;
-}
-
-.average-rating-display .total-reviews {
-    color: #666;
-    font-size: 1rem;
-}
-
-/* --- Kartu Form Ulasan --- */
-.review-form-card {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid #e9ecef;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-}
-
-.review-form-card h5 {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.rating-input {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    gap: 5px;
-}
-
-.rating-input input {
-    display: none;
-}
-
-.rating-input label {
-    cursor: pointer;
-    font-size: 2rem;
-    color: #e0e0e0;
-    transition: color 0.2s ease-in-out;
-}
-
-.rating-input label .fas {
-    pointer-events: none; /* Mencegah ikon mencuri event klik dari label */
-}
-
-
-.rating-input input:checked ~ label,
-.rating-input label:hover,
-.rating-input label:hover ~ label {
-    color: #ffc107;
-}
-
-.form-control {
-    border-color: #ced4da;
-    min-height: 120px;
-    padding: 15px;
-    box-sizing: border-box; 
-}
-
-.form-control:focus {
-    border-color: #0d6566;
-    box-shadow: 0 0 0 0.25rem rgba(13, 101, 102, 0.25);
-}
-
-.btn-submit-review {
-    background-color: #0d6566;
-    color: white;
-    padding: 12px 30px;
-    border-radius: 8px;
-    font-weight: 600;
-    border: none;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.review-form-card .form-label {
-    display: block; /* Membuat label mengambil satu baris penuh */
-    margin-bottom: 8px; /* Memberi sedikit jarak ke textarea di bawahnya */
-}
-
-.btn-submit-review:hover {
-    background-color: #0a4d4e;
-    transform: translateY(-2px);
-}
-
-/* --- Kartu Daftar Ulasan --- */
-
-.reviews-list {
-    /* Atur jarak dari komponen di atasnya (form ulasan) */
-    margin-top: 50px; 
-}
-
-.review-item-card {
-    background-color: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-    border: 1px solid #f0f0f0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.review-item-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-}
-
-.review-item-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-    position: relative;
-}
-
-.review-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(120deg, #307c4e 0%, #76d53b 100%);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    flex-shrink: 0;
-}
-
-.review-user-info {
-    flex-grow: 1;
-}
-
-.user-name {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #333;
-}
-
-.review-date {
-    font-size: 0.85rem;
-    color: #888;
-}
-
-.review-item-stars {
-    font-size: 0.9rem;
-    color: #d4d4d4;
-}
-
-.review-item-stars .fas.fa-star.filled {
-    color: #ffc107;
-}
-
-.review-item-content {
-    padding-left: 65px; /* Sejajar dengan info user */
-    border-left: 3px solid #f0f0f0;
-    margin-left: 23px; /* Untuk membuat jarak dengan avatar */
-    padding-left: 20px; /* Jarak antara garis dan teks */
-}
-
-.review-item-content p {
-    margin: 0;
-    color: #555;
-    line-height: 1.7;
-    font-size: 0.95rem;
-}
-
-.btn-delete-review {
-    position: absolute;
-    top: -20px;
-    right: -10px;
-    font-size: 1.8rem;
-    font-weight: 600;
-    line-height: 1;
-    color: #aaa;
-    text-decoration: none;
-    background-color: transparent;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.btn-delete-review:hover {
-    color: #dc3545; 
-}
-
-/* --- Custom Alert --- */
-.alert-info-custom {
-    background-color: #eef7f7;
-    border-left: 5px solid #0d6566;
-    padding: 15px 20px;
-    border-radius: 8px;
-    color: #073435;
-    margin: 20px 0;
-}
-
-.alert-info-custom .alert-link {
-    color: #0d6566;
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-/* Kontainer yang membungkus tombol */
-.review-button-container {
-  display: flex; /* Mengaktifkan Flexbox */
-  justify-content: flex-end; /* Mendorong semua item di dalamnya ke kanan */
-  margin-top: 15px; /* Memberi jarak dari kolom komentar di atasnya */
-}
-
-/* Pastikan textarea tetap 100% lebar (biasanya sudah default) */
-.form-control {
-    width: 100%;
-}
-
