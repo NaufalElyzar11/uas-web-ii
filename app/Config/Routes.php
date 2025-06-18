@@ -37,6 +37,8 @@ $routes->post('booking/store', 'Booking::store');
 $routes->get('riwayat', 'Riwayat::index');
 $routes->get('riwayat/delete/(:num)', 'Riwayat::delete/$1');
 $routes->get('riwayat/cancel/(:num)', 'Riwayat::cancel/$1');
+$routes->get('riwayat/tiket/(:num)', 'Riwayat::showTicket/$1', ['filter' => 'auth']);
+
 
 $routes->get('profile', 'Profile::index');
 $routes->post('profile/update', 'Profile::update');

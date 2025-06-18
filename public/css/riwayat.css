@@ -219,6 +219,24 @@ header h1 {
     color: #ffffff;
 }
 
+.modal-content.ticket-style {
+    max-width: 400px;
+    padding: 0;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.ticket-header { background-color: #007bff; color: white; padding: 20px; text-align: center; }
+.ticket-header h3 { margin: 0; }
+.ticket-header p { margin: 5px 0 0; opacity: 0.9; }
+.ticket-body { padding: 25px; }
+.qrcode-container { display: flex; justify-content: center; margin-bottom: 20px; }
+#qrcode canvas, #qrcode img { border: 5px solid #eee; border-radius: 8px; }
+.ticket-instructions { text-align: center; color: #666; font-size: 14px; margin-bottom: 25px; }
+.ticket-details .detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+.ticket-details .detail-item:last-child { border-bottom: none; }
+.ticket-details span { color: #555; }
+.close-ticket { position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; color: white; cursor: pointer; z-index: 10;}
+
 @media (max-width: 600px) {
     .order-header {
         flex-direction: column;

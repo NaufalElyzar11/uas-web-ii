@@ -99,4 +99,59 @@ class Riwayat extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Gagal menghapus riwayat dari database.'])->setStatusCode(500);
         }
     }
+
+    /**
+     * Mengambil data tiket untuk ditampilkan di modal via AJAX
+     * dan membuat kode tiket jika belum ada.
+     */
+    public function showTicket($booking_id)
+    {
+        // Pastikan ini adalah request AJAX untuk keamanan
+        if (!$this->request->isAJAX()) {
+            return $this->response->setStatusCode(403, 'Forbidden');
+        }
+
+        $bookingModel = new BookingModel(); // Ganti dengan nama model Anda
+        $userId = session()->get('user_id'); // Ambil ID user dari session
+
+        // 1. Ambil data booking DAN pastikan booking ini milik user yang sedang login
+        $booking = $bookingModel->where('booking_id', $booking_id)
+                                ->where('user_id', $userId)
+                                ->first();
+
+        $booking = $bookingModel
+    ->select('bookings.*, wisata.nama as nama_wisata') // Ambil semua dari tabel bookings, dan kolom 'nama' dari tabel wisata (diberi alias 'nama_wisata')
+    ->join('wisata', 'wisata.wisata_id = bookings.wisata_id') // Sesuaikan nama tabel dan kolom penghubung
+    ->where('bookings.booking_id', $booking_id)
+    ->where('bookings.user_id', $userId)
+    ->first();
+
+        if (!$booking) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Booking tidak ditemukan atau Anda tidak memiliki akses.'])->setStatusCode(404);
+        }
+
+        // 2. Cek apakah kode tiket sudah ada
+        if (empty($booking['kode_tiket'])) {
+            // Jika belum ada, buat kode unik baru
+            $prefix = "TIKET";
+            $uniqueCode = $prefix . "-" . strtoupper(substr(md5($booking['booking_id']), 0, 6)) . "-" . time();
+            
+            // Simpan kode unik ini ke database agar permanen
+            $bookingModel->update($booking_id, ['kode_tiket' => $uniqueCode]);
+
+            // Set kode tiket yang baru dibuat ke variabel booking
+            $booking['kode_tiket'] = $uniqueCode;
+        }
+ 
+        // 3. Siapkan data yang akan dikirim sebagai JSON ke frontend
+        // Kita tidak mengirim semua data, hanya yang perlu saja.
+        $ticketData = [
+            'nama_wisata'   => $booking['nama_wisata'], // Asumsi nama wisata ada di kolom 'nama'
+            'jumlah_orang'  => $booking['jumlah_orang'],
+            'total_harga'   => "Rp " . number_format($booking['total_harga'], 0, ',', '.'),
+            'kode_tiket'    => $booking['kode_tiket']
+        ];
+
+        return $this->response->setJSON(['status' => 'success', 'data' => $ticketData]);
+    }
 }

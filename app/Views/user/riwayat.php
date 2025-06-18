@@ -76,7 +76,7 @@
            data-booking-id="<?= $booking['booking_id'] ?>" 
            title="Hapus riwayat ini">
             &times;
-        </a>
+           </a>
 
             <div class="order-header">
                 <div class="order-status">
@@ -103,6 +103,11 @@
                     <span class="total-price">Rp <?= number_format($booking['total_harga'], 0, ',', '.') ?></span>
                 </div>
                 <div class="order-actions-bottom">
+                <a href="javascript:void(0);" 
+                    onclick="openTicketModal('<?= $booking['booking_id'] ?>')" 
+                    class="btn-action primary-btn">
+                    Lihat Tiket
+                </a>
                     <a href="javascript:void(0);" onclick="openReviewModal('<?= $booking['wisata_id'] ?>')" class="btn-action primary-btn">Nilai</a>
                     <a href="<?= base_url('booking/pembelian/' . $booking['wisata_id']) ?>" class="btn-action secondary-btn">Beli Lagi</a>
                 </div>
@@ -144,7 +149,7 @@
                 <div class="total-price-summary">
                     <span>Total Harga:</span>
                     <span class="total-price">Rp <?= number_format($booking['total_harga'], 0, ',', '.') ?></span>
-                </div>
+                </div> 
                 <div class="order-actions-bottom">
                     <a href="<?= base_url('booking/pembelian/' . $booking['wisata_id']) ?>" class="btn-action secondary-btn">Beli Lagi</a>
                 </div>
@@ -193,6 +198,36 @@
     </div>
 </div>
 
+<div id="ticketModal" class="modal">
+    <div class="modal-content ticket-style">
+        <span class="close-ticket">&times;</span>
+        <div class="ticket-header">
+            <h3>E-TIKET ANDA</h3>
+            <p id="ticketNamaWisata">Nama Wisata</p>
+        </div>
+        <div class="ticket-body">
+            <div id="qrcode" class="qrcode-container">
+                </div>
+            <p class="ticket-instructions">Pindai QR Code ini di pintu masuk</p>
+            <div class="ticket-details">
+                <div class="detail-item">
+                    <span>Kode Tiket:</span>
+                    <strong id="ticketKodeUnik">TIKET-XXXX-XXXX</strong>
+                </div>
+                <div class="detail-item">
+                    <span>Jumlah Pengunjung:</span>
+                    <strong id="ticketJumlahOrang">0 orang</strong>
+                </div>
+                 <div class="detail-item">
+                    <span>Total Bayar:</span>
+                    <strong id="ticketTotalHarga">Rp 0</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/davidshimjs-qrcodejs@0.0.2/qrcode.min.js"></script> //library qr code
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -304,6 +339,80 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    const ticketModal = document.getElementById('ticketModal');
+    const closeTicketBtn = document.querySelector('.close-ticket');
+    const qrCodeContainer = document.getElementById('qrcode');
+    
+    // Variabel untuk menyimpan object QRCode agar bisa di-clear
+    let qrcode = null;
+
+    // Fungsi untuk membuka modal tiket
+    window.openTicketModal = function(bookingId) {
+        const url = `<?= base_url('riwayat/tiket/') ?>${bookingId}`;
+
+        // Tampilkan loading spinner jika ada
+        qrCodeContainer.innerHTML = 'Memuat tiket...';
+        ticketModal.style.display = "block";
+
+        fetch(url, {
+            method: 'GET',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Gagal memuat data tiket.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                const ticketData = data.data;
+
+                // Isi data ke dalam modal
+                document.getElementById('ticketNamaWisata').textContent = ticketData.nama_wisata;
+                document.getElementById('ticketKodeUnik').textContent = ticketData.kode_tiket;
+                document.getElementById('ticketJumlahOrang').textContent = ticketData.jumlah_orang + ' orang';
+                document.getElementById('ticketTotalHarga').textContent = ticketData.total_harga;
+                
+                // Bersihkan QR code lama sebelum membuat yang baru
+                qrCodeContainer.innerHTML = '';
+
+                // Buat QR Code baru menggunakan library
+                qrcode = new QRCode(qrCodeContainer, {
+                    text: ticketData.kode_tiket,
+                    width: 200,
+                    height: 200,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+
+            } else {
+                Swal.fire('Gagal', data.message || 'Tidak dapat mengambil data tiket.', 'error');
+                ticketModal.style.display = "none";
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('Error', 'Terjadi kesalahan jaringan.', 'error');
+            ticketModal.style.display = "none";
+        });
+    }
+    
+    // Event untuk menutup modal tiket
+    if(closeTicketBtn) {
+        closeTicketBtn.onclick = function() {
+            ticketModal.style.display = "none";
+        }
+    }
+    
+    // Event untuk menutup modal jika klik di luar modal (sudah ada di kode Anda, tapi pastikan juga berlaku untuk ticketModal)
+    window.addEventListener('click', function(event) {
+        if (event.target == ticketModal) {
+            ticketModal.style.display = "none";
+        }
+    });
+    
 });
 </script>
 
