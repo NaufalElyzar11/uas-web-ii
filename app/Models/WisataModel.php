@@ -39,6 +39,20 @@ class WisataModel extends Model
             ->findAll();
     }
 
+    public function getFirstGalleryImage($wisataId)
+    {
+        $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisataId;
+        if (is_dir($galleryPath)) {
+            $files = scandir($galleryPath);
+            foreach ($files as $file) {
+                if ($file !== '.' && $file !== '..' && in_array(pathinfo($file, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png'])) {
+                    return base_url('uploads/wisata/gallery/' . $wisataId . '/' . $file);
+                }
+            }
+        }
+        return null;
+    }
+
     public function getTrendingWisata($limit = 5)
     {
         return $this->select('wisata.*, kategori.nama_kategori, COALESCE(SUM(bookings.jumlah_orang),0) as total_kunjungan')
@@ -121,5 +135,30 @@ class WisataModel extends Model
             log_message('error', 'Error in searchWisata: ' . $e->getMessage());
             return [];
         }
+    }
+
+    public function search($keyword)
+    {
+        return $this->select('wisata.*, kategori.nama_kategori')
+            ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+            ->like('wisata.nama', $keyword)
+            ->orLike('wisata.deskripsi', $keyword)
+            ->orLike('wisata.daerah', $keyword)
+            ->orLike('kategori.nama_kategori', $keyword)
+            ->findAll();
+    }
+
+    public function getWisataByKategori(array $kategoriIds, $limit = 4)
+    {
+        if (empty($kategoriIds)) {
+            return [];
+        }
+
+        return $this->select('wisata.*, kategori.nama_kategori')
+            ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+            ->whereIn('wisata.kategori_id', $kategoriIds)
+            ->orderBy('wisata.nama', 'ASC')
+            ->limit($limit)
+            ->findAll();
     }
 }

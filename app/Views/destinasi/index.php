@@ -66,7 +66,7 @@
              data-nama="<?= esc($item['nama'] ?? '') ?>"
              data-harga="<?= $item['harga'] ?? 0 ?>">
             <a href="<?= base_url('destinasi/detail/' . $item['wisata_id']) ?>" class="card-link">
-                <img src="<?= (filter_var($item['gambar_wisata'] ?? '', FILTER_VALIDATE_URL)) ? $item['gambar_wisata'] : base_url('uploads/wisata/' . ($item['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($item['nama']) ?>" class="wisata-img">
+                <img src="<?= esc($item['gambar_wisata']) ?>" alt="<?= esc($item['nama']) ?>" class="wisata-img">
                 <div class="wisata-content">
                     <div class="wisata-labels">
                         <span class="badge"><?= esc($item['nama_kategori'] ?? 'Umum') ?></span>

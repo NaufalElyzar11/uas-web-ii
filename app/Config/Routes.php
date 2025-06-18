@@ -71,7 +71,6 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
 
     $routes->post('booking/delete/(:num)', 'Admin\Booking::delete/$1');
 
-    // Routes for Berita (News)
     $routes->get('berita/create', 'Admin\Berita::create');
     $routes->post('berita/store', 'Admin\Berita::store');
     $routes->get('berita/edit/(:num)', 'Admin\Berita::edit/$1');

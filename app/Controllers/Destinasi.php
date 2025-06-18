@@ -24,9 +24,14 @@ class Destinasi extends BaseController
 
     public function index()
     {
+        $wisataData = $this->wisataModel->getWisataWithKategori();
+        foreach ($wisataData as &$item) {
+            $item['gambar_wisata'] = $this->wisataModel->getFirstGalleryImage($item['wisata_id']) ?? base_url('uploads/wisata/default.jpg');
+        }
+
         $data = [
             'title' => 'Semua Destinasi Wisata',
-            'wisata' => $this->wisataModel->getWisataWithKategori(),
+            'wisata' => $wisataData,
             'kategoriList' => $this->kategoriModel->findAll()
         ];
         
@@ -40,6 +45,9 @@ class Destinasi extends BaseController
         $wisata = [];
         if (!empty($keyword)) {
             $wisata = $this->wisataModel->search($keyword);
+            foreach ($wisata as &$item) {
+                $item['gambar_wisata'] = $this->wisataModel->getFirstGalleryImage($item['wisata_id']) ?? base_url('uploads/wisata/default.jpg');
+            }
         }
         
         $data = [

@@ -3,6 +3,16 @@
 
 <h1 class="h3 mb-4 text-gray-800">Tambah Wisata</h1>
 
+<?php if (session()->has('errors')) : ?>
+    <div class="alert alert-danger">
+        <ul>
+            <?php foreach (session('errors') as $error) : ?>
+                <li><?= esc($error) ?></li>
+            <?php endforeach ?>
+        </ul>
+    </div>
+<?php endif ?>
+
 <form action="<?= base_url('admin/wisata/store') ?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label>Nama</label>

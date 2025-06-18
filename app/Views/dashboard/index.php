@@ -149,6 +149,44 @@
     </div>
   </section>
   
+  <?php if (!empty($wisataRekomendasi)): ?>
+  <section class="section-wisata">
+    <h2>Rekomendasi Untuk Anda</h2>
+    <div class="card-container">
+      <?php foreach ($wisataRekomendasi as $wisata): ?>
+      <div class="card" data-wisata="<?= esc($wisata['nama']) ?>" data-price="<?= $wisata['harga'] ?? 0 ?>">
+        <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="card-link">
+          <?php
+            $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
+            $imageUrl = base_url('uploads/wisata/default.jpg');
+            if (is_dir($galleryPath)) {
+                $files = array_diff(scandir($galleryPath), ['.', '..']);
+                if (!empty($files)) {
+                    $firstImage = reset($files);
+                    $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
+                }
+            }
+          ?>
+          <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
+          <div class="card-content">
+            <div class="card-labels">
+              <span class="badge"><?= esc($wisata['nama_kategori'] ?? 'Umum') ?></span>
+              <span class="badge daerah"><?= esc($wisata['daerah'] ?? 'Indonesia') ?></span>
+              <span class="price">Rp <?= number_format($wisata['harga'] ?? 0, 0, ',', '.') ?></span>
+            </div>
+            <h3><?= esc($wisata['nama']) ?></h3>
+            <p><?= esc(substr($wisata['deskripsi'] ?? '', 0, 100)) ?>...</p>
+            <div class="card-action">
+              <small class="text-muted"><i class="fas fa-map-marker-alt"></i> <?= esc($wisata['daerah'] ?? 'Indonesia') ?></small>
+            </div>
+          </div>
+        </a>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </section>
+  <?php endif; ?>
+  
   <section id="news-section">
     <h2>Berita Terbaru</h2>
     <div class="news-container">      <?php if (empty($berita)): ?>

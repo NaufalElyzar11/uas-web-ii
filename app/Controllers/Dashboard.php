@@ -6,13 +6,14 @@ use App\Models\WisataModel;
 use App\Models\BeritaModel;
 use App\Models\UserModel;
 use App\Models\ReviewModel;
+use App\Models\MinatUserModel;
 
 class Dashboard extends BaseController
 {   protected $wisataModel;
     protected $beritaModel;
     protected $userModel;
     protected $reviewModel;
-    protected $statistikModel;
+    protected $minatUserModel;
 
     public function __construct()
     {
@@ -25,12 +26,21 @@ class Dashboard extends BaseController
         $this->beritaModel = new BeritaModel();
         $this->userModel = new UserModel();
         $this->reviewModel = new ReviewModel();
+        $this->minatUserModel = new MinatUserModel();
     }    public function index()
     {
         try {
             $userId = session()->get('user_id');
             $userData = $this->userModel->find($userId);
             $userDaerah = $userData['daerah'] ?? 'Kalimantan Selatan'; 
+
+            $userInterests = $this->minatUserModel->getUserInterests($userId);
+            $interestKategoriIds = array_column($userInterests, 'kategori_id');
+
+            $wisataRekomendasi = [];
+            if (!empty($interestKategoriIds)) {
+                $wisataRekomendasi = $this->wisataModel->getWisataByKategori($interestKategoriIds, 4);
+            }
 
             try {
                 $wisataTerbaru = $this->wisataModel->getWisataTerbaru(4);
@@ -66,6 +76,7 @@ class Dashboard extends BaseController
             $wisataTerdekat = [];
             $berita = [];
             $userDaerah = 'Indonesia';
+            $wisataRekomendasi = [];
             
             session()->setFlashdata('error', 'Terjadi kesalahan saat memuat data. Silakan coba lagi nanti.');
         }
@@ -82,6 +93,7 @@ class Dashboard extends BaseController
             'wisataTerbaru' => $wisataTerbaru,
             'wisataPopuler' => $wisataPopuler,
             'wisataTerdekat' => $wisataTerdekat,
+            'wisataRekomendasi' => $wisataRekomendasi,
             'berita' => $berita,
             'currentDate' => date('d M Y')
         ];
@@ -89,6 +101,7 @@ class Dashboard extends BaseController
         log_message('debug', 'Item counts - Wisata Terbaru: ' . count($wisataTerbaru) . 
                             ', Wisata Populer: ' . count($wisataPopuler) . 
                             ', Wisata Terdekat: ' . count($wisataTerdekat) .
+                            ', Wisata Rekomendasi: ' . count($wisataRekomendasi) .
                             ', Berita: ' . count($berita));
         
         return view('dashboard/index', $data);

@@ -49,7 +49,7 @@ class Wisata extends BaseController
             'kategori_id' => 'required|is_not_unique[kategori.kategori_id]',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'gambar' => 'uploaded[gambar]|max_size[gambar,2048]|mime_in[gambar,image/png,image/jpg,image/jpeg]'
+            'gambar.*' => 'max_size[gambar,2048]|mime_in[gambar,image/png,image/jpg,image/jpeg]'
         ];
 
         if (!$this->validate($rules)) {
@@ -120,7 +120,8 @@ class Wisata extends BaseController
             'harga' => 'required|numeric|greater_than[0]',
             'kategori_id' => 'required|is_not_unique[kategori.kategori_id]',
             'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric'
+            'longitude' => 'required|numeric',
+            'gambar.*' => 'max_size[gambar,2048]|mime_in[gambar,image/png,image/jpg,image/jpeg]'
         ];
 
         if (!$this->validate($rules)) {

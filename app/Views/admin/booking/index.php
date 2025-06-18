@@ -12,7 +12,7 @@
                     <tr>
                         <th>#</th>
                         <th>Booking ID</th>
-                        <th>Username</th>
+                        <th>User ID</th>
                         <th>Wisata ID</th>
                         <th>Tanggal Kunjungan</th>
                         <th>Jumlah Orang</th>
