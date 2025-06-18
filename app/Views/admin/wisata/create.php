@@ -15,7 +15,7 @@
             <option value="" disabled selected>Pilih Daerah</option>
             <?php
             $daerahList = [
-                'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
+                'Banjarbaru', 'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
                 'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
                 'Kotabaru', 'Barito Timur', 'Balangan'
             ];
@@ -40,7 +40,7 @@
         <select name="kategori" class="form-control" required>
             <option value="" disabled selected>Pilih Kategori</option>
             <?php
-            $kategoriList = ['Alam', 'Pantai', 'Gunung', 'Budaya', 'Kota', 'Religi'];
+            $kategoriList = ['Alam', 'Pantai', 'Bukit', 'Budaya', 'Kota', 'Hiburan'];
             foreach ($kategoriList as $kategori):
             ?>
                 <option value="<?= $kategori ?>" <?= old('kategori') === $kategori ? 'selected' : '' ?>>

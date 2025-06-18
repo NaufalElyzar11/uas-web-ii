@@ -21,10 +21,10 @@
                     <option value="">Semua Kategori</option>
                     <option value="Alam">Alam</option>
                     <option value="Pantai">Pantai</option>
-                    <option value="Gunung">Gunung</option>
+                    <option value="Gunung">Bukit</option>
                     <option value="Budaya">Budaya</option>
                     <option value="Kota">Kota</option>
-                    <option value="Religi">Religi</option>
+                    <option value="Religi">Hiburan</option>
                 </select>
             </label>
             <label>

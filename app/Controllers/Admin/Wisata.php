@@ -33,11 +33,11 @@ class Wisata extends BaseController
     public function store()
     {
         $daerahList = [
-            'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
+            'Banjarbaru', 'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
             'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
             'Kotabaru', 'Barito Timur', 'Balangan'
         ];
-        $kategoriList = ['Alam', 'Pantai', 'Gunung', 'Budaya', 'Kota', 'Religi'];
+        $kategoriList = ['Alam', 'Pantai', 'Bukit', 'Budaya', 'Kota', 'Hiburan'];
         $rules = [
             'nama' => 'required|min_length[3]|max_length[100]',
             'daerah' => 'required|in_list['.implode(',', $daerahList).']',
@@ -99,17 +99,15 @@ class Wisata extends BaseController
     public function update($id)
     {
         $daerahList = [
-            'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
+            'Banjarbaru', 'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
             'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
-            'Kotabaru', 'Barito Timur', 'Balangan'
+            'Kotabaru', 'Barito Timur', 'Balangan', 
         ];
-        $kategoriList = ['Alam', 'Pantai', 'Gunung', 'Budaya', 'Kota', 'Religi'];
         $rules = [
             'nama' => 'required|min_length[3]|max_length[100]',
             'daerah' => 'required|in_list['.implode(',', $daerahList).']',
             'deskripsi' => 'required|min_length[10]',
             'harga' => 'required|numeric|greater_than[0]',
-            'kategori' => 'required|in_list['.implode(',', $kategoriList).']',
         ];
 
         if (!$this->validate($rules)) {
