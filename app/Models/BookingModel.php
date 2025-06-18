@@ -23,7 +23,8 @@ class BookingModel extends Model
         'tanggal_booking',
         'status_pembayaran',
         'bukti_pembayaran',
-        'kode_booking'
+        'kode_booking',
+        'kode_tiket'
     ];
 
     // Dates
