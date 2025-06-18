@@ -227,7 +227,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/davidshimjs-qrcodejs@0.0.2/qrcode.min.js"></script> //library qr code
+<script src="https://cdn.jsdelivr.net/npm/davidshimjs-qrcodejs@0.0.2/qrcode.min.js"></script> 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -367,7 +367,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.status === 'success') {
                 const ticketData = data.data;
-
                 // Isi data ke dalam modal
                 document.getElementById('ticketNamaWisata').textContent = ticketData.nama_wisata;
                 document.getElementById('ticketKodeUnik').textContent = ticketData.kode_tiket;
