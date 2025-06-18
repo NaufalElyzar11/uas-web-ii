@@ -48,6 +48,16 @@
     </div>
 
     <div class="form-group">
+        <label>Latitude</label>
+        <input type="text" name="latitude" class="form-control" value="<?= old('latitude') ?>" required>
+    </div>
+
+    <div class="form-group">
+        <label>Longitude</label>
+        <input type="text" name="longitude" class="form-control" value="<?= old('longitude') ?>" required>
+    </div>
+
+    <div class="form-group">
         <label>Gambar</label>
         <input type="file" name="gambar[]" class="form-control-file" multiple
             accept="image/jpeg,image/png,image/jpg">

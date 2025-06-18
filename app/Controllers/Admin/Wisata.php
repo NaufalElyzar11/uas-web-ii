@@ -47,6 +47,8 @@ class Wisata extends BaseController
             'deskripsi' => 'required|min_length[10]',
             'harga' => 'required|numeric|greater_than[0]',
             'kategori_id' => 'required|is_not_unique[kategori.kategori_id]',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
             'gambar' => 'uploaded[gambar]|max_size[gambar,2048]|mime_in[gambar,image/png,image/jpg,image/jpeg]'
         ];
 
@@ -59,13 +61,17 @@ class Wisata extends BaseController
         $deskripsi = strip_tags($this->request->getPost('deskripsi'));
         $harga = (int) $this->request->getPost('harga');
         $kategori_id = (int) $this->request->getPost('kategori_id');
+        $latitude = $this->request->getPost('latitude');
+        $longitude = $this->request->getPost('longitude');
 
         $id = $this->wisataModel->insert([
             'nama' => $nama,
             'daerah' => $daerah,
             'deskripsi' => $deskripsi,
             'harga' => $harga,
-            'kategori_id' => $kategori_id
+            'kategori_id' => $kategori_id,
+            'latitude' => $latitude,
+            'longitude' => $longitude
         ], true);
 
         $files = $this->request->getFileMultiple('gambar');
@@ -112,7 +118,9 @@ class Wisata extends BaseController
             'daerah' => 'required|in_list[' . implode(',', $daerahList) . ']',
             'deskripsi' => 'required|min_length[10]',
             'harga' => 'required|numeric|greater_than[0]',
-            'kategori_id' => 'required|is_not_unique[kategori.kategori_id]'
+            'kategori_id' => 'required|is_not_unique[kategori.kategori_id]',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric'
         ];
 
         if (!$this->validate($rules)) {
@@ -124,13 +132,17 @@ class Wisata extends BaseController
         $deskripsi = strip_tags($this->request->getPost('deskripsi'));
         $harga = (int) $this->request->getPost('harga');
         $kategori_id = (int) $this->request->getPost('kategori_id');
+        $latitude = $this->request->getPost('latitude');
+        $longitude = $this->request->getPost('longitude');
 
         $data = [
             'nama' => $nama,
             'daerah' => $daerah,
             'deskripsi' => $deskripsi,
             'harga' => $harga,
-            'kategori_id' => $kategori_id
+            'kategori_id' => $kategori_id,
+            'latitude' => $latitude,
+            'longitude' => $longitude
         ];
 
         $this->wisataModel->update($id, $data);

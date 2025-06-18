@@ -62,6 +62,16 @@
             </div>
 
             <div class="form-group">
+                <label>Latitude</label>
+                <input type="text" name="latitude" class="form-control" value="<?= old('latitude', $wisata['latitude']) ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Longitude</label>
+                <input type="text" name="longitude" class="form-control" value="<?= old('longitude', $wisata['longitude']) ?>" required>
+            </div>
+
+            <div class="form-group">
                 <label>Galeri Saat Ini</label>
                 <div class="row mb-3">
                     <?php
