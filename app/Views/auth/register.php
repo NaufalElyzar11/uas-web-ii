@@ -52,8 +52,8 @@
 
                         
                         <div class="input_box">
-                            <select class="form-select" id="daerah" name="daerah" required>
-                                <option value="" disabled selected>Pilih Daerah</option>
+                            <select class="form-select input-field" id="daerah" name="daerah" required>
+                                <option value="" selected disabled>Pilih Daerah</option>
                                 <?php
                                 $daerahList = [
                                     'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
@@ -64,7 +64,6 @@
                                     <option value="<?= $daerah ?>" <?= old('daerah') === $daerah ? 'selected' : '' ?>><?= $daerah ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <label for="daerah" class="label">Daerah</label>
                             <i class="bx bx-location-plus icon"></i>
                         </div>
                     </div>    
