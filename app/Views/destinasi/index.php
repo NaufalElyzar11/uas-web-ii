@@ -19,12 +19,9 @@
                 <span>Kategori:</span>
                 <select id="kategori-filter" class="form-select">
                     <option value="">Semua Kategori</option>
-                    <option value="Alam">Alam</option>
-                    <option value="Pantai">Pantai</option>
-                    <option value="Gunung">Bukit</option>
-                    <option value="Budaya">Budaya</option>
-                    <option value="Kota">Kota</option>
-                    <option value="Religi">Hiburan</option>
+                    <?php foreach ($kategoriList as $kategori) : ?>
+                        <option value="<?= $kategori['kategori_id'] ?>"><?= esc($kategori['nama_kategori']) ?></option>
+                    <?php endforeach; ?>
                 </select>
             </label>
             <label>
@@ -64,7 +61,7 @@
     <div class="wisata-grid">
         <?php foreach ($wisata as $item): ?>
         <div class="wisata-card" 
-             data-kategori="<?= esc($item['kategori'] ?? 'Umum') ?>" 
+             data-kategori="<?= esc($item['kategori_id'] ?? '0') ?>" 
              data-daerah="<?= esc($item['daerah'] ?? 'Indonesia') ?>"
              data-nama="<?= esc($item['nama'] ?? '') ?>"
              data-harga="<?= $item['harga'] ?? 0 ?>">
@@ -72,7 +69,7 @@
                 <img src="<?= (filter_var($item['gambar_wisata'] ?? '', FILTER_VALIDATE_URL)) ? $item['gambar_wisata'] : base_url('uploads/wisata/' . ($item['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($item['nama']) ?>" class="wisata-img">
                 <div class="wisata-content">
                     <div class="wisata-labels">
-                        <span class="badge"><?= esc($item['kategori'] ?? 'Umum') ?></span>
+                        <span class="badge"><?= esc($item['nama_kategori'] ?? 'Umum') ?></span>
                         <span class="badge daerah"><?= esc($item['daerah'] ?? 'Indonesia') ?></span>
                     </div>
                     <h3><?= esc($item['nama']) ?></h3>

@@ -30,7 +30,7 @@
                             <td><?= $w['nama'] ?></td>
                             <td><?= $w['daerah'] ?></td>
                             <td><?= number_format($w['harga'], 0, ',', '.') ?></td>
-                            <td><?= $w['kategori'] ?></td>
+                            <td><?= $w['nama_kategori'] ?></td>
                             <td>
                                 <div class="d-flex" style="gap: 0.5rem;">
                                     <a href="<?= base_url('admin/wisata/edit/' . $w['wisata_id']) ?>"

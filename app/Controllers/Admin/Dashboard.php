@@ -31,7 +31,9 @@ class Dashboard extends BaseController
             'totalUsers' => $this->userModel->countAll(),
             'totalReviews' => $this->reviewModel->countAll(),
             'totalBookings' => $this->bookingModel->countAll(),
-            'wisataTerbaru' => $this->wisataModel->orderBy('created_at', 'DESC')->limit(5)->find(),
+            'wisataTerbaru' => $this->wisataModel->select('wisata.*, kategori.nama_kategori')
+                ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+                ->orderBy('wisata.created_at', 'DESC')->limit(5)->find(),
             'userTerbaru' => $this->userModel->orderBy('created_at', 'DESC')->limit(5)->find()
         ];
 

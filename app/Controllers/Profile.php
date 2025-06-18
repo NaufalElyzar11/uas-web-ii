@@ -3,10 +3,12 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\KategoriModel;
 
 class Profile extends BaseController
 {
     protected $userModel;
+    protected $kategoriModel;
 
     public function __construct()
     {
@@ -16,6 +18,7 @@ class Profile extends BaseController
         }
 
         $this->userModel = new UserModel();
+        $this->kategoriModel = new KategoriModel();
     }
 
     public function index()
@@ -23,14 +26,14 @@ class Profile extends BaseController
         $userId = session()->get('user_id');
         $userData = $this->userModel->find($userId);
 
-        $userPreferences = [];
-        $preferencesData = $this->userModel->db->table('minat_user')
-            ->where('user_id', $userId)
+        $userPreferences = $this->userModel->db->table('minat_user')
+            ->select('kategori.kategori_id, kategori.nama_kategori')
+            ->join('kategori', 'kategori.kategori_id = minat_user.kategori_id')
+            ->where('minat_user.user_id', $userId)
             ->get()
             ->getResultArray();
-        foreach ($preferencesData as $preference) {
-            $userPreferences[] = $preference['kategori'];
-        }
+
+        $allCategories = $this->kategoriModel->findAll();
 
         $data = [
             'title' => 'Profil Pengguna',
@@ -42,7 +45,9 @@ class Profile extends BaseController
                 'role' => $userData['role'] ?? session()->get('role'),
                 'daerah' => $userData['daerah'] ?? 'Indonesia'
             ],
-            'userPreferences' => $userPreferences,
+            'userPreferences' => array_column($userPreferences, 'kategori_id'),
+            'userPreferencesData' => $userPreferences,
+            'allCategories' => $allCategories,
             'userData' => $userData
         ];
 
@@ -94,18 +99,19 @@ class Profile extends BaseController
     {
         $userId = session()->get('user_id');
 
-        $kategori = $this->request->getPost('kategori');
+        $kategori_ids = $this->request->getPost('kategori_ids');
 
-        if (empty($kategori)) {
-            return redirect()->back()->with('error', 'Pilih setidaknya satu kategori wisata.');
+        if (empty($kategori_ids)) {
+            $this->userModel->db->table('minat_user')->where('user_id', $userId)->delete();
+            return redirect()->to('profile')->with('success', 'Preferensi wisata berhasil diperbarui.');
         }
 
         $this->userModel->db->table('minat_user')->where('user_id', $userId)->delete();
 
-        foreach ($kategori as $k) {
+        foreach ($kategori_ids as $kategori_id) {
             $this->userModel->db->table('minat_user')->insert([
                 'user_id' => $userId,
-                'kategori' => $k
+                'kategori_id' => $kategori_id
             ]);
         }
 

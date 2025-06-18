@@ -23,7 +23,7 @@
                             style="max-height: 300px; width: auto;">
                     </div>
                     <div class="wisata-info">
-                        <p><strong>Kategori:</strong> <?= esc($wisata['kategori']) ?></p>
+                        <p><strong>Kategori:</strong> <?= esc($wisata['nama_kategori']) ?></p>
                         <p><strong>Harga:</strong> Rp <?= number_format($wisata['harga'], 0, ',', '.') ?> per orang</p>
                         <p><strong>Deskripsi:</strong></p>
                         <p><?= nl2br(esc($wisata['deskripsi'])) ?></p>

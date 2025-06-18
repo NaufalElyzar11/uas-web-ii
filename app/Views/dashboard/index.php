@@ -55,7 +55,7 @@
             <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="card-content">
               <div class="card-labels">
-                <span class="badge"><?= esc($wisata['kategori'] ?? 'Umum') ?></span>
+                <span class="badge"><?= esc($wisata['nama_kategori'] ?? 'Umum') ?></span>
                 <span class="badge daerah"><?= esc($wisata['daerah'] ?? 'Indonesia') ?></span>
                 <span class="price">Rp <?= number_format($wisata['harga'] ?? 0, 0, ',', '.') ?></span>
               </div>
@@ -125,7 +125,7 @@
             <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="card-content">
               <div class="card-labels">
-                <span class="badge"><?= esc($wisata['kategori'] ?? 'Umum') ?></span>
+                <span class="badge"><?= esc($wisata['nama_kategori'] ?? 'Umum') ?></span>
                 <span class="badge daerah"><?= esc($wisata['daerah'] ?? 'Indonesia') ?></span>
                 <span class="price">Rp <?= number_format($wisata['harga'] ?? 0, 0, ',', '.') ?></span>
               </div>

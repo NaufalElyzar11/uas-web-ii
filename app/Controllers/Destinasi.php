@@ -5,25 +5,29 @@ namespace App\Controllers;
 use App\Models\WisataModel;
 use App\Models\ReviewModel;
 use App\Models\BookingModel;
+use App\Models\KategoriModel;
 
 class Destinasi extends BaseController
 {
     protected $wisataModel;
     protected $reviewModel;
     protected $bookingModel;
+    protected $kategoriModel;
 
     public function __construct()
     {
         $this->wisataModel = new WisataModel();
         $this->reviewModel = new ReviewModel();
         $this->bookingModel = new BookingModel();
+        $this->kategoriModel = new KategoriModel();
     }
 
     public function index()
     {
         $data = [
             'title' => 'Semua Destinasi Wisata',
-            'wisata' => $this->wisataModel->findAll()
+            'wisata' => $this->wisataModel->getWisataWithKategori(),
+            'kategoriList' => $this->kategoriModel->findAll()
         ];
         
         return view('destinasi/index', $data);
@@ -52,7 +56,10 @@ class Destinasi extends BaseController
             return redirect()->to('destinasi');
         }
         
-        $wisata = $this->wisataModel->find($id);
+        $wisata = $this->wisataModel
+            ->select('wisata.*, kategori.nama_kategori')
+            ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+            ->find($id);
         
         if ($wisata === null) {
             return redirect()->to('destinasi')->with('error', 'Destinasi wisata tidak ditemukan');

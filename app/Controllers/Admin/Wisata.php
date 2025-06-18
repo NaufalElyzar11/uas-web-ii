@@ -4,21 +4,24 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\WisataModel;
+use App\Models\KategoriModel;
 
 class Wisata extends BaseController
 {
     protected $wisataModel;
+    protected $kategoriModel;
 
     public function __construct()
     {
         $this->wisataModel = new WisataModel();
+        $this->kategoriModel = new KategoriModel();
     }
 
     public function index()
     {
         $data = [
             'title' => 'Manajemen Wisata',
-            'wisata' => $this->wisataModel->findAll()
+            'wisata' => $this->wisataModel->getWisataWithKategori()
         ];
         return view('admin/wisata/index', $data);
     }
@@ -26,7 +29,8 @@ class Wisata extends BaseController
     public function create()
     {
         $data = [
-            'title' => 'Tambah Wisata'
+            'title' => 'Tambah Wisata',
+            'kategoriList' => $this->kategoriModel->findAll()
         ];
         return view('admin/wisata/create', $data);
     }
@@ -37,13 +41,12 @@ class Wisata extends BaseController
             'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
             'Kotabaru', 'Barito Timur', 'Balangan'
         ];
-        $kategoriList = ['Alam', 'Pantai', 'Bukit', 'Budaya', 'Kota', 'Hiburan'];
         $rules = [
             'nama' => 'required|min_length[3]|max_length[100]',
-            'daerah' => 'required|in_list['.implode(',', $daerahList).']',
+            'daerah' => 'required|in_list[' . implode(',', $daerahList) . ']',
             'deskripsi' => 'required|min_length[10]',
             'harga' => 'required|numeric|greater_than[0]',
-            'kategori' => 'required|in_list['.implode(',', $kategoriList).']',
+            'kategori_id' => 'required|is_not_unique[kategori.kategori_id]',
             'gambar' => 'uploaded[gambar]|max_size[gambar,2048]|mime_in[gambar,image/png,image/jpg,image/jpeg]'
         ];
 
@@ -55,14 +58,14 @@ class Wisata extends BaseController
         $daerah = strip_tags($this->request->getPost('daerah'));
         $deskripsi = strip_tags($this->request->getPost('deskripsi'));
         $harga = (int) $this->request->getPost('harga');
-        $kategori = strip_tags($this->request->getPost('kategori'));
+        $kategori_id = (int) $this->request->getPost('kategori_id');
 
         $id = $this->wisataModel->insert([
             'nama' => $nama,
             'daerah' => $daerah,
             'deskripsi' => $deskripsi,
             'harga' => $harga,
-            'kategori' => $kategori
+            'kategori_id' => $kategori_id
         ], true);
 
         $files = $this->request->getFileMultiple('gambar');
@@ -91,7 +94,8 @@ class Wisata extends BaseController
 
         $data = [
             'title' => 'Edit Wisata',
-            'wisata' => $wisata
+            'wisata' => $wisata,
+            'kategoriList' => $this->kategoriModel->findAll()
         ];
         return view('admin/wisata/edit', $data);
     }
@@ -101,13 +105,14 @@ class Wisata extends BaseController
         $daerahList = [
             'Banjarbaru', 'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
             'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
-            'Kotabaru', 'Barito Timur', 'Balangan', 
+            'Kotabaru', 'Barito Timur', 'Balangan',
         ];
         $rules = [
             'nama' => 'required|min_length[3]|max_length[100]',
-            'daerah' => 'required|in_list['.implode(',', $daerahList).']',
+            'daerah' => 'required|in_list[' . implode(',', $daerahList) . ']',
             'deskripsi' => 'required|min_length[10]',
             'harga' => 'required|numeric|greater_than[0]',
+            'kategori_id' => 'required|is_not_unique[kategori.kategori_id]'
         ];
 
         if (!$this->validate($rules)) {
@@ -118,14 +123,14 @@ class Wisata extends BaseController
         $daerah = strip_tags($this->request->getPost('daerah'));
         $deskripsi = strip_tags($this->request->getPost('deskripsi'));
         $harga = (int) $this->request->getPost('harga');
-        $kategori = strip_tags($this->request->getPost('kategori'));
+        $kategori_id = (int) $this->request->getPost('kategori_id');
 
         $data = [
             'nama' => $nama,
             'daerah' => $daerah,
             'deskripsi' => $deskripsi,
             'harga' => $harga,
-            'kategori' => $kategori
+            'kategori_id' => $kategori_id
         ];
 
         $this->wisataModel->update($id, $data);

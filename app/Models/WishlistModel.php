@@ -12,8 +12,9 @@ class WishlistModel extends Model
 
     public function getUserWishlist($userId)
     {
-        return $this->select('wishlist.wishlist_id, wisata.nama, wisata.daerah, wisata.kategori, wisata.harga, wisata.gambar_wisata, wisata.wisata_id')
+        return $this->select('wishlist.wishlist_id, wisata.nama, wisata.daerah, kategori.nama_kategori, wisata.harga, wisata.gambar_wisata, wisata.wisata_id')
                     ->join('wisata', 'wisata.wisata_id = wishlist.wisata_id')
+                    ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
                     ->where('wishlist.user_id', $userId)
                     ->findAll();
     }

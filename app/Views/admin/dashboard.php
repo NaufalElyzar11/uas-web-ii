@@ -85,7 +85,7 @@
                             <tr>
                                 <td><?= $wisata['nama'] ?></td>
                                 <td><?= $wisata['daerah'] ?></td>
-                                <td><?= $wisata['kategori'] ?></td>
+                                <td><?= $wisata['nama_kategori'] ?></td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>

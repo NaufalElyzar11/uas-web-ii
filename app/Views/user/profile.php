@@ -100,27 +100,12 @@
                             <div class="form-group">
                                 <label>Kategori Destinasi Wisata Favorit</label>
                                 <div class="checkbox-group">
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Alam" <?= in_array('Alam', $userPreferences) ? 'checked' : '' ?>> Wisata Alam
-                                    </label>
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Pantai" <?= in_array('Pantai', $userPreferences) ? 'checked' : '' ?>> Pantai
-                                    </label>
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Gunung" <?= in_array('Gunung', $userPreferences) ? 'checked' : '' ?>> Gunung
-                                    </label>
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Budaya" <?= in_array('Budaya', $userPreferences) ? 'checked' : '' ?>> Wisata Budaya
-                                    </label>
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Kota" <?= in_array('Kota', $userPreferences) ? 'checked' : '' ?>> Wisata Kota
-                                    </label>
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Religi" <?= in_array('Religi', $userPreferences) ? 'checked' : '' ?>> Wisata Religi
-                                    </label>
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="kategori[]" value="Hiburan" <?= in_array('Hiburan', $userPreferences) ? 'checked' : '' ?>> Hiburan
-                                    </label>
+                                    <?php foreach ($allCategories as $category) : ?>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" name="kategori_ids[]" value="<?= $category['kategori_id'] ?>" <?= in_array($category['kategori_id'], $userPreferences) ? 'checked' : '' ?>>
+                                            <?= esc($category['nama_kategori']) ?>
+                                        </label>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
 

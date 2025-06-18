@@ -37,14 +37,11 @@
 
     <div class="form-group">
         <label>Kategori</label>
-        <select name="kategori" class="form-control" required>
+        <select name="kategori_id" class="form-control" required>
             <option value="" disabled selected>Pilih Kategori</option>
-            <?php
-            $kategoriList = ['Alam', 'Pantai', 'Bukit', 'Budaya', 'Kota', 'Hiburan'];
-            foreach ($kategoriList as $kategori):
-            ?>
-                <option value="<?= $kategori ?>" <?= old('kategori') === $kategori ? 'selected' : '' ?>>
-                    <?= $kategori ?>
+            <?php foreach ($kategoriList as $kategori) : ?>
+                <option value="<?= $kategori['kategori_id'] ?>" <?= old('kategori_id') == $kategori['kategori_id'] ? 'selected' : '' ?>>
+                    <?= $kategori['nama_kategori'] ?>
                 </option>
             <?php endforeach; ?>
         </select>

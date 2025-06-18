@@ -138,7 +138,7 @@
             <div class="wisata-info">
                 <div class="wisata-header">
                     <div class="badges">
-                        <span class="badge"><?= esc($wisata['kategori'] ?? 'Umum') ?></span>
+                        <span class="badge"><?= esc($wisata['nama_kategori'] ?? 'Umum') ?></span>
                         <span class="badge daerah"><?= esc($wisata['daerah'] ?? 'Indonesia') ?></span>
                     </div>
                     <h1><?= esc($wisata['nama']) ?></h1>
@@ -188,7 +188,7 @@
                         <i class="fas fa-tags"></i>
                         <div>
                             <strong>Kategori</strong>
-                            <span><?= esc($wisata['kategori'] ?? 'Umum') ?></span>
+                            <span><?= esc($wisata['nama_kategori'] ?? 'Umum') ?></span>
                         </div>
                     </div>
                     <div class="detail-item">

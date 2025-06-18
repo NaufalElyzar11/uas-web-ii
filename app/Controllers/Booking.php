@@ -34,7 +34,11 @@ class Booking extends BaseController
             return redirect()->to('auth/login')->with('error', 'Silahkan login terlebih dahulu untuk melakukan pemesanan.');
         }
 
-        $wisata = $this->wisataModel->find($wisataId);
+        $wisata = $this->wisataModel
+            ->select('wisata.*, kategori.nama_kategori')
+            ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+            ->find($wisataId);
+
         if (!$wisata) {
             return redirect()->back()->with('error', 'Destinasi tidak ditemukan.');
         }

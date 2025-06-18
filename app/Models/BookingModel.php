@@ -53,8 +53,9 @@ class BookingModel extends Model
      */
     public function getUserBookings($userId, $status = null)
     {
-        $query = $this->select('bookings.*, wisata.nama, wisata.daerah, wisata.harga, wisata.gambar_wisata, wisata.kategori')
+        $query = $this->select('bookings.*, wisata.nama, wisata.daerah, wisata.harga, wisata.gambar_wisata, kategori.nama_kategori')
             ->join('wisata', 'wisata.wisata_id = bookings.wisata_id')
+            ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
             ->where('bookings.user_id', $userId);
         
         if ($status) {

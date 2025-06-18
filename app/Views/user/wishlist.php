@@ -29,7 +29,7 @@
               <h3><?= esc($item['nama']) ?></h3>
               <p class="description">
                 <i class="fas fa-map-marker-alt"></i> <?= esc($item['daerah']) ?><br>
-                <span class="badge bg-info"><?= esc($item['kategori']) ?></span>
+                <span class="badge bg-info"><?= esc($item['nama_kategori']) ?></span>
               </p>
               <p class="price">Rp <?= number_format($item['harga'], 0, ',', '.') ?> / orang</p>
               <p class="stock">Tersedia</p>

@@ -17,7 +17,7 @@ class WisataModel extends Model
         'daerah', 
         'deskripsi', 
         'harga', 
-        'kategori', 
+        'kategori_id', 
         'trending_score'
     ];
 
@@ -32,11 +32,19 @@ class WisataModel extends Model
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;    
 
+    public function getWisataWithKategori()
+    {
+        return $this->select('wisata.*, kategori.nama_kategori')
+            ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+            ->findAll();
+    }
+
     public function getTrendingWisata($limit = 5)
     {
-        return $this->select('wisata.*, COALESCE(SUM(bookings.jumlah_orang),0) as total_kunjungan')
+        return $this->select('wisata.*, kategori.nama_kategori, COALESCE(SUM(bookings.jumlah_orang),0) as total_kunjungan')
+            ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
             ->join('bookings', 'bookings.wisata_id = wisata.wisata_id', 'left')
-            ->groupBy('wisata.wisata_id')
+            ->groupBy('wisata.wisata_id, kategori.nama_kategori')
             ->orderBy('total_kunjungan', 'DESC')
             ->limit($limit)
             ->find();
@@ -50,8 +58,11 @@ class WisataModel extends Model
     public function getWisataTerbaru($limit = 4)
     {
         try {
+            $builder = $this->select('wisata.*, kategori.nama_kategori')
+                ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left');
+
             if (!in_array('created_at', $this->allowedFields) && !$this->createdField) {
-                return $this->orderBy($this->primaryKey, 'DESC')
+                return $builder->orderBy('wisata.wisata_id', 'DESC')
                         ->limit($limit)
                         ->find();
             }
@@ -60,8 +71,8 @@ class WisataModel extends Model
             $date->sub(new \DateInterval('P1M')); 
             $monthAgo = $date->format('Y-m-d H:i:s');
 
-            return $this->where('created_at >=', $monthAgo)
-                        ->orderBy('created_at', 'DESC')
+            return $builder->where('wisata.created_at >=', $monthAgo)
+                        ->orderBy('wisata.created_at', 'DESC')
                         ->limit($limit)
                         ->find();
         } catch (\Exception $e) {
@@ -73,15 +84,18 @@ class WisataModel extends Model
     public function getWisataTerdekat($userDaerah, $limit = 4)
     {
         try {
+            $builder = $this->select('wisata.*, kategori.nama_kategori')
+                ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left');
+
             if (!in_array('daerah', $this->allowedFields)) {
                 log_message('warning', 'daerah field not found, returning all wisata');
-                return $this->orderBy($this->primaryKey, 'DESC')
+                return $builder->orderBy('wisata.wisata_id', 'DESC')
                             ->limit($limit)
                             ->find();
             }
             
-            return $this->where('daerah', $userDaerah)
-                        ->orderBy($this->primaryKey, 'DESC')
+            return $builder->where('daerah', $userDaerah)
+                        ->orderBy('wisata.wisata_id', 'DESC')
                         ->limit($limit)
                         ->find();
         } catch (\Exception $e) {
@@ -93,15 +107,16 @@ class WisataModel extends Model
     public function searchWisata($keyword)
     {
         try {
+            $builder = $this->select('wisata.*, kategori.nama_kategori')
+                ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+                ->like('wisata.nama', $keyword)
+                ->orLike('wisata.daerah', $keyword)
+                ->orLike('kategori.nama_kategori', $keyword);
+
             if (in_array('trending_score', $this->allowedFields)) {
-                return $this->orderBy('trending_score', 'DESC')
-                        ->like('nama', $keyword)
-                        ->orLike('daerah', $keyword)
-                        ->findAll();
+                return $builder->orderBy('trending_score', 'DESC')->findAll();
             }
-            return $this->like('nama', $keyword)
-                        ->orLike('daerah', $keyword)
-                        ->findAll();
+            return $builder->findAll();
         } catch (\Exception $e) {
             log_message('error', 'Error in searchWisata: ' . $e->getMessage());
             return [];

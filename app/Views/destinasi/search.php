@@ -24,7 +24,7 @@
                     <img src="<?= (filter_var($item['gambar_wisata'] ?? '', FILTER_VALIDATE_URL)) ? $item['gambar_wisata'] : base_url('uploads/wisata/' . ($item['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($item['nama']) ?>" class="wisata-img">
                     <div class="wisata-content">
                         <div class="wisata-labels">
-                            <span class="badge"><?= esc($item['kategori'] ?? 'Umum') ?></span>
+                            <span class="badge"><?= esc($item['nama_kategori'] ?? 'Umum') ?></span>
                             <span class="badge daerah"><?= esc($item['daerah'] ?? 'Indonesia') ?></span>
                         </div>
                         <h3><?= esc($item['nama']) ?></h3>
