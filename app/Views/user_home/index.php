@@ -223,7 +223,6 @@
 <footer>
   <div class="footer-content">
     <p>&copy; <?= date('Y') ?> Wisata Kalsel. Temukan destinasi impianmu.</p>
-    <p class="small text-muted">Terakhir diperbarui: <?= $currentDate ?? date('d M Y') ?></p>
   </div>
 </footer>
 <?= $this->endSection() ?>
