@@ -55,6 +55,10 @@
                     <i class="fas fa-fw fa-newspaper"></i>
                     <span>Berita</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('admin/logout') ?>">
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Logout</span></a>
         </ul>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
