@@ -26,6 +26,7 @@
     </div>
   <?php endif; ?>
 
+  
   <div class="user-region">
     <div class="region-container">
       <i class="fas fa-map-marker-alt"></i>
@@ -41,21 +42,10 @@
       <?php else: ?>        <?php foreach ($wisataTerbaru as $wisata): ?>
         <div class="card" data-wisata="<?= esc($wisata['nama']) ?>" data-price="<?= $wisata['harga'] ?? 0 ?>">
           <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="card-link">
-            <?php
-              $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
-              $imageUrl = base_url('uploads/wisata/default.jpg');
-              if (is_dir($galleryPath)) {
-                  $files = array_diff(scandir($galleryPath), ['.', '..']);
-                  if (!empty($files)) {
-                      $firstImage = reset($files);
-                      $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
-                  }
-              }
-            ?>
-            <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
+            <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="card-content">
               <div class="card-labels">
-                <span class="badge"><?= esc($wisata['nama_kategori'] ?? 'Umum') ?></span>
+                <span class="badge"><?= esc($wisata['kategori'] ?? 'Umum') ?></span>
                 <span class="badge daerah"><?= esc($wisata['daerah'] ?? 'Indonesia') ?></span>
                 <span class="price">Rp <?= number_format($wisata['harga'] ?? 0, 0, ',', '.') ?></span>
               </div>
@@ -72,26 +62,14 @@
     </div>
   </section>
     <section class="trending-section">
-    <h2>Wisata Trending</h2>
-    <div class="trending-grid">
-      <?php if (empty($wisataPopuler)): ?>
-        <div class="alert alert-info">Belum ada wisata yang sedang trending saat ini</div>
+    <h2>Wisata Populer</h2>
+    <div class="trending-grid">      <?php if (empty($wisataPopuler)): ?>
+      <div class="alert alert-info">Belum ada wisata populer saat ini</div>
       <?php else: ?>
         <?php $i = 1; foreach ($wisataPopuler as $wisata): ?>
         <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="destination-link">
           <div class="destination <?= ($i <= 2) ? 'large' : 'small' ?>">
-            <?php
-              $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
-              $imageUrl = base_url('uploads/wisata/default.jpg');
-              if (is_dir($galleryPath)) {
-                  $files = array_diff(scandir($galleryPath), ['.', '..']);
-                  if (!empty($files)) {
-                      $firstImage = reset($files);
-                      $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
-                  }
-              }
-            ?>
-            <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
+            <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="label"><?= esc($wisata['nama']) ?></div>
             <div class="trending-badge">
               <i class="fas fa-users"></i> <?= number_format($wisata['total_kunjungan'] ?? 0, 0, ',', '.') ?> pengunjung
@@ -102,6 +80,7 @@
       <?php endif; ?>
     </div>
   </section>
+
   
   <section class="section-wisata">
     <h2>Wisata Terdekat</h2>
@@ -111,21 +90,10 @@
         <?php foreach ($wisataTerdekat as $wisata): ?>
         <div class="card" data-wisata="<?= esc($wisata['nama']) ?>" data-price="<?= $wisata['harga'] ?? 0 ?>">
           <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="card-link">
-            <?php
-              $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
-              $imageUrl = base_url('uploads/wisata/default.jpg');
-              if (is_dir($galleryPath)) {
-                  $files = array_diff(scandir($galleryPath), ['.', '..']);
-                  if (!empty($files)) {
-                      $firstImage = reset($files);
-                      $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
-                  }
-              }
-            ?>
-            <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
+            <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>" alt="<?= esc($wisata['nama']) ?>">
             <div class="card-content">
               <div class="card-labels">
-                <span class="badge"><?= esc($wisata['nama_kategori'] ?? 'Umum') ?></span>
+                <span class="badge"><?= esc($wisata['kategori'] ?? 'Umum') ?></span>
                 <span class="badge daerah"><?= esc($wisata['daerah'] ?? 'Indonesia') ?></span>
                 <span class="price">Rp <?= number_format($wisata['harga'] ?? 0, 0, ',', '.') ?></span>
               </div>
@@ -141,51 +109,15 @@
       <?php endif; ?>
     </div>  </section>
 
+  
   <section class="cta-section">
     <div class="cta-container">
       <h2>Temukan Lebih Banyak Destinasi</h2>
-      <p>Jelajahi ratusan destinasi wisata terbaik di seluruh Kalimantan Selatan</p>
+      <p>Jelajahi ratusan destinasi wisata terbaik di seluruh Indonesia</p>
       <a href="<?= base_url('destinasi') ?>" class="cta-button">Lihat Semua Destinasi</a>
     </div>
   </section>
   
-  <?php if (!empty($wisataRekomendasi)): ?>
-  <section class="section-wisata">
-    <h2>Rekomendasi Untuk Anda</h2>
-    <div class="card-container">
-      <?php foreach ($wisataRekomendasi as $wisata): ?>
-      <div class="card" data-wisata="<?= esc($wisata['nama']) ?>" data-price="<?= $wisata['harga'] ?? 0 ?>">
-        <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="card-link">
-          <?php
-            $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
-            $imageUrl = base_url('uploads/wisata/default.jpg');
-            if (is_dir($galleryPath)) {
-                $files = array_diff(scandir($galleryPath), ['.', '..']);
-                if (!empty($files)) {
-                    $firstImage = reset($files);
-                    $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
-                }
-            }
-          ?>
-          <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
-          <div class="card-content">
-            <div class="card-labels">
-              <span class="badge"><?= esc($wisata['nama_kategori'] ?? 'Umum') ?></span>
-              <span class="badge daerah"><?= esc($wisata['daerah'] ?? 'Indonesia') ?></span>
-              <span class="price">Rp <?= number_format($wisata['harga'] ?? 0, 0, ',', '.') ?></span>
-            </div>
-            <h3><?= esc($wisata['nama']) ?></h3>
-            <p><?= esc(substr($wisata['deskripsi'] ?? '', 0, 100)) ?>...</p>
-            <div class="card-action">
-              <small class="text-muted"><i class="fas fa-map-marker-alt"></i> <?= esc($wisata['daerah'] ?? 'Indonesia') ?></small>
-            </div>
-          </div>
-        </a>
-      </div>
-      <?php endforeach; ?>
-    </div>
-  </section>
-  <?php endif; ?>
   
   <section id="news-section">
     <h2>Berita Terbaru</h2>
@@ -195,7 +127,7 @@
         <?php foreach ($berita as $item): ?>
         <div class="news-item">
           <div class="news-content">
-            <img src="<?= (filter_var($item['gambar'], FILTER_VALIDATE_URL)) ? $item['gambar'] : base_url('uploads/berita/' . ($item['gambar'] ?? 'default.jpg')) ?>" alt="<?= esc($item['judul']) ?>">
+            <img src="<?= (filter_var($item['gambar'], FILTER_VALIDATE_URL)) ? $item['gambar'] : base_url('uploads/wisata/' . ($item['gambar'] ?? 'default.jpg')) ?>" alt="<?= esc($item['judul']) ?>">
             <div class="text-content">
               <h3><?= esc($item['judul']) ?></h3>
               <p><?= esc(substr($item['konten'] ?? '', 0, 120)) ?>...</p>

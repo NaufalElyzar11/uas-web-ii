@@ -6,42 +6,38 @@ use App\Models\WisataModel;
 use App\Models\BeritaModel;
 use App\Models\UserModel;
 use App\Models\ReviewModel;
-use App\Models\MinatUserModel;
+use App\Models\StatistikKunjunganModel;
 
 class Dashboard extends BaseController
-{   protected $wisataModel;
+{    protected $wisataModel;
     protected $beritaModel;
     protected $userModel;
     protected $reviewModel;
-    protected $minatUserModel;
+    protected $statistikModel;
 
     public function __construct()
     {
+        // Cek apakah user sudah login
         if (!session()->get('isLoggedIn')) {
             header('Location: ' . base_url('auth/login'));
             exit();
         }
 
+        // Load model
         $this->wisataModel = new WisataModel();
         $this->beritaModel = new BeritaModel();
         $this->userModel = new UserModel();
         $this->reviewModel = new ReviewModel();
-        $this->minatUserModel = new MinatUserModel();
+        $this->statistikModel = new StatistikKunjunganModel();
     }    public function index()
     {
         try {
+            // Ambil data user yang sedang login
             $userId = session()->get('user_id');
             $userData = $this->userModel->find($userId);
-            $userDaerah = $userData['daerah'] ?? 'Kalimantan Selatan'; 
+            $userDaerah = $userData['daerah'] ?? 'Kalimantan Selatan'; // Default jika tidak ada
 
-            $userInterests = $this->minatUserModel->getUserInterests($userId);
-            $interestKategoriIds = array_column($userInterests, 'kategori_id');
-
-            $wisataRekomendasi = [];
-            if (!empty($interestKategoriIds)) {
-                $wisataRekomendasi = $this->wisataModel->getWisataByKategori($interestKategoriIds, 4);
-            }
-
+            // Ambil data dari database dengan error handling
             try {
                 $wisataTerbaru = $this->wisataModel->getWisataTerbaru(4);
             } catch (\Exception $e) {
@@ -50,7 +46,7 @@ class Dashboard extends BaseController
             }
             
             try {
-                $wisataPopuler = $this->wisataModel->getTrendingWisata(5);
+                $wisataPopuler = $this->wisataModel->getWisataPopuler(5);
             } catch (\Exception $e) {
                 log_message('error', 'Error fetching wisataPopuler: ' . $e->getMessage());
                 $wisataPopuler = [];
@@ -63,7 +59,7 @@ class Dashboard extends BaseController
                 $wisataTerdekat = [];
             }
               try {
-                $berita = $this->beritaModel->getBeritaTerbaru(4);
+                $berita = $this->beritaModel->getBeritaTerbaru(6);
             } catch (\Exception $e) {
                 log_message('error', 'Error fetching berita: ' . $e->getMessage());
                 $berita = [];
@@ -71,12 +67,12 @@ class Dashboard extends BaseController
         } catch (\Exception $e) {
             log_message('error', 'Error in Dashboard index: ' . $e->getMessage());
             
+            // Set default values for all data in case of error
             $wisataTerbaru = [];
             $wisataPopuler = [];
             $wisataTerdekat = [];
             $berita = [];
             $userDaerah = 'Indonesia';
-            $wisataRekomendasi = [];
             
             session()->setFlashdata('error', 'Terjadi kesalahan saat memuat data. Silakan coba lagi nanti.');
         }
@@ -93,15 +89,14 @@ class Dashboard extends BaseController
             'wisataTerbaru' => $wisataTerbaru,
             'wisataPopuler' => $wisataPopuler,
             'wisataTerdekat' => $wisataTerdekat,
-            'wisataRekomendasi' => $wisataRekomendasi,
             'berita' => $berita,
             'currentDate' => date('d M Y')
         ];
         
+        // Log count of items for debugging
         log_message('debug', 'Item counts - Wisata Terbaru: ' . count($wisataTerbaru) . 
                             ', Wisata Populer: ' . count($wisataPopuler) . 
                             ', Wisata Terdekat: ' . count($wisataTerdekat) .
-                            ', Wisata Rekomendasi: ' . count($wisataRekomendasi) .
                             ', Berita: ' . count($berita));
         
         return view('dashboard/index', $data);
