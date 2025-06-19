@@ -19,7 +19,6 @@
             <li><a href="<?= base_url('/') ?>"><i class="fas fa-home"></i>Beranda</a></li>
             <li><a href="<?= base_url('destinasi') ?>"><i class="fas fa-map-marked-alt"></i>Destinasi</a></li>
             <?php if (session()->get('isLoggedIn')): ?>
-                <li><a href="<?= base_url('dashboard') ?>"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
                 <li><a href="<?= base_url('riwayat') ?>"><i class="fas fa-history"></i>Riwayat</a></li>
                 <li><a href="<?= base_url('wishlist') ?>"><i class="fas fa-heart"></i>Keinginan</a></li>
                 <li><a href="<?= base_url('profile') ?>"><i class="fas fa-user"></i>Profil</a></li>

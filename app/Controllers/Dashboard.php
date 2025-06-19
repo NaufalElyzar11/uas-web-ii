@@ -6,10 +6,9 @@ use App\Models\WisataModel;
 use App\Models\BeritaModel;
 use App\Models\UserModel;
 use App\Models\ReviewModel;
-use App\Models\StatistikKunjunganModel;
 
 class Dashboard extends BaseController
-{    protected $wisataModel;
+{   protected $wisataModel;
     protected $beritaModel;
     protected $userModel;
     protected $reviewModel;
@@ -28,7 +27,6 @@ class Dashboard extends BaseController
         $this->beritaModel = new BeritaModel();
         $this->userModel = new UserModel();
         $this->reviewModel = new ReviewModel();
-        $this->statistikModel = new StatistikKunjunganModel();
     }    public function index()
     {
         try {

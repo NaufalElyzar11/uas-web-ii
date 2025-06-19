@@ -17,115 +17,85 @@ class WisataModel extends Model
         'daerah', 
         'deskripsi', 
         'harga', 
-        'kategori', 
-        'trending_score', 
-        'gambar_wisata'
+        'kategori_id', 
+        'trending_score'
     ];
 
-    // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = '';
     protected $deletedField  = '';
 
-    // Validation
     protected $validationRules      = [];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
-    protected $cleanValidationRules = true;    /**
-     * Dapatkan wisata terbaru (kurang dari 1 bulan)
-     */
+    protected $cleanValidationRules = true;    
+
+    public function getWisataWithKategori()
+    {
+        return $this->select('wisata.*, kategori.nama_kategori')
+            ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+            ->findAll();
+    }
+
+    public function getTrendingWisata($limit = 5)
+    {
+        return $this->select('wisata.*, kategori.nama_kategori, COALESCE(SUM(bookings.jumlah_orang),0) as total_kunjungan')
+            ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+            ->join('bookings', 'bookings.wisata_id = wisata.wisata_id', 'left')
+            ->groupBy('wisata.wisata_id, kategori.nama_kategori')
+            ->orderBy('total_kunjungan', 'DESC')
+            ->limit($limit)
+            ->find();
+    }
+
+    public function getPopularWisata($limit = 4)
+    {
+        return $this->getTrendingWisata($limit);
+    }
+
     public function getWisataTerbaru($limit = 4)
     {
         try {
-            // Periksa apakah kolom created_at ada
+            $builder = $this->select('wisata.*, kategori.nama_kategori')
+                ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left');
+
             if (!in_array('created_at', $this->allowedFields) && !$this->createdField) {
-                // Fallback jika tidak ada field created_at
-                return $this->orderBy($this->primaryKey, 'DESC')
+                return $builder->orderBy('wisata.wisata_id', 'DESC')
                         ->limit($limit)
                         ->find();
             }
             
             $date = new \DateTime();
-            $date->sub(new \DateInterval('P1M')); // 1 bulan yang lalu
+            $date->sub(new \DateInterval('P1M')); 
             $monthAgo = $date->format('Y-m-d H:i:s');
 
-            return $this->where('created_at >=', $monthAgo)
-                        ->orderBy('created_at', 'DESC')
+            return $builder->where('wisata.created_at >=', $monthAgo)
+                        ->orderBy('wisata.created_at', 'DESC')
                         ->limit($limit)
                         ->find();
         } catch (\Exception $e) {
             log_message('error', 'Error in getWisataTerbaru: ' . $e->getMessage());
             return [];
         }
-    }    /**
-     * Dapatkan wisata popular berdasarkan statistik kunjungan
-     */
-    public function getWisataPopuler($limit = 5)
-    {
-        try {
-            $db = \Config\Database::connect();
-            
-            // Join with statistik_kunjungan table and get sum of visits
-            $query = $db->table('wisata')
-                ->select('wisata.*, SUM(statistik_kunjungan.jumlah_pengunjung) as total_kunjungan')
-                ->join('statistik_kunjungan', 'statistik_kunjungan.wisata_id = wisata.wisata_id', 'left')
-                ->groupBy('wisata.wisata_id')
-                ->orderBy('total_kunjungan', 'DESC')
-                ->limit($limit);
-                
-            $result = $query->get()->getResultArray();
-            
-            // If no results with statistics, fallback to trending_score or recent
-            if (empty($result)) {
-                if (in_array('trending_score', $this->allowedFields)) {
-                    return $this->orderBy('trending_score', 'DESC')
-                                ->limit($limit)
-                                ->find();
-                } else {
-                    return $this->orderBy($this->primaryKey, 'DESC')
-                                ->limit($limit)
-                                ->find();
-                }
-            }
-            
-            return $result;
-        } catch (\Exception $e) {
-            log_message('error', 'Error in getWisataPopuler: ' . $e->getMessage());
-            
-            // Fallback to using trending_score on error
-            try {
-                if (in_array('trending_score', $this->allowedFields)) {
-                    return $this->orderBy('trending_score', 'DESC')
-                                ->limit($limit)
-                                ->find();
-                } else {
-                    return $this->orderBy($this->primaryKey, 'DESC')
-                                ->limit($limit)
-                                ->find();
-                }
-            } catch (\Exception $e2) {
-                log_message('error', 'Error in getWisataPopuler fallback: ' . $e2->getMessage());
-                return [];
-            }
-        }
-    }/**
-     * Dapatkan wisata berdasarkan daerah user
-     */
+    }    
+
     public function getWisataTerdekat($userDaerah, $limit = 4)
     {
         try {
-            // Periksa apakah kolom daerah ada
+            $builder = $this->select('wisata.*, kategori.nama_kategori')
+                ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left');
+
             if (!in_array('daerah', $this->allowedFields)) {
                 log_message('warning', 'daerah field not found, returning all wisata');
-                return $this->orderBy($this->primaryKey, 'DESC')
+                return $builder->orderBy('wisata.wisata_id', 'DESC')
                             ->limit($limit)
                             ->find();
             }
             
-            return $this->where('daerah', $userDaerah)
-                        ->orderBy($this->primaryKey, 'DESC')
+            return $builder->where('daerah', $userDaerah)
+                        ->orderBy('wisata.wisata_id', 'DESC')
                         ->limit($limit)
                         ->find();
         } catch (\Exception $e) {
@@ -134,21 +104,42 @@ class WisataModel extends Model
         }
     }
     
-    /**
-     * Search wisata by keyword (nama or daerah)
-     */
-    public function search($keyword)
+    public function searchWisata($keyword)
     {
         try {
-            return $this->like('nama', $keyword)
-                      ->orLike('daerah', $keyword)
-                      ->orLike('deskripsi', $keyword)
-                      ->orLike('kategori', $keyword)
-                      ->orderBy($this->primaryKey, 'DESC')
-                      ->find();
+            $builder = $this->select('wisata.*, kategori.nama_kategori')
+                ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+                ->like('wisata.nama', $keyword)
+                ->orLike('wisata.daerah', $keyword)
+                ->orLike('kategori.nama_kategori', $keyword);
+
+            if (in_array('trending_score', $this->allowedFields)) {
+                return $builder->orderBy('trending_score', 'DESC')->findAll();
+            }
+            return $builder->findAll();
         } catch (\Exception $e) {
-            log_message('error', 'Error in search: ' . $e->getMessage());
+            log_message('error', 'Error in searchWisata: ' . $e->getMessage());
             return [];
         }
     }
+
+    public function getWisataPopuler($limit = 4)
+    {
+        return $this->getPopularWisata($limit);
+    }
+
+    public function getFirstGalleryImage($wisataId)
+    {
+        $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisataId;
+        if (is_dir($galleryPath)) {
+            $files = scandir($galleryPath);
+            foreach ($files as $file) {
+                if ($file != '.' && $file != '..' && in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif'])) {
+                    return base_url('uploads/wisata/gallery/' . $wisataId . '/' . $file);
+                }
+            }
+        }
+        return null;
+    }
+
 }

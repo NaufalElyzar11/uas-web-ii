@@ -4,7 +4,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Modern Login Form | CodingStella </title>
   <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap'>
   <link rel="stylesheet" href="<?= base_url('css/login.css') ?>">
@@ -50,9 +49,7 @@
             <label for="remember">Ingat saya</label>
           </div>
 
-          <div class="forgot">
-            <a href="#">Lupa kata sandi?</a>
-          </div>
+          
         </div>
 
         <div class="input_box">

@@ -26,7 +26,6 @@
                 </div>
             <?php endif ?>
 
-
             <form action="<?= base_url('auth/doRegister') ?>" method="post">
                 <?= csrf_field() ?>
 
@@ -50,15 +49,14 @@
                             <i class="bx bxl-gmail icon"></i>
                         </div>
 
-                        
                         <div class="input_box">
                             <select class="form-select input-field" id="daerah" name="daerah" required>
                                 <option value="" selected disabled>Pilih Daerah</option>
                                 <?php
                                 $daerahList = [
-                                    'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
+                                    'Banjarbaru', 'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
                                     'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
-                                    'Kotabaru', 'Barito Timur', 'Balangan'
+                                    'Kotabaru', 'Balangan'
                                 ];
                                 foreach ($daerahList as $daerah): ?>
                                     <option value="<?= $daerah ?>" <?= old('daerah') === $daerah ? 'selected' : '' ?>><?= $daerah ?></option>
