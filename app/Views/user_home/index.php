@@ -71,6 +71,7 @@
       <?php endif; ?>
     </div>
   </section>
+
     <section class="trending-section">
     <h2>Wisata Trending</h2>
     <div class="trending-grid">
@@ -146,6 +147,46 @@
       <h2>Temukan Lebih Banyak Destinasi</h2>
       <p>Jelajahi ratusan destinasi wisata terbaik di seluruh Kalimantan Selatan</p>
       <a href="<?= base_url('destinasi') ?>" class="cta-button">Lihat Semua Destinasi</a>
+    </div>
+  </section>
+
+  <section class="section-wisata">
+    <h2>Rekomendasi Wisata</h2>
+    <div class="card-container">
+      <?php if (empty($wisataRekomendasi)): ?>
+      <div class="alert alert-info">Belum ada rekomendasi wisata sesuai minat Anda</div>
+      <?php else: ?>
+        <?php foreach ($wisataRekomendasi as $wisata): ?>
+        <div class="card" data-wisata="<?= esc($wisata['nama']) ?>" data-price="<?= $wisata['harga'] ?? 0 ?>">
+          <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="card-link">
+            <?php
+              $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
+              $imageUrl = base_url('uploads/wisata/default.jpg');
+              if (is_dir($galleryPath)) {
+                  $files = array_diff(scandir($galleryPath), ['.', '..']);
+                  if (!empty($files)) {
+                      $firstImage = reset($files);
+                      $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
+                  }
+              }
+            ?>
+            <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>">
+            <div class="card-content">
+              <div class="card-labels">
+                <span class="badge"><?= esc($wisata['nama_kategori'] ?? 'Umum') ?></span>
+                <span class="badge daerah"><?= esc($wisata['daerah'] ?? 'Indonesia') ?></span>
+                <span class="price">Rp <?= number_format($wisata['harga'] ?? 0, 0, ',', '.') ?></span>
+              </div>
+              <h3><?= esc($wisata['nama']) ?></h3>
+              <p><?= esc(substr($wisata['deskripsi'] ?? '', 0, 100)) ?>...</p>
+              <div class="card-action">
+                <small class="text-muted"><i class="fas fa-calendar-alt"></i> <?= isset($wisata['created_at']) ? date('d M Y', strtotime($wisata['created_at'])) : 'Baru ditambahkan' ?></small>
+              </div>
+            </div>
+          </a>
+        </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
     </div>
   </section>
   

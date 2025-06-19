@@ -132,4 +132,16 @@ class WisataModel extends Model
         return null;
     }
 
+    public function getRekomendasiWisataByUserMinat($userId, $limit = 4)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('wisata')
+            ->select('wisata.*, kategori.nama_kategori')
+            ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
+            ->join('minat_user', 'minat_user.kategori_id = wisata.kategori_id', 'inner')
+            ->where('minat_user.user_id', $userId)
+            ->limit($limit);
+        return $builder->get()->getResultArray();
+    }
+
 }

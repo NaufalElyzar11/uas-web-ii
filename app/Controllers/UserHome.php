@@ -57,6 +57,12 @@ class UserHome extends BaseController
                 log_message('error', 'Error fetching berita: ' . $e->getMessage());
                 $berita = [];
             }
+            try {
+                $wisataRekomendasi = $this->wisataModel->getRekomendasiWisataByUserMinat($userId, 4);
+            } catch (\Exception $e) {
+                log_message('error', 'Error fetching wisataRekomendasi: ' . $e->getMessage());
+                $wisataRekomendasi = [];
+            }
         } catch (\Exception $e) {
             log_message('error', 'Error in Dashboard index: ' . $e->getMessage());
             
@@ -82,6 +88,7 @@ class UserHome extends BaseController
             'wisataTrending' => $wisataTrending,
             'wisataTerdekat' => $wisataTerdekat,
             'berita' => $berita,
+            'wisataRekomendasi' => $wisataRekomendasi,
             'currentDate' => date('d M Y')
         ];
         
