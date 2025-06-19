@@ -225,7 +225,7 @@ main {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 180px);
+    grid-template-rows: repeat(1, 180px);
     grid-template-areas:
       "dest1 dest2 dest2 dest2"
       "dest3 dest4 dest5 dest5";
@@ -278,7 +278,7 @@ main {
     height: 180px;
 }
 .small {
-    height: 180px;
+    height: 30px;
 }
 .destination:nth-child(1) { grid-area: dest1; }
 .destination:nth-child(2) { grid-area: dest2; }

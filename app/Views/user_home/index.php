@@ -74,12 +74,12 @@
     <section class="trending-section">
     <h2>Wisata Trending</h2>
     <div class="trending-grid">
-      <?php if (empty($wisataPopuler)): ?>
+      <?php if (empty($wisataTrending)): ?>
         <div class="alert alert-info">Belum ada wisata yang sedang trending saat ini</div>
       <?php else: ?>
-        <?php $i = 1; foreach ($wisataPopuler as $wisata): ?>
+        <?php $i = 1; foreach ($wisataTrending as $wisata): ?>
         <a href="<?= base_url('destinasi/detail/' . $wisata['wisata_id']) ?>" class="destination-link">
-          <div class="destination <?= ($i <= 2) ? 'large' : 'small' ?>">
+          <div class="destination large">
             <?php
               $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
               $imageUrl = base_url('uploads/wisata/default.jpg');

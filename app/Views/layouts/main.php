@@ -16,7 +16,11 @@
     <div class="sidebar">
         <header>BanuaTour</header>
         <ul>
-            <li><a href="<?= base_url('/') ?>"><i class="fas fa-home"></i>Beranda</a></li>
+            <li>
+                <a href="<?= session()->get('isLoggedIn') ? base_url('user_home') : base_url('/') ?>">
+                    <i class="fas fa-home"></i>Beranda
+                </a>
+            </li>
             <li><a href="<?= base_url('destinasi') ?>"><i class="fas fa-map-marked-alt"></i>Destinasi</a></li>
             <?php if (session()->get('isLoggedIn')): ?>
                 <li><a href="<?= base_url('riwayat') ?>"><i class="fas fa-history"></i>Riwayat</a></li>

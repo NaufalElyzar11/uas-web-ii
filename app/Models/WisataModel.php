@@ -118,11 +118,6 @@ class WisataModel extends Model
         }
     }
 
-    public function getWisataPopuler($limit = 4)
-    {
-        return $this->getPopularWisata($limit);
-    }
-
     public function getFirstGalleryImage($wisataId)
     {
         $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisataId;

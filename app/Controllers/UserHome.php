@@ -39,10 +39,10 @@ class UserHome extends BaseController
             }
             
             try {
-                $wisataPopuler = $this->wisataModel->getTrendingWisata(4);
+                $wisataTrending = $this->wisataModel->getTrendingWisata(4);
             } catch (\Exception $e) {
-                log_message('error', 'Error fetching wisataPopuler: ' . $e->getMessage());
-                $wisataPopuler = [];
+                log_message('error', 'Error fetching wisataTrending: ' . $e->getMessage());
+                $wisataTrending = [];
             }
             
             try {
@@ -61,7 +61,7 @@ class UserHome extends BaseController
             log_message('error', 'Error in Dashboard index: ' . $e->getMessage());
             
             $wisataTerbaru = [];
-            $wisataPopuler = [];
+            $wisataTrending = [];
             $wisataTerdekat = [];
             $berita = [];
             $userDaerah = 'Indonesia';
@@ -79,14 +79,14 @@ class UserHome extends BaseController
                 'daerah' => $userDaerah
             ],
             'wisataTerbaru' => $wisataTerbaru,
-            'wisataPopuler' => $wisataPopuler,
+            'wisataTrending' => $wisataTrending,
             'wisataTerdekat' => $wisataTerdekat,
             'berita' => $berita,
             'currentDate' => date('d M Y')
         ];
         
         log_message('debug', 'Item counts - Wisata Terbaru: ' . count($wisataTerbaru) . 
-                            ', Wisata Populer: ' . count($wisataPopuler) . 
+                            ', Wisata Trending: ' . count($wisataTrending) . 
                             ', Wisata Terdekat: ' . count($wisataTerdekat) .
                             ', Berita: ' . count($berita));
         

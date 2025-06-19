@@ -20,7 +20,7 @@ class Home extends BaseController
     {
         $data = [
             'title' => 'Selamat Datang di BanuaTour',
-            'wisataPopuler' => $this->wisataModel->getTrendingWisata(4),
+            'wisataTrending' => $this->wisataModel->getTrendingWisata(4),
             'berita' => $this->beritaModel->getBeritaTerbaru(4),
         ];
 
