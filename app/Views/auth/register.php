@@ -30,7 +30,7 @@
                 <?= csrf_field() ?>
 
                 <div class="form-columns">
-                    <div class="form-column">                        
+                    <div class="form-column">
                         <div class="input_box">
                             <input type="text" class="input-field" id="nama" name="nama" value="<?= old('nama') ?>" required>
                             <label for="nama" class="label">Nama Lengkap</label>
@@ -54,9 +54,18 @@
                                 <option value="" selected disabled>Pilih Daerah</option>
                                 <?php
                                 $daerahList = [
-                                    'Banjarbaru', 'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
-                                    'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
-                                    'Kotabaru', 'Balangan'
+                                    'Banjarbaru',
+                                    'Banjarmasin',
+                                    'Banjar',
+                                    'Barito Kuala',
+                                    'Tapin',
+                                    'Hulu Sungai Selatan',
+                                    'Hulu Sungai Tengah',
+                                    'Hulu Sungai Utara',
+                                    'Tanah Laut',
+                                    'Tanah Bumbu',
+                                    'Kotabaru',
+                                    'Balangan'
                                 ];
                                 foreach ($daerahList as $daerah): ?>
                                     <option value="<?= $daerah ?>" <?= old('daerah') === $daerah ? 'selected' : '' ?>><?= $daerah ?></option>
@@ -64,15 +73,15 @@
                             </select>
                             <i class="bx bx-location-plus icon"></i>
                         </div>
-                    </div>    
-                
+                    </div>
+
                     <div class="form-column">
                         <div class="input_box">
                             <input type="password" class="input-field" id="password" name="password" required>
                             <label for="password" class="label">Kata Sandi</label>
                             <i class="bx bx-lock-alt icon"></i>
                         </div>
-                        
+
                         <div class="input_box">
                             <input type="password" class="input-field" id="confirm_password" name="confirm_password" required>
                             <label for="confirm_password" class="label">Konfirmasi Kata Sandi</label>
@@ -93,31 +102,31 @@
                             <label for="umur" class="label">Umur</label>
                             <i class="bx bx-user icon"></i>
                         </div>
-                    </div>    
-                </div>
-
-                    <div class="input_box">
-                        <button type="submit" class="input-submit">Daftar</button>
                     </div>
-                </form>
-
-                <div class="text-center mt-3">
-                    <p>Sudah punya akun? <a href="<?= base_url('auth/login') ?>">Masuk di sini</a></p>
                 </div>
+
+                <div class="input_box">
+                    <button type="submit" class="input-submit">Daftar</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <p>Sudah punya akun? <a href="<?= base_url('auth/login') ?>">Masuk di sini</a></p>
             </div>
         </div>
     </div>
 </div>
+</div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var umurInput = document.getElementById('umur');
-    if(umurInput) {
-        umurInput.addEventListener('input', function(e) {
-            this.value = this.value.replace(/[^\d]/g, '');
-        });
-    }
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        var umurInput = document.getElementById('umur');
+        if (umurInput) {
+            umurInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^\d]/g, '');
+            });
+        }
+    });
 </script>
 
 <?= $this->endSection() ?>

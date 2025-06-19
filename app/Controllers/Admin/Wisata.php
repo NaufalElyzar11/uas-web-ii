@@ -37,9 +37,19 @@ class Wisata extends BaseController
     public function store()
     {
         $daerahList = [
-            'Banjarbaru', 'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
-            'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
-            'Kotabaru', 'Barito Timur', 'Balangan'
+            'Banjarbaru',
+            'Banjarmasin',
+            'Banjar',
+            'Barito Kuala',
+            'Tapin',
+            'Hulu Sungai Selatan',
+            'Hulu Sungai Tengah',
+            'Hulu Sungai Utara',
+            'Tanah Laut',
+            'Tanah Bumbu',
+            'Kotabaru',
+            'Barito Timur',
+            'Balangan'
         ];
         $rules = [
             'nama' => 'required|min_length[3]|max_length[100]',
@@ -109,9 +119,19 @@ class Wisata extends BaseController
     public function update($id)
     {
         $daerahList = [
-            'Banjarbaru', 'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
-            'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
-            'Kotabaru', 'Barito Timur', 'Balangan',
+            'Banjarbaru',
+            'Banjarmasin',
+            'Banjar',
+            'Barito Kuala',
+            'Tapin',
+            'Hulu Sungai Selatan',
+            'Hulu Sungai Tengah',
+            'Hulu Sungai Utara',
+            'Tanah Laut',
+            'Tanah Bumbu',
+            'Kotabaru',
+            'Barito Timur',
+            'Balangan',
         ];
         $rules = [
             'nama' => 'required|min_length[3]|max_length[100]',
@@ -182,13 +202,13 @@ class Wisata extends BaseController
         }
 
         $filePath = FCPATH . 'uploads/wisata/gallery/' . $wisataId . '/' . $filename;
-        
+
         if (file_exists($filePath)) {
             if (unlink($filePath)) {
                 return $this->response->setJSON(['success' => true, 'message' => 'Gambar berhasil dihapus']);
             }
         }
-        
+
         return $this->response->setJSON(['success' => false, 'message' => 'Gagal menghapus gambar']);
     }
 }

@@ -1,68 +1,66 @@
 body {
-    background: linear-gradient(135deg, #ddf6e1 0%, #f5f7fa 100%);
+  background: linear-gradient(135deg, #ddf6e1 0%, #f5f7fa 100%);
 }
 
 .container {
-    background: linear-gradient(135deg, #ddf6e1 0%, #f5f7fa 100%);
-    width: 100%;
+  background: linear-gradient(135deg, #ddf6e1 0%, #f5f7fa 100%);
+  width: 100%;
 }
 
 .card-title {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
 }
 
 .card-header.bg-primary {
-    background-color: #224d32 !important; /* Hijau daun */
+  background-color: #224d32 !important; /* Hijau daun */
 }
 
 .card-body {
-    padding: 1.5rem;
-    background-color: #bddabd;
+  padding: 1.5rem;
+  background-color: #bddabd;
 }
 
 .form-label {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 input.form-control {
-    border-radius: 10px;
-    border: 1px solid #0d6566
-;
-    box-shadow: none;
-    padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #0d6566;
+  box-shadow: none;
+  padding: 0.5rem;
 }
 
 input.form-control:focus {
-    border-color: #224d32;
-    box-shadow: 0 0 0 0.1rem rgba(76, 174, 76, 0.25);
+  border-color: #224d32;
+  box-shadow: 0 0 0 0.1rem rgba(76, 174, 76, 0.25);
 }
 
 .input-group-text {
-    background-color: #cceacc;
-    border: 1px solid #aad8aa;
-    border-radius: 10px 0 0 10px;
+  background-color: #cceacc;
+  border: 1px solid #aad8aa;
+  border-radius: 10px 0 0 10px;
 }
 
 button.btn-primary {
-    background-color: #224d32
-;
-    border: none;
-    border-radius: 12px;
-    font-weight: 600;
+  background-color: #224d32;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
 }
 
 button.btn-primary:hover {
-    background-color: #018034;
+  background-color: #018034;
 }
 
 .wisata-info p {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .img-fluid.rounded {
-    border-radius: 16px;
-    max-width: 100%;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  border-radius: 16px;
+  max-width: 100%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }

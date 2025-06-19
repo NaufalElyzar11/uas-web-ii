@@ -34,14 +34,14 @@ class Destinasi extends BaseController
             'wisata' => $wisataData,
             'kategoriList' => $this->kategoriModel->findAll()
         ];
-        
+
         return view('destinasi/index', $data);
     }
 
     public function search()
     {
         $keyword = $this->request->getGet('keyword') ?? '';
-        
+
         $wisata = [];
         if (!empty($keyword)) {
             $wisata = $this->wisataModel->search($keyword);
@@ -49,31 +49,31 @@ class Destinasi extends BaseController
                 $item['gambar_wisata'] = $this->wisataModel->getFirstGalleryImage($item['wisata_id']) ?? base_url('uploads/wisata/default.jpg');
             }
         }
-        
+
         $data = [
             'title' => 'Hasil Pencarian: ' . $keyword,
             'keyword' => $keyword,
             'wisata' => $wisata
         ];
-        
+
         return view('destinasi/search', $data);
     }
-      public function detail($id = null)
+    public function detail($id = null)
     {
         if ($id === null) {
             return redirect()->to('destinasi');
         }
-        
+
         $wisata = $this->wisataModel
             ->select('wisata.*, kategori.nama_kategori')
             ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
             ->find($id);
-        
+
         if ($wisata === null) {
             return redirect()->to('destinasi')->with('error', 'Destinasi wisata tidak ditemukan');
         }
         $galeri = [];
-        
+
         try {
             $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $id;
             if (is_dir($galleryPath)) {
@@ -84,7 +84,7 @@ class Destinasi extends BaseController
                     }
                 }
             }
-            
+
             if (empty($galeri) && !empty($wisata['gambar_wisata'])) {
                 $galeri[] = $wisata['gambar_wisata'];
             }
@@ -102,7 +102,7 @@ class Destinasi extends BaseController
         $reviews = $this->reviewModel->getReviewsByWisataId($wisata['wisata_id']);
         $averageRating = $this->reviewModel->getAverageRating($wisata['wisata_id']);
         $trendingScore = $this->bookingModel->getTotalPengunjung($wisata['wisata_id']);
-        
+
         $data = [
             'title' => $wisata['nama'],
             'wisata' => $wisata,
@@ -112,7 +112,7 @@ class Destinasi extends BaseController
             'averageRating' => $averageRating,
             'trendingScore' => $trendingScore
         ];
-        
+
         return view('destinasi/detail', $data);
     }
 
@@ -130,21 +130,21 @@ class Destinasi extends BaseController
             'rating' => 'required|numeric|greater_than[0]|less_than[6]',
             'komentar' => 'required|min_length[10]|max_length[500]'
         ];
-        
+
         if (!$this->validate($rules)) {
             return $this->response->setJSON([
                 'status' => 'error',
                 'message' => 'Review tidak valid. Rating harus 1-5 dan komentar minimal 10 karakter.'
             ]);
         }
-        
+
         $reviewData = [
             'user_id' => session()->get('user_id'),
             'wisata_id' => $this->request->getPost('wisata_id'),
             'rating' => $this->request->getPost('rating'),
             'komentar' => $this->request->getPost('komentar')
         ];
-        
+
         try {
             $this->reviewModel->insert($reviewData);
             return $this->response->setJSON([
@@ -161,36 +161,35 @@ class Destinasi extends BaseController
     }
 
     public function deleteReview($reviewId)
-{
-    $review = $this->reviewModel->find($reviewId);
+    {
+        $review = $this->reviewModel->find($reviewId);
 
-    if (!$review) {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'Review tidak ditemukan.'
-        ]);
+        if (!$review) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Review tidak ditemukan.'
+            ]);
+        }
+
+        if ($review['user_id'] != session()->get('user_id')) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Anda tidak memiliki izin untuk menghapus review ini.'
+            ]);
+        }
+
+        try {
+            $this->reviewModel->delete($reviewId);
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Review berhasil dihapus.'
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', 'Error deleting review: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat menghapus review.'
+            ]);
+        }
     }
-
-    if ($review['user_id'] != session()->get('user_id')) {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'Anda tidak memiliki izin untuk menghapus review ini.'
-        ]);
-    }
-
-    try {
-        $this->reviewModel->delete($reviewId);
-        return $this->response->setJSON([
-            'status' => 'success',
-            'message' => 'Review berhasil dihapus.'
-        ]);
-    } catch (\Exception $e) {
-        log_message('error', 'Error deleting review: ' . $e->getMessage());
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'Terjadi kesalahan saat menghapus review.'
-        ]);
-    }
-}
-
 }

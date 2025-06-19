@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link href="<?= base_url('assets/sbadmin2/css/sb-admin-2.min.css') ?>" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css">
 </head>
+
 <body id="page-top">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -19,11 +21,12 @@
                 <div class="sidebar-brand-text mx-3">Admin</div>
             </a>
             <hr class="sidebar-divider my-0">
-            <?php 
-                $currentUrl = current_url();
-                function is_active($url) {
-                    return current_url() === base_url($url) ? 'active' : '';
-                }
+            <?php
+            $currentUrl = current_url();
+            function is_active($url)
+            {
+                return current_url() === base_url($url) ? 'active' : '';
+            }
             ?>
             <li class="nav-item <?= is_active('admin/dashboard') || is_active('admin') ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">
@@ -77,6 +80,7 @@
     <script src="<?= base_url('assets/sbadmin2/js/sb-admin-2.min.js') ?>"></script>
 
     <?= $this->renderSection('script') ?>
-    
+
 </body>
+
 </html>

@@ -57,15 +57,15 @@ class BookingModel extends Model
             ->join('wisata', 'wisata.wisata_id = bookings.wisata_id')
             ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
             ->where('bookings.user_id', $userId);
-        
+
         if ($status) {
             $query->where('bookings.status', $status);
         }
-        
+
         return $query->orderBy('bookings.tanggal_kunjungan', 'DESC')
             ->findAll();
     }
-    
+
     /**
      * Get upcoming bookings for a user
      *
@@ -76,7 +76,7 @@ class BookingModel extends Model
     {
         return $this->getUserBookings($userId, 'upcoming');
     }
-    
+
     /**
      * Get completed bookings for a user
      *
@@ -87,7 +87,7 @@ class BookingModel extends Model
     {
         return $this->getUserBookings($userId, 'completed');
     }
-    
+
     /**
      * Get canceled bookings for a user
      *
@@ -102,9 +102,9 @@ class BookingModel extends Model
     public function getTotalPengunjung($wisataId)
     {
         $result = $this->selectSum('jumlah_orang')
-                       ->where('wisata_id', $wisataId)
-                       ->first();
-        
+            ->where('wisata_id', $wisataId)
+            ->first();
+
         return $result['jumlah_orang'] ?? 0;
     }
 }

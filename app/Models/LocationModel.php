@@ -16,4 +16,4 @@ class LocationModel extends Model
         'gambar',
         'tanggal_post'
     ];
-} 
+}

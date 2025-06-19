@@ -9,7 +9,7 @@ class Wishlist extends BaseController
 {
     protected $wishlistModel;
     protected $wisataModel;
-    
+
     public function __construct()
     {
         // Pengecekan login lebih baik dilakukan per method untuk endpoint API/AJAX
@@ -27,7 +27,7 @@ class Wishlist extends BaseController
 
         $userId = session()->get('user_id');
         $wishlistItems = $this->wishlistModel->getUserWishlist($userId);
-        
+
         $data = [
             'title' => 'Wishlist Wisata',
             'user' => [
@@ -40,20 +40,20 @@ class Wishlist extends BaseController
             ],
             'wishlist' => $wishlistItems
         ];
-        
+
         return view('user/wishlist', $data);
     }
-    
+
     public function add($wisataId)
     {
         // Cek login di sini untuk memberikan respons JSON jika gagal
         if (!session()->get('isLoggedIn')) {
             return $this->response->setJSON([
-                'success' => false, 
+                'success' => false,
                 'message' => 'Anda harus login terlebih dahulu.'
             ]);
         }
-        
+
         $userId = session()->get('user_id');
 
         // Cek apakah sudah ada di wishlist
@@ -66,7 +66,7 @@ class Wishlist extends BaseController
 
         // Lakukan penambahan
         $result = $this->wishlistModel->addToWishlist($userId, $wisataId);
-        
+
         // Kirim respons berdasarkan hasil operasi
         if ($result) {
             return $this->response->setJSON([
@@ -86,14 +86,14 @@ class Wishlist extends BaseController
         // Cek login di sini
         if (!session()->get('isLoggedIn')) {
             return $this->response->setJSON([
-                'success' => false, 
+                'success' => false,
                 'message' => 'Anda harus login terlebih dahulu.'
             ]);
         }
 
         $userId = session()->get('user_id');
         $result = $this->wishlistModel->removeFromWishlist($userId, $wisataId);
-        
+
         if ($result) {
             return $this->response->setJSON([
                 'success' => true,

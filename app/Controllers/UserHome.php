@@ -10,7 +10,8 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Models\LocationModel;
 
 class UserHome extends BaseController
-{   protected $wisataModel;
+{
+    protected $wisataModel;
     protected $beritaModel;
     protected $userModel;
     protected $reviewModel;
@@ -26,7 +27,8 @@ class UserHome extends BaseController
         $this->beritaModel = new BeritaModel();
         $this->userModel = new UserModel();
         $this->reviewModel = new ReviewModel();
-    }    public function index()
+    }
+    public function index()
     {
         try {
             $userId = session()->get('user_id');
@@ -39,21 +41,21 @@ class UserHome extends BaseController
                 log_message('error', 'Error fetching wisataTerbaru: ' . $e->getMessage());
                 $wisataTerbaru = [];
             }
-            
+
             try {
                 $wisataTrending = $this->wisataModel->getTrendingWisata(4);
             } catch (\Exception $e) {
                 log_message('error', 'Error fetching wisataTrending: ' . $e->getMessage());
                 $wisataTrending = [];
             }
-            
+
             try {
                 $wisataTerdekat = $this->wisataModel->getWisataTerdekat($userDaerah, 4);
             } catch (\Exception $e) {
                 log_message('error', 'Error fetching wisataTerdekat: ' . $e->getMessage());
                 $wisataTerdekat = [];
             }
-              try {
+            try {
                 $berita = $this->beritaModel->getBeritaTerbaru(6);
             } catch (\Exception $e) {
                 log_message('error', 'Error fetching berita: ' . $e->getMessage());
@@ -67,16 +69,16 @@ class UserHome extends BaseController
             }
         } catch (\Exception $e) {
             log_message('error', 'Error in Dashboard index: ' . $e->getMessage());
-            
+
             $wisataTerbaru = [];
             $wisataTrending = [];
             $wisataTerdekat = [];
             $berita = [];
             $userDaerah = 'Indonesia';
-            
+
             session()->setFlashdata('error', 'Terjadi kesalahan saat memuat data. Silakan coba lagi nanti.');
         }
-          $data = [
+        $data = [
             'title' => 'Dashboard Wisata Indonesia',
             'user' => [
                 'user_id' => session()->get('user_id'),
@@ -93,12 +95,12 @@ class UserHome extends BaseController
             'wisataRekomendasi' => $wisataRekomendasi,
             'currentDate' => date('d M Y')
         ];
-        
-        log_message('debug', 'Item counts - Wisata Terbaru: ' . count($wisataTerbaru) . 
-                            ', Wisata Trending: ' . count($wisataTrending) . 
-                            ', Wisata Terdekat: ' . count($wisataTerdekat) .
-                            ', Berita: ' . count($berita));
-        
+
+        log_message('debug', 'Item counts - Wisata Terbaru: ' . count($wisataTerbaru) .
+            ', Wisata Trending: ' . count($wisataTrending) .
+            ', Wisata Terdekat: ' . count($wisataTerdekat) .
+            ', Berita: ' . count($berita));
+
         return view('user/index', $data);
     }
 
@@ -131,7 +133,7 @@ class UserHome extends BaseController
 
         $locationModel = new LocationModel();
         $locationModel->ignore(true)->insertBatch($dataToInsert);
-        
+
         $count = $locationModel->db->affectedRows();
         return redirect()->back()->with('success', "{$count} data lokasi baru berhasil diimpor.");
     }

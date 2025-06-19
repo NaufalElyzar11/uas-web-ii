@@ -84,7 +84,8 @@
                     z-index: 1001;
                 }
 
-                .prev, .next {
+                .prev,
+                .next {
                     cursor: pointer;
                     position: absolute;
                     top: 50%;
@@ -111,7 +112,8 @@
                     border-radius: 3px 0 0 3px;
                 }
 
-                .prev:hover, .next:hover {
+                .prev:hover,
+                .next:hover {
                     background-color: rgba(0, 0, 0, 0.9);
                 }
             </style>
@@ -162,12 +164,12 @@
 
                     <?php if (session()->get('isLoggedIn')): ?>
                         <a href="javascript:void(0);"
-                        id="wishlistButton"
-                        class="btn btn-primary <?= !empty($isInWishlist) ? 'wishlist-added' : '' ?>"
-                        data-wisata-id="<?= $wisata['wisata_id'] ?>">
-                        <i class="fas fa-heart"></i>
-                        <span id="wishlistText"><?= !empty($isInWishlist) ? 'Sudah di Wishlist' : 'Tambah ke Wishlist' ?></span>
-                    </a>
+                            id="wishlistButton"
+                            class="btn btn-primary <?= !empty($isInWishlist) ? 'wishlist-added' : '' ?>"
+                            data-wisata-id="<?= $wisata['wisata_id'] ?>">
+                            <i class="fas fa-heart"></i>
+                            <span id="wishlistText"><?= !empty($isInWishlist) ? 'Sudah di Wishlist' : 'Tambah ke Wishlist' ?></span>
+                        </a>
                     <?php endif; ?>
                 </div>
 
@@ -260,184 +262,184 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    
-    let currentIndex = 0;
-    const images = document.querySelectorAll('.small-Img');
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    const closeButton = modal.querySelector('.close');
-    const prevButton = modal.querySelector('.prev');
-    const nextButton = modal.querySelector('.next');
-    
-    function openModal(index) {
-        currentIndex = parseInt(index);
-        if (images.length > 0) {
-            modalImage.src = images[currentIndex].src;
-            modal.style.display = "block";
-        }
-    }
-    
-    function closeModal() {
-        modal.style.display = "none";
-    }
+        document.addEventListener('DOMContentLoaded', function() {
 
-    function moveImage(step) {
-        currentIndex += step;
-        if (currentIndex >= images.length) {
-            currentIndex = 0;
-        } else if (currentIndex < 0) {
-            currentIndex = images.length - 1;
-        }
-        modalImage.src = images[currentIndex].src;
-    }
+            let currentIndex = 0;
+            const images = document.querySelectorAll('.small-Img');
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeButton = modal.querySelector('.close');
+            const prevButton = modal.querySelector('.prev');
+            const nextButton = modal.querySelector('.next');
 
-    images.forEach(img => {
-        img.addEventListener('click', function() {
-            openModal(this.getAttribute('data-index'));
-        });
-    });
-
-    if(closeButton) closeButton.addEventListener('click', closeModal);
-    if(prevButton) prevButton.addEventListener('click', () => moveImage(-1));
-    if(nextButton) nextButton.addEventListener('click', () => moveImage(1));
-
-    function toggleWishlist(button) {
-    const wishlistText = button.querySelector('#wishlistText');
-    const wisataId = button.getAttribute('data-wisata-id');
-    const isWishlisted = button.classList.contains('wishlist-added');
-
-    button.classList.toggle('wishlist-added', !isWishlisted); 
-    wishlistText.textContent = isWishlisted ? 'Tambah ke Wishlist' : 'Sudah di Wishlist';
-
-    const action = isWishlisted ? 'remove' : 'add';
-    const url = `<?= base_url('wishlist/') ?>${action}/${wisataId}`;
-
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Respon jaringan bermasalah');
+            function openModal(index) {
+                currentIndex = parseInt(index);
+                if (images.length > 0) {
+                    modalImage.src = images[currentIndex].src;
+                    modal.style.display = "block";
+                }
             }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    toast: true,
-                    position: 'top-end',
-                    icon: 'success',
-                    title: data.message || 'Wishlist diperbarui!',
-                    showConfirmButton: false,
-                    timer: 2000
+
+            function closeModal() {
+                modal.style.display = "none";
+            }
+
+            function moveImage(step) {
+                currentIndex += step;
+                if (currentIndex >= images.length) {
+                    currentIndex = 0;
+                } else if (currentIndex < 0) {
+                    currentIndex = images.length - 1;
+                }
+                modalImage.src = images[currentIndex].src;
+            }
+
+            images.forEach(img => {
+                img.addEventListener('click', function() {
+                    openModal(this.getAttribute('data-index'));
                 });
-            } else {
-                throw new Error(data.message || 'Gagal memperbarui wishlist.');
-            }
-        })
-        .catch(error => {
-            console.error('Error Wishlist:', error);
-            
-            button.classList.toggle('wishlist-added', isWishlisted); 
-            wishlistText.textContent = isWishlisted ? 'Sudah di Wishlist' : 'Tambah ke Wishlist';
-            
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'error',
-                title: 'Aksi gagal, coba lagi.',
-                showConfirmButton: false,
-                timer: 3000
             });
-        });
-    }
-    
-    const wishlistButton = document.getElementById('wishlistButton');
-    if (wishlistButton) {
-        wishlistButton.addEventListener('click', function(event) {
-            event.preventDefault();
-            toggleWishlist(this);
-        });
-    }
 
-    const deleteReviewButtons = document.querySelectorAll('.btn-delete-review');
-    deleteReviewButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            const deleteUrl = this.href;
-            const reviewCard = this.closest('.review-item-card');
+            if (closeButton) closeButton.addEventListener('click', closeModal);
+            if (prevButton) prevButton.addEventListener('click', () => moveImage(-1));
+            if (nextButton) nextButton.addEventListener('click', () => moveImage(1));
 
-            Swal.fire({
-                title: 'Hapus Ulasan?',
-                text: "Anda tidak akan bisa mengembalikan ulasan ini.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                 if (result.isConfirmed) {
-                    
-                    fetch(deleteUrl, {
-                        method: 'GET',
-                        headers: {
-                            "X-Requested-With": "XMLHttpRequest",
+            function toggleWishlist(button) {
+                const wishlistText = button.querySelector('#wishlistText');
+                const wisataId = button.getAttribute('data-wisata-id');
+                const isWishlisted = button.classList.contains('wishlist-added');
+
+                button.classList.toggle('wishlist-added', !isWishlisted);
+                wishlistText.textContent = isWishlisted ? 'Tambah ke Wishlist' : 'Sudah di Wishlist';
+
+                const action = isWishlisted ? 'remove' : 'add';
+                const url = `<?= base_url('wishlist/') ?>${action}/${wisataId}`;
+
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Respon jaringan bermasalah');
                         }
+                        return response.json();
                     })
-                    .then(response => response.json())
                     .then(data => {
-                        
-                        if (data.status === 'success') {
+                        if (data.success) {
                             Swal.fire({
                                 toast: true,
                                 position: 'top-end',
                                 icon: 'success',
-                                title: data.message, 
+                                title: data.message || 'Wishlist diperbarui!',
                                 showConfirmButton: false,
                                 timer: 2000
                             });
-                            reviewCard.style.transition = 'opacity 0.5s ease';
-                            reviewCard.style.opacity = '0';
-                            setTimeout(() => {
-                                reviewCard.remove();
-                            }, 500); 
-
                         } else {
-                            throw new Error(data.message || 'Gagal menghapus review.');
+                            throw new Error(data.message || 'Gagal memperbarui wishlist.');
                         }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
-                        Swal.fire(
-                            'Gagal!',
-                            'Terjadi kesalahan saat menghapus review.',
-                            'error'
-                        );
+                        console.error('Error Wishlist:', error);
+
+                        button.classList.toggle('wishlist-added', isWishlisted);
+                        wishlistText.textContent = isWishlisted ? 'Sudah di Wishlist' : 'Tambah ke Wishlist';
+
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Aksi gagal, coba lagi.',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
                     });
+            }
+
+            const wishlistButton = document.getElementById('wishlistButton');
+            if (wishlistButton) {
+                wishlistButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    toggleWishlist(this);
+                });
+            }
+
+            const deleteReviewButtons = document.querySelectorAll('.btn-delete-review');
+            deleteReviewButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const deleteUrl = this.href;
+                    const reviewCard = this.closest('.review-item-card');
+
+                    Swal.fire({
+                        title: 'Hapus Ulasan?',
+                        text: "Anda tidak akan bisa mengembalikan ulasan ini.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            fetch(deleteUrl, {
+                                    method: 'GET',
+                                    headers: {
+                                        "X-Requested-With": "XMLHttpRequest",
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+
+                                    if (data.status === 'success') {
+                                        Swal.fire({
+                                            toast: true,
+                                            position: 'top-end',
+                                            icon: 'success',
+                                            title: data.message,
+                                            showConfirmButton: false,
+                                            timer: 2000
+                                        });
+                                        reviewCard.style.transition = 'opacity 0.5s ease';
+                                        reviewCard.style.opacity = '0';
+                                        setTimeout(() => {
+                                            reviewCard.remove();
+                                        }, 500);
+
+                                    } else {
+                                        throw new Error(data.message || 'Gagal menghapus review.');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    Swal.fire(
+                                        'Gagal!',
+                                        'Terjadi kesalahan saat menghapus review.',
+                                        'error'
+                                    );
+                                });
+                        }
+                    });
+                });
+            });
+
+            // Close modal when clicking outside the image
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (modal.style.display === "block") {
+                    if (e.key === "ArrowLeft") {
+                        moveImage(-1);
+                    } else if (e.key === "ArrowRight") {
+                        moveImage(1);
+                    } else if (e.key === "Escape") {
+                        closeModal();
+                    }
                 }
             });
         });
-    });
-
-    // Close modal when clicking outside the image
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-        if (modal.style.display === "block") {
-            if (e.key === "ArrowLeft") {
-                moveImage(-1);
-            } else if (e.key === "ArrowRight") {
-                moveImage(1);
-            } else if (e.key === "Escape") {
-                closeModal();
-            }
-        }
-    });
-});
-</script>
-<?= $this->endSection() ?>
+    </script>
+    <?= $this->endSection() ?>

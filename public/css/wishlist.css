@@ -12,12 +12,11 @@ body {
 }
 
 .wishlist-page-wrapper {
-  display: flex; 
-  flex-direction: column; 
-  height: 100%; 
-  max-height: calc(100vh - 10px); 
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: calc(100vh - 10px);
 }
-
 
 header {
   padding: 20px 40px;
@@ -43,14 +42,14 @@ header h1 {
 }
 
 .btn-primary {
-    color: #0d6566;
-    text-decoration: underline;
-    font-size: 16px;
+  color: #0d6566;
+  text-decoration: underline;
+  font-size: 16px;
 }
 
 .btn-primary:hover {
-    color: #062c2d; 
-    text-decoration: underline; 
+  color: #062c2d;
+  text-decoration: underline;
 }
 
 .empty-wishlist {
@@ -73,9 +72,9 @@ header h1 {
   align-items: center;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  position: relative; 
+  position: relative;
 }
 
 .wishlist-item img {
@@ -129,45 +128,45 @@ header h1 {
 }
 
 .remove {
-  position: absolute; 
-  top: 5px;          
-  right: 5px;         
-  background: rgba(255, 255, 255, 0.8); 
-  color: #333; 
-  border: 1px solid #ffffff; 
-  width: 28px;       
-  height: 28px;      
-  border-radius: 50%; 
-  display: flex;     
-  justify-content: center; 
-  align-items: center; 
-  font-size: 1.1rem; 
-  padding: 0;        
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border: 1px solid #ffffff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  padding: 0;
   cursor: pointer;
-  z-index: 10;       
+  z-index: 10;
 }
 
 .remove:hover {
-  background: #e0e0e0; 
+  background: #e0e0e0;
   color: #000;
 }
 
 .alert {
-    padding: 1rem; 
-    margin-bottom: 1.5rem; 
-    border: 1px solid transparent;
-    border-radius: 8px; 
-    font-weight: 500;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 500;
 }
 
 .alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }
 
 .alert-danger {
-    color: #842029;
-    background-color: #f8d7da;
-    border-color: #f5c2c7;
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
 }

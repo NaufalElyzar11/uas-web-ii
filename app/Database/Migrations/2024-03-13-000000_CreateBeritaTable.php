@@ -41,7 +41,7 @@ class CreateBeritaTable extends Migration
                 'null' => true,
             ],
         ]);
-        
+
         $this->forge->addKey('berita_id', true);
         $this->forge->createTable('berita');
     }
@@ -50,4 +50,4 @@ class CreateBeritaTable extends Migration
     {
         $this->forge->dropTable('berita');
     }
-} 
+}

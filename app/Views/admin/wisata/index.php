@@ -25,28 +25,28 @@
                     </thead>
                     <tbody>
                         <?php foreach ($wisata as $w): ?>
-                        <tr>
-                            <td><?= $w['wisata_id'] ?></td>
-                            <td><?= $w['nama'] ?></td>
-                            <td><?= $w['daerah'] ?></td>
-                            <td><?= number_format($w['harga'], 0, ',', '.') ?></td>
-                            <td><?= $w['nama_kategori'] ?></td>
-                            <td>
-                                <div class="d-flex" style="gap: 0.5rem;">
-                                    <a href="<?= base_url('admin/wisata/edit/' . $w['wisata_id']) ?>"
-                                        class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="<?= base_url('admin/wisata/delete/' . $w['wisata_id']) ?>"
-                                        method="post"
-                                        onsubmit="return confirm('Yakin ingin menghapus?')">
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td><?= $w['wisata_id'] ?></td>
+                                <td><?= $w['nama'] ?></td>
+                                <td><?= $w['daerah'] ?></td>
+                                <td><?= number_format($w['harga'], 0, ',', '.') ?></td>
+                                <td><?= $w['nama_kategori'] ?></td>
+                                <td>
+                                    <div class="d-flex" style="gap: 0.5rem;">
+                                        <a href="<?= base_url('admin/wisata/edit/' . $w['wisata_id']) ?>"
+                                            class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="<?= base_url('admin/wisata/delete/' . $w['wisata_id']) ?>"
+                                            method="post"
+                                            onsubmit="return confirm('Yakin ingin menghapus?')">
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>

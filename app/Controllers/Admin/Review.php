@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
@@ -31,4 +32,4 @@ class Review extends BaseController
         $this->reviewModel->delete($id);
         return redirect()->to('admin/review')->with('success', 'Review berhasil dihapus');
     }
-} 
+}

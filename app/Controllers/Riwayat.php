@@ -7,25 +7,25 @@ use App\Models\BookingModel;
 class Riwayat extends BaseController
 {
     protected $bookingModel;
-    
+
     public function __construct()
     {
         if (!session()->get('isLoggedIn')) {
             header('Location: ' . base_url('auth/login'));
             exit();
         }
-        
+
         $this->bookingModel = new BookingModel();
     }
 
     public function index()
     {
         $userId = session()->get('user_id');
-        
+
         $upcomingBookings = $this->bookingModel->getUpcomingBookings($userId);
         $completedBookings = $this->bookingModel->getCompletedBookings($userId);
         $canceledBookings = $this->bookingModel->getCanceledBookings($userId);
-        
+
         $data = [
             'title' => 'Riwayat Kunjungan',
             'user' => [
@@ -40,27 +40,27 @@ class Riwayat extends BaseController
             'completedBookings' => $completedBookings,
             'canceledBookings' => $canceledBookings
         ];
-        
+
         return view('user/riwayat', $data);
     }
-    
+
     public function cancel($bookingId)
     {
         $userId = session()->get('user_id');
-        
+
         $booking = $this->bookingModel->find($bookingId);
         if (!$booking || $booking['user_id'] != $userId) {
             return redirect()->back()->with('error', 'Booking tidak ditemukan.');
         }
-        
+
         if ($booking['status'] == 'completed') {
             return redirect()->back()->with('error', 'Booking yang sudah selesai tidak dapat dibatalkan.');
         }
-        
+
         $this->bookingModel->update($bookingId, [
             'status' => 'canceled'
         ]);
-        
+
         return redirect()->back()->with('success', 'Booking berhasil dibatalkan.');
     }
 
@@ -77,13 +77,13 @@ class Riwayat extends BaseController
         }
 
         // Ganti 'BookingModel' jika nama model Anda berbeda
-        $bookingModel = new BookingModel(); 
+        $bookingModel = new BookingModel();
         $userId = session()->get('user_id');
 
         // 1. Verifikasi dulu bahwa booking ini milik user yang sedang login
         $booking = $bookingModel->where('booking_id', $bookingId)
-                                ->where('user_id', $userId)
-                                ->first();
+            ->where('user_id', $userId)
+            ->first();
 
         // Jika tidak ditemukan, jangan lanjutkan
         if (!$booking) {
@@ -116,15 +116,15 @@ class Riwayat extends BaseController
 
         // 1. Ambil data booking DAN pastikan booking ini milik user yang sedang login
         $booking = $bookingModel->where('booking_id', $booking_id)
-                                ->where('user_id', $userId)
-                                ->first();
+            ->where('user_id', $userId)
+            ->first();
 
         $booking = $bookingModel
-    ->select('bookings.*, wisata.nama as nama_wisata') // Ambil semua dari tabel bookings, dan kolom 'nama' dari tabel wisata (diberi alias 'nama_wisata')
-    ->join('wisata', 'wisata.wisata_id = bookings.wisata_id') // Sesuaikan nama tabel dan kolom penghubung
-    ->where('bookings.booking_id', $booking_id)
-    ->where('bookings.user_id', $userId)
-    ->first();
+            ->select('bookings.*, wisata.nama as nama_wisata') // Ambil semua dari tabel bookings, dan kolom 'nama' dari tabel wisata (diberi alias 'nama_wisata')
+            ->join('wisata', 'wisata.wisata_id = bookings.wisata_id') // Sesuaikan nama tabel dan kolom penghubung
+            ->where('bookings.booking_id', $booking_id)
+            ->where('bookings.user_id', $userId)
+            ->first();
 
         if (!$booking) {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Booking tidak ditemukan atau Anda tidak memiliki akses.'])->setStatusCode(404);
@@ -135,14 +135,14 @@ class Riwayat extends BaseController
             // Jika belum ada, buat kode unik baru
             $prefix = "TIKET";
             $uniqueCode = $prefix . "-" . strtoupper(substr(md5($booking['booking_id']), 0, 6)) . "-" . time();
-            
+
             // Simpan kode unik ini ke database agar permanen
             $bookingModel->update($booking_id, ['kode_tiket' => $uniqueCode]);
 
             // Set kode tiket yang baru dibuat ke variabel booking
             $booking['kode_tiket'] = $uniqueCode;
         }
- 
+
         // 3. Siapkan data yang akan dikirim sebagai JSON ke frontend
         // Kita tidak mengirim semua data, hanya yang perlu saja.
         $ticketData = [

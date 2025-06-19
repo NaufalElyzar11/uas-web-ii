@@ -22,24 +22,24 @@ class UserModel extends Model
     protected $useTimestamps = false;
     protected $createdField = 'created_at';
     protected $updatedField = '';
-    
+
     protected $beforeInsert = ['beforeInsert'];
     protected $beforeUpdate = ['beforeUpdate'];
-    
+
     protected function beforeInsert(array $data)
     {
         $data = $this->getUpdatedDataWithHashedPassword($data);
         log_message('debug', 'Before Insert Data: ' . json_encode($data));
         return $data;
     }
-    
+
     protected function beforeUpdate(array $data)
     {
         $data = $this->getUpdatedDataWithHashedPassword($data);
         log_message('debug', 'Before Update Data: ' . json_encode($data));
         return $data;
     }
-    
+
     private function getUpdatedDataWithHashedPassword(array $data)
     {
         if (isset($data['data']['password'])) {
@@ -49,4 +49,4 @@ class UserModel extends Model
         }
         return $data;
     }
-} 
+}

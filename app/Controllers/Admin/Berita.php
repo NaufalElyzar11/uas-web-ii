@@ -108,7 +108,7 @@ class Berita extends BaseController
                     unlink($oldGambarPath);
                 }
             }
-            
+
             $namaGambar = $gambar->getRandomName();
             $gambar->move(FCPATH . 'uploads/berita', $namaGambar);
             $data['gambar'] = $namaGambar;
@@ -169,8 +169,8 @@ class Berita extends BaseController
 
         $locationModel = new LocationModel();
         $locationModel->ignore(true)->insertBatch($dataToInsert);
-        
+
         $count = $locationModel->db->affectedRows();
         return redirect()->back()->with('success', "{$count} data berita baru berhasil diimpor.");
     }
-} 
+}

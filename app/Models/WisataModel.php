@@ -14,10 +14,10 @@ class WisataModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'nama',
-        'daerah', 
-        'deskripsi', 
-        'harga', 
-        'kategori_id', 
+        'daerah',
+        'deskripsi',
+        'harga',
+        'kategori_id',
         'trending_score'
     ];
 
@@ -30,7 +30,7 @@ class WisataModel extends Model
     protected $validationRules      = [];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
-    protected $cleanValidationRules = true;    
+    protected $cleanValidationRules = true;
 
     public function getWisataWithKategori()
     {
@@ -58,23 +58,23 @@ class WisataModel extends Model
 
             if (!in_array('created_at', $this->allowedFields) && !$this->createdField) {
                 return $builder->orderBy('wisata.wisata_id', 'DESC')
-                        ->limit($limit)
-                        ->find();
+                    ->limit($limit)
+                    ->find();
             }
-            
+
             $date = new \DateTime();
-            $date->sub(new \DateInterval('P1M')); 
+            $date->sub(new \DateInterval('P1M'));
             $monthAgo = $date->format('Y-m-d H:i:s');
 
             return $builder->where('wisata.created_at >=', $monthAgo)
-                        ->orderBy('wisata.created_at', 'DESC')
-                        ->limit($limit)
-                        ->find();
+                ->orderBy('wisata.created_at', 'DESC')
+                ->limit($limit)
+                ->find();
         } catch (\Exception $e) {
             log_message('error', 'Error in getWisataTerbaru: ' . $e->getMessage());
             return [];
         }
-    }    
+    }
 
     public function getWisataTerdekat($userDaerah, $limit = 4)
     {
@@ -85,20 +85,20 @@ class WisataModel extends Model
             if (!in_array('daerah', $this->allowedFields)) {
                 log_message('warning', 'daerah field not found, returning all wisata');
                 return $builder->orderBy('wisata.wisata_id', 'DESC')
-                            ->limit($limit)
-                            ->find();
+                    ->limit($limit)
+                    ->find();
             }
-            
+
             return $builder->where('daerah', $userDaerah)
-                        ->orderBy('wisata.wisata_id', 'DESC')
-                        ->limit($limit)
-                        ->find();
+                ->orderBy('wisata.wisata_id', 'DESC')
+                ->limit($limit)
+                ->find();
         } catch (\Exception $e) {
             log_message('error', 'Error in getWisataTerdekat: ' . $e->getMessage());
             return [];
         }
     }
-    
+
     public function searchWisata($keyword)
     {
         try {
@@ -143,5 +143,4 @@ class WisataModel extends Model
             ->limit($limit);
         return $builder->get()->getResultArray();
     }
-
 }

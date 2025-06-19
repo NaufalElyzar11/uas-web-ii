@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
@@ -31,4 +32,4 @@ class Booking extends BaseController
         $this->bookingModel->delete($id);
         return redirect()->to('admin/booking')->with('success', 'Booking berhasil dihapus');
     }
-} 
+}

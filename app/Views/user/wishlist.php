@@ -35,76 +35,77 @@
               <p class="stock">Tersedia</p>
             </div>
             <a href="<?= base_url('destinasi/detail/' . $item['wisata_id']) ?>" class="add-to-cart">Lihat</a>
-            <a href="<?= base_url('wishlist/remove/' . $item['wisata_id']) ?>" class="remove" data-id="<?= $item['wisata_id'] ?>">×</a>          </div>
+            <a href="<?= base_url('wishlist/remove/' . $item['wisata_id']) ?>" class="remove" data-id="<?= $item['wisata_id'] ?>">×</a>
+          </div>
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
   </main>
 
-  </div> 
-  <link rel="stylesheet" href="<?= base_url('css/wishlist.css') ?>">
+</div>
+<link rel="stylesheet" href="<?= base_url('css/wishlist.css') ?>">
 
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
     const removeButtons = document.querySelectorAll('.remove');
-    
+
     removeButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault(); 
-            
-            const removalUrl = this.href;
-            const wisataId = this.getAttribute('data-id'); 
-            const wishlistItemElement = document.getElementById(`wishlist-item-${wisataId}`); // Target elemen div yang akan dihapus
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
 
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Destinasi ini akan dihapus dari daftar keinginan Anda.",
-                icon: 'Peringatan',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    
-                    fetch(removalUrl)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Masalah jaringan atau server.');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.success) {
-                                Swal.fire({
-                                    toast: true,
-                                    position: 'top-end',
-                                    icon: 'success',
-                                    title: data.message || 'Berhasil dihapus!',
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                });
-                                wishlistItemElement.style.transition = 'opacity 0.3s ease-out';
-                                wishlistItemElement.style.opacity = '0';
-                                setTimeout(() => {
-                                    wishlistItemElement.remove();
-                                }, 300);
+        const removalUrl = this.href;
+        const wisataId = this.getAttribute('data-id');
+        const wishlistItemElement = document.getElementById(`wishlist-item-${wisataId}`); // Target elemen div yang akan dihapus
 
-                            } else {
-                                Swal.fire('Gagal', data.message || 'Gagal menghapus item.', 'error');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
-                        });
+        Swal.fire({
+          title: 'Apakah Anda yakin?',
+          text: "Destinasi ini akan dihapus dari daftar keinginan Anda.",
+          icon: 'Peringatan',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Ya, hapus!',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.isConfirmed) {
+
+            fetch(removalUrl)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Masalah jaringan atau server.');
                 }
-            });
+                return response.json();
+              })
+              .then(data => {
+                if (data.success) {
+                  Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: data.message || 'Berhasil dihapus!',
+                    showConfirmButton: false,
+                    timer: 2000
+                  });
+                  wishlistItemElement.style.transition = 'opacity 0.3s ease-out';
+                  wishlistItemElement.style.opacity = '0';
+                  setTimeout(() => {
+                    wishlistItemElement.remove();
+                  }, 300);
+
+                } else {
+                  Swal.fire('Gagal', data.message || 'Gagal menghapus item.', 'error');
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('Error', 'Tidak dapat menghubungi server.', 'error');
+              });
+          }
         });
+      });
     });
-});
+  });
 </script>
 
-  <?= $this->endSection() ?>
+<?= $this->endSection() ?>

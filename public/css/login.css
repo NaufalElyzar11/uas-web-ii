@@ -6,7 +6,6 @@
 }
 
 :root {
-  
   --primary-color: #c6c3c3;
   --second-color: #ffffff;
   --black-color: #000000;
@@ -38,7 +37,7 @@ a:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-  .login_box {
+.login_box {
   position: relative;
   width: 450px;
   backdrop-filter: blur(25px);
@@ -144,8 +143,8 @@ a:hover {
   padding: 0 10px;
 }
 
-select option { 
-  color: #000000; 
+select option {
+  color: #000000;
 }
 
 .form-select {
@@ -159,7 +158,7 @@ select option {
   border: 2px solid var(--primary-color);
   border-radius: 30px;
   outline: none;
-} 
+}
 
 .icon {
   position: absolute;
@@ -203,7 +202,7 @@ select option {
     padding: 20px;
   }
 
-.login_box {
+  .login_box {
     padding: 7.5em 1.5em 4em 1.5em;
   }
 
@@ -212,17 +211,16 @@ select option {
   }
 }
 
-
 .form-columns {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .form-column {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;/* Agar tidak terlalu kecil di desktop */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Agar tidak terlalu kecil di desktop */
 }
 
 .login_box form {
@@ -233,11 +231,11 @@ select option {
 
 /* Responsif untuk layar kecil */
 @media screen and (max-width: 768px) {
-    .form-columns {
-        flex-direction: column;
-    }
+  .form-columns {
+    flex-direction: column;
+  }
 
-    .login_box {
+  .login_box {
     width: 750px;
     max-width: 95vw;
   }

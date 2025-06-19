@@ -25,9 +25,19 @@
             <option value="" disabled selected>Pilih Daerah</option>
             <?php
             $daerahList = [
-                'Banjarbaru', 'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
-                'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
-                'Kotabaru', 'Barito Timur', 'Balangan'
+                'Banjarbaru',
+                'Banjarmasin',
+                'Banjar',
+                'Barito Kuala',
+                'Tapin',
+                'Hulu Sungai Selatan',
+                'Hulu Sungai Tengah',
+                'Hulu Sungai Utara',
+                'Tanah Laut',
+                'Tanah Bumbu',
+                'Kotabaru',
+                'Barito Timur',
+                'Balangan'
             ];
             foreach ($daerahList as $daerah): ?>
                 <option value="<?= $daerah ?>" <?= old('daerah') === $daerah ? 'selected' : '' ?>><?= $daerah ?></option>
@@ -79,14 +89,14 @@
 </form>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var hargaInput = document.getElementById('inputHarga');
-    if(hargaInput) {
-        hargaInput.addEventListener('input', function(e) {
-            this.value = this.value.replace(/[^\d]/g, '');
-        });
-    }
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        var hargaInput = document.getElementById('inputHarga');
+        if (hargaInput) {
+            hargaInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^\d]/g, '');
+            });
+        }
+    });
 </script>
 
 <?= $this->endSection() ?>

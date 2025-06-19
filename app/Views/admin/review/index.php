@@ -20,27 +20,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no=1; foreach ($reviews as $r): ?>
-                    <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= esc($r['user_id']) ?></td>
-                        <td><?= esc($r['wisata_id']) ?></td>
-                        <td><?= esc($r['rating']) ?></td>
-                        <td><?= esc($r['komentar']) ?></td>
-                        <td><?= esc($r['tanggal_review']) ?></td>
-                        <td>
-                            <form action="<?= base_url('admin/review/delete/'.$r['review_id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                            </form>
-                        </td>
-                    </tr>
+                    <?php $no = 1;
+                    foreach ($reviews as $r): ?>
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td><?= esc($r['user_id']) ?></td>
+                            <td><?= esc($r['wisata_id']) ?></td>
+                            <td><?= esc($r['rating']) ?></td>
+                            <td><?= esc($r['komentar']) ?></td>
+                            <td><?= esc($r['tanggal_review']) ?></td>
+                            <td>
+                                <form action="<?= base_url('admin/review/delete/' . $r['review_id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<?= $this->endSection() ?> 
+<?= $this->endSection() ?>
 
 
 <?= $this->section('script') ?>
@@ -56,11 +57,10 @@
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#tabel-riwayat').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                {
+            buttons: [{
                     extend: 'excelHtml5',
                     className: 'btn btn-success mb-3 mr-2',
                     text: '<i class="fas fa-file-excel"></i> Export Excel'
@@ -71,7 +71,7 @@
                     text: '<i class="fas fa-file-pdf"></i> Export PDF',
                     orientation: 'landscape',
                     pageSize: 'A4',
-                    customize: function (doc) {
+                    customize: function(doc) {
                         doc.styles.tableHeader.alignment = 'left';
                         doc.defaultStyle.fontSize = 10;
                     }

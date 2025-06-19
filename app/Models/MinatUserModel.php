@@ -14,4 +14,4 @@ class MinatUserModel extends Model
     {
         return $this->where('user_id', $userId)->findAll();
     }
-} 
+}

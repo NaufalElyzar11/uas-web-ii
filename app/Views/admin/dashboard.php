@@ -82,11 +82,11 @@
                         </thead>
                         <tbody>
                             <?php foreach ($wisataTerbaru as $wisata): ?>
-                            <tr>
-                                <td><?= $wisata['nama'] ?></td>
-                                <td><?= $wisata['daerah'] ?></td>
-                                <td><?= $wisata['nama_kategori'] ?></td>
-                            </tr>
+                                <tr>
+                                    <td><?= $wisata['nama'] ?></td>
+                                    <td><?= $wisata['daerah'] ?></td>
+                                    <td><?= $wisata['nama_kategori'] ?></td>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -111,11 +111,11 @@
                         </thead>
                         <tbody>
                             <?php foreach ($userTerbaru as $user): ?>
-                            <tr>
-                                <td><?= $user['nama'] ?></td>
-                                <td><?= $user['username'] ?></td>
-                                <td><?= $user['email'] ?></td>
-                            </tr>
+                                <tr>
+                                    <td><?= $user['nama'] ?></td>
+                                    <td><?= $user['username'] ?></td>
+                                    <td><?= $user['email'] ?></td>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -124,4 +124,4 @@
         </div>
     </div>
 </div>
-<?= $this->endSection() ?> 
+<?= $this->endSection() ?>

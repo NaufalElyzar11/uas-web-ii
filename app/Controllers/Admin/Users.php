@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
@@ -29,7 +30,7 @@ class Users extends BaseController
             'password' => 'required|min_length[6]',
             'role' => 'required'
         ];
-        
+
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -59,17 +60,26 @@ class Users extends BaseController
     public function update($id)
     {
         $daerahList = [
-            'Banjarmasin', 'Banjar', 'Barito Kuala', 'Tapin', 'Hulu Sungai Selatan',
-            'Hulu Sungai Tengah', 'Hulu Sungai Utara', 'Tanah Laut', 'Tanah Bumbu',
-            'Kotabaru', 'Barito Timur', 'Balangan'
+            'Banjarmasin',
+            'Banjar',
+            'Barito Kuala',
+            'Tapin',
+            'Hulu Sungai Selatan',
+            'Hulu Sungai Tengah',
+            'Hulu Sungai Utara',
+            'Tanah Laut',
+            'Tanah Bumbu',
+            'Kotabaru',
+            'Barito Timur',
+            'Balangan'
         ];
         $roleList = ['user', 'admin'];
         $rules = [
             'nama' => 'required|min_length[3]|max_length[100]',
             'username' => 'required|min_length[3]|max_length[50]',
             'email' => 'required|valid_email',
-            'daerah' => 'required|in_list['.implode(',', $daerahList).']',
-            'role' => 'required|in_list['.implode(',', $roleList).']',
+            'daerah' => 'required|in_list[' . implode(',', $daerahList) . ']',
+            'role' => 'required|in_list[' . implode(',', $roleList) . ']',
         ];
 
         if (!$this->validate($rules)) {
@@ -103,4 +113,4 @@ class Users extends BaseController
         $this->userModel->delete($id);
         return redirect()->to('admin/users')->with('success', 'User berhasil dihapus');
     }
-} 
+}

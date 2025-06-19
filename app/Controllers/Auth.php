@@ -16,7 +16,7 @@ class Auth extends BaseController
         if (session()->get('user_id')) {
             return redirect()->to('/user_home');
         }
-        
+
         if ($this->request->getMethod() === 'post') {
             $rules = [
                 'username' => 'required',
@@ -60,18 +60,18 @@ class Auth extends BaseController
     {
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
-        
+
         $userModel = new \App\Models\UserModel();
-        
+
         log_message('debug', 'Login attempt with email/username: ' . $email);
-        
+
         $user = $userModel->where('email', $email)
-                         ->orWhere('username', $email)
-                         ->first();
-        
+            ->orWhere('username', $email)
+            ->first();
+
         if ($user) {
             log_message('debug', 'User found: ' . json_encode($user));
-            
+
             if (password_verify($password, $user['password'])) {
                 log_message('debug', 'Password verified successfully');
                 session()->set([
@@ -82,11 +82,11 @@ class Auth extends BaseController
                     'role' => $user['role'],
                     'isLoggedIn' => true
                 ]);
-                
+
                 if ($user['role'] === 'admin') {
                     return redirect()->to('/admin/dashboard');
                 }
-                
+
                 return redirect()->to('/user_home');
             } else {
                 log_message('debug', 'Password verification failed');
@@ -94,7 +94,7 @@ class Auth extends BaseController
         } else {
             log_message('debug', 'No user found with email/username: ' . $email);
         }
-        
+
         session()->setFlashdata('error', 'Email/Username atau password salah');
         return redirect()->back()->withInput();
     }
@@ -104,7 +104,7 @@ class Auth extends BaseController
         if (session()->get('user_id')) {
             return redirect()->to('/user_home');
         }
-        
+
         return view('auth/register');
     }
 
@@ -126,7 +126,7 @@ class Auth extends BaseController
         }
 
         $userModel = new \App\Models\UserModel();
-        
+
         $data = [
             'nama' => $this->request->getPost('nama'),
             'username' => $this->request->getPost('username'),
@@ -137,9 +137,9 @@ class Auth extends BaseController
             'umur' => $this->request->getPost('umur'),
             'role' => 'user'
         ];
-        
+
         $userModel->insert($data);
-        
+
         session()->setFlashdata('success', 'Registrasi berhasil. Silakan login.');
         return redirect()->to('/auth/login');
     }
@@ -149,4 +149,4 @@ class Auth extends BaseController
         session()->destroy();
         return redirect()->to('/auth/login');
     }
-} 
+}
