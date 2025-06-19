@@ -12,11 +12,11 @@ use CodeIgniter\Router\RouteCollection;
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home'); // Default controller sekarang Home
+$routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
-$routes->setAutoRoute(false); // Selalu set false untuk keamanan
+$routes->setAutoRoute(false);
 
 /*
  * --------------------------------------------------------------------
@@ -24,7 +24,6 @@ $routes->setAutoRoute(false); // Selalu set false untuk keamanan
  * --------------------------------------------------------------------
  */
 
-// Rute Publik: Bisa diakses siapa saja tanpa login
 $routes->get('/', 'Home::index'); 
 $routes->get('destinasi', 'Destinasi::index');
 $routes->get('destinasi/search', 'Destinasi::search');
@@ -39,7 +38,7 @@ $routes->group('auth', function ($routes) {
 });
 
 $routes->group('', ['filter' => 'auth'], function ($routes) {
-    $routes->get('dashboard', 'Dashboard::index');
+    $routes->get('user_home', 'UserHome::index');
 
     $routes->post('destinasi/addReview', 'Destinasi::addReview');
     $routes->get('destinasi/review/delete/(:num)', 'Destinasi::deleteReview/$1');

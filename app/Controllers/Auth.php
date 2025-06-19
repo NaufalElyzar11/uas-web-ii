@@ -14,7 +14,7 @@ class Auth extends BaseController
     public function login()
     {
         if (session()->get('user_id')) {
-            return redirect()->to('/dashboard');
+            return redirect()->to('/user_home');
         }
         
         if ($this->request->getMethod() === 'post') {
@@ -44,7 +44,7 @@ class Auth extends BaseController
                         return redirect()->to('/admin/dashboard');
                     }
 
-                    return redirect()->to('/');
+                    return redirect()->to('/user_home');
                 }
 
                 return redirect()->back()->with('error', 'Username atau password salah');
@@ -87,7 +87,7 @@ class Auth extends BaseController
                     return redirect()->to('/admin/dashboard');
                 }
                 
-                return redirect()->to('/dashboard');
+                return redirect()->to('/user_home');
             } else {
                 log_message('debug', 'Password verification failed');
             }
@@ -102,7 +102,7 @@ class Auth extends BaseController
     public function register()
     {
         if (session()->get('user_id')) {
-            return redirect()->to('/dashboard');
+            return redirect()->to('/user_home');
         }
         
         return view('auth/register');

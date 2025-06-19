@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
 
-<link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
+<link rel="stylesheet" href="<?= base_url('css/home.css') ?>">
 
 <section class="hero">
   <div class="hero-content">
