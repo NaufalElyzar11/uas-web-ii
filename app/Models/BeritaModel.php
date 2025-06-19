@@ -56,12 +56,12 @@ class BeritaModel extends Model
         try {
             // Periksa apakah kolom tanggal_post ada
             $sortField = in_array('tanggal_post', $this->allowedFields) ? 'berita.tanggal_post' : 'berita.' . $this->primaryKey;
-            
+
             return $this->select('berita.*, wisata.nama, wisata.gambar_wisata')
-                        ->join('wisata', 'wisata.wisata_id = berita.wisata_id', 'left')
-                        ->orderBy($sortField, 'DESC')
-                        ->limit($limit)
-                        ->find();
+                ->join('wisata', 'wisata.wisata_id = berita.wisata_id', 'left')
+                ->orderBy($sortField, 'DESC')
+                ->limit($limit)
+                ->find();
         } catch (\Exception $e) {
             log_message('error', 'Error in getBeritaTerbaru: ' . $e->getMessage());
             return [];
@@ -75,9 +75,9 @@ class BeritaModel extends Model
     {
         try {
             return $this->select('berita.*, wisata.nama, wisata.daerah, wisata.gambar_wisata')
-                        ->join('wisata', 'wisata.wisata_id = berita.wisata_id', 'left')
-                        ->where('berita.' . $this->primaryKey, $beritaId)
-                        ->first();
+                ->join('wisata', 'wisata.wisata_id = berita.wisata_id', 'left')
+                ->where('berita.' . $this->primaryKey, $beritaId)
+                ->first();
         } catch (\Exception $e) {
             log_message('error', 'Error in getBeritaDetail: ' . $e->getMessage());
             return null;
@@ -89,11 +89,11 @@ class BeritaModel extends Model
         $builder = $this->builder();
         $builder->where('status', 'published');
         $builder->orderBy('created_at', 'DESC');
-        
+
         if ($limit !== null) {
             $builder->limit($limit);
         }
-        
+
         return $builder->get()->getResultArray();
     }
 }
