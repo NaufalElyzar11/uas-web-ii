@@ -39,7 +39,7 @@ class WisataModel extends Model
             ->findAll();
     }
 
-    public function getTrendingWisata($limit = 5)
+    public function getTrendingWisata($limit = 4)
     {
         return $this->select('wisata.*, kategori.nama_kategori, COALESCE(SUM(bookings.jumlah_orang),0) as total_kunjungan')
             ->join('kategori', 'kategori.kategori_id = wisata.kategori_id', 'left')
@@ -48,11 +48,6 @@ class WisataModel extends Model
             ->orderBy('total_kunjungan', 'DESC')
             ->limit($limit)
             ->find();
-    }
-
-    public function getPopularWisata($limit = 4)
-    {
-        return $this->getTrendingWisata($limit);
     }
 
     public function getWisataTerbaru($limit = 4)

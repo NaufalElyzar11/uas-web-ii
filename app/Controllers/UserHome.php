@@ -39,7 +39,7 @@ class UserHome extends BaseController
             }
             
             try {
-                $wisataPopuler = $this->wisataModel->getWisataPopuler(5);
+                $wisataPopuler = $this->wisataModel->getTrendingWisata(4);
             } catch (\Exception $e) {
                 log_message('error', 'Error fetching wisataPopuler: ' . $e->getMessage());
                 $wisataPopuler = [];
