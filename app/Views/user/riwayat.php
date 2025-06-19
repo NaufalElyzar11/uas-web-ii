@@ -35,6 +35,16 @@
             <div class="order-header">
                 <div class="order-status">
                     <span class="status-tag upcoming">AKAN DATANG</span>
+
+                     <div class="order-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>
+                            <?php
+                            echo \CodeIgniter\I18n\Time::parse($booking['tanggal_kunjungan'], 'Asia/Makassar', 'id_ID')
+                            ->toLocalizedString('d MMMM yyyy');
+                            ?>
+                            </span>
+                        </div>
                 </div>
             </div>
 
@@ -81,6 +91,16 @@
             <div class="order-header">
                 <div class="order-status">
                     <span class="status-tag delivered">SELESAI</span>
+
+                    <div class="order-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>
+                            <?php
+                            echo \CodeIgniter\I18n\Time::parse($booking['tanggal_kunjungan'], 'Asia/Makassar', 'id_ID')
+                            ->toLocalizedString('d MMMM yyyy');
+                            ?>
+                            </span>
+                        </div>
                 </div>
             </div>
 
@@ -129,6 +149,16 @@
             <div class="order-header">
                 <div class="order-status">
                     <span class="status-tag canceled">DIBATALKAN</span>
+
+                    <div class="order-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>
+                            <?php
+                            echo \CodeIgniter\I18n\Time::parse($booking['tanggal_kunjungan'], 'Asia/Makassar', 'id_ID')
+                            ->toLocalizedString('d MMMM yyyy');
+                            ?>
+                        </span>
+                    </div>
                 </div>
             </div>
 

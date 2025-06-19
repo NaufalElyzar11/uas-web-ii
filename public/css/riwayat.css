@@ -39,12 +39,23 @@ header h1 {
 
 .order-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
     border-bottom: 1px solid #eee;
     font-size: 0.9em;
     color: #666;
+}
+
+.order-date {
+    font-size: 0.9em;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.order-date i {
+    margin-right: 8px;
+    color: #0d6566;
 }
 
 .btn-delete-history {
@@ -68,8 +79,8 @@ header h1 {
 .order-status {
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin-right: auto;
+    gap: 15px;
+    margin-right: 0;
 }
 
 .status-tag {
@@ -224,6 +235,7 @@ header h1 {
     padding: 0;
     border-radius: 15px;
     overflow: hidden;
+    margin: 15vh auto 0 auto;
 }
 .ticket-header { background-color: #007bff; color: white; padding: 20px; text-align: center; }
 .ticket-header h3 { margin: 0; }
