@@ -6,6 +6,8 @@ use App\Models\WisataModel;
 use App\Models\BeritaModel;
 use App\Models\UserModel;
 use App\Models\ReviewModel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use App\Models\LocationModel;
 
 class UserHome extends BaseController
 {   protected $wisataModel;
@@ -98,5 +100,39 @@ class UserHome extends BaseController
                             ', Berita: ' . count($berita));
         
         return view('user/index', $data);
+    }
+
+    public function import()
+    {
+        $rules = [
+            'excel_file' => 'uploaded[excel_file]|max_size[excel_file,5120]|ext_in[excel_file,xlsx,xls]'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $file = $this->request->getFile('excel_file');
+        $spreadsheet = IOFactory::load($file->getTempName());
+        $rows = $spreadsheet->getActiveSheet()->toArray();
+
+        $dataToInsert = [];
+        $dbColumnName = 'location_name'; // Kolom di database
+
+        foreach (array_slice($rows, 1) as $row) {
+            if (!empty(trim($row[0] ?? ''))) {
+                $dataToInsert[] = [$dbColumnName => trim($row[0])];
+            }
+        }
+
+        if (empty($dataToInsert)) {
+            return redirect()->back()->with('error', 'Tidak ada data valid untuk diimpor.');
+        }
+
+        $locationModel = new LocationModel();
+        $locationModel->ignore(true)->insertBatch($dataToInsert);
+        
+        $count = $locationModel->db->affectedRows();
+        return redirect()->back()->with('success', "{$count} data lokasi baru berhasil diimpor.");
     }
 }

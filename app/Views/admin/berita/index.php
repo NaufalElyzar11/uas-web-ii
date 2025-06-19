@@ -2,6 +2,22 @@
 <?= $this->section('content') ?>
 <h1 class="h3 mb-4 text-gray-800">Manajemen Berita</h1>
 
+<?php if (session()->getFlashdata('success')): ?>
+    <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+<?php endif; ?>
+<?php if (session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+<?php endif; ?>
+<?php if (isset($errors) && is_array($errors)): ?>
+    <div class="alert alert-danger">
+        <ul>
+            <?php foreach ($errors as $err): ?>
+                <li><?= esc($err) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
@@ -19,6 +35,7 @@
                         <th>#</th>
                         <th>Gambar</th>
                         <th>Judul</th>
+                        <th>Konten</th>
                         <th>Tanggal</th>
                         <th>Aksi</th>
                     </tr>
@@ -35,6 +52,7 @@
                                     onerror="this.src='<?= base_url('uploads/berita/default.jpg') ?>'">
                             </td>
                             <td><?= esc($b['judul']) ?></td>
+                            <td><?= esc(substr($b['konten'], 0, 100)) ?>...</td>
                             <td><?= date('d M Y', strtotime($b['tanggal_post'])) ?></td>
                             <td>
                                 <div class="d-flex" style="gap: 0.5rem;">
@@ -58,6 +76,15 @@
         </div>
     </div>
 </div>
+
+<form action="<?= base_url('admin/berita/import') ?>" method="post" enctype="multipart/form-data" class="mb-3">
+    <?= csrf_field() ?>
+    <div class="mb-2">
+        <label for="excel_file" class="form-label">Impor Excel:</label>
+        <input type="file" name="excel_file" id="excel_file" class="form-control" accept=".xlsx,.xls" required>
+    </div>
+    <button type="submit" class="btn btn-success">Impor</button>
+</form>
 
 <?= $this->endSection() ?>
 

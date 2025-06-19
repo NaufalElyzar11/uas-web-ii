@@ -37,6 +37,18 @@
                 <small class="text-muted">Masukkan URL gambar (format: JPG, JPEG, PNG)</small>
             </div>
 
+            <div class="form-group">
+                <label for="wisata_id">Pilih Wisata</label>
+                <select class="form-control" id="wisata_id" name="wisata_id" required>
+                    <option value="">-- Pilih Wisata --</option>
+                    <?php foreach ($wisataList as $wisata): ?>
+                        <option value="<?= $wisata['wisata_id'] ?>" <?= old('wisata_id') == $wisata['wisata_id'] ? 'selected' : '' ?>>
+                            <?= esc($wisata['nama']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <button type="submit" class="btn btn-primary">Simpan Berita</button>
             <a href="<?= base_url('admin/berita') ?>" class="btn btn-secondary">Kembali</a>
         </form>

@@ -4,6 +4,9 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\BeritaModel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use App\Models\LocationModel;
+use App\Models\WisataModel;
 
 class Berita extends BaseController
 {
@@ -25,8 +28,10 @@ class Berita extends BaseController
 
     public function create()
     {
+        $wisataModel = new WisataModel();
         $data = [
-            'title' => 'Tambah Berita'
+            'title' => 'Tambah Berita',
+            'wisataList' => $wisataModel->findAll()
         ];
         return view('admin/berita/create', $data);
     }
@@ -65,10 +70,11 @@ class Berita extends BaseController
         if (!$berita) {
             return redirect()->to('admin/berita')->with('error', 'Berita tidak ditemukan');
         }
-
+        $wisataModel = new WisataModel();
         $data = [
             'title' => 'Edit Berita',
-            'berita' => $berita
+            'berita' => $berita,
+            'wisataList' => $wisataModel->findAll()
         ];
         return view('admin/berita/edit', $data);
     }
@@ -129,5 +135,42 @@ class Berita extends BaseController
 
         $this->beritaModel->delete($id);
         return redirect()->to('admin/berita')->with('success', 'Berita berhasil dihapus');
+    }
+
+    public function import()
+    {
+        $rules = [
+            'excel_file' => 'uploaded[excel_file]|max_size[excel_file,5120]|ext_in[excel_file,xlsx,xls]'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $file = $this->request->getFile('excel_file');
+        $spreadsheet = IOFactory::load($file->getTempName());
+        $rows = $spreadsheet->getActiveSheet()->toArray();
+
+        $dataToInsert = [];
+        foreach (array_slice($rows, 1) as $row) {
+            $dataToInsert[] = [
+                'judul'        => trim($row[0] ?? ''),
+                'konten'       => trim($row[1] ?? ''),
+                'wisata_id'    => trim($row[2] ?? null),
+                'link_berita'  => trim($row[3] ?? ''),
+                'gambar'       => trim($row[4] ?? ''),
+                'tanggal_post' => trim($row[5] ?? null),
+            ];
+        }
+
+        if (empty($dataToInsert)) {
+            return redirect()->back()->with('error', 'Tidak ada data valid untuk diimpor.');
+        }
+
+        $locationModel = new LocationModel();
+        $locationModel->ignore(true)->insertBatch($dataToInsert);
+        
+        $count = $locationModel->db->affectedRows();
+        return redirect()->back()->with('success', "{$count} data berita baru berhasil diimpor.");
     }
 } 
