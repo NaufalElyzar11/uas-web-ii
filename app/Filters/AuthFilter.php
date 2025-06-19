@@ -21,7 +21,7 @@ class AuthFilter implements FilterInterface
         // Cek apakah session 'isLoggedIn' tidak ada atau bernilai false
         if (!session()->get('isLoggedIn')) {
             // Jika belum login, arahkan ke halaman login
-            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu untuk mengakses halaman ini.');
+            return redirect()->to('/auth/login')->with('error', 'Silahkan login terlebih dahulu untuk mengakses halaman ini.');
         }
     }
 

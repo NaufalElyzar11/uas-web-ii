@@ -11,7 +11,7 @@ class AdminFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (!session()->get('isLoggedIn')) {
-            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
+            return redirect()->to('/auth/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
         if (session()->get('role') !== 'admin') {
@@ -23,4 +23,4 @@ class AdminFilter implements FilterInterface
     {
         // Do nothing
     }
-} 
+}
