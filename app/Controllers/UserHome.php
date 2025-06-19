@@ -97,6 +97,6 @@ class UserHome extends BaseController
                             ', Wisata Terdekat: ' . count($wisataTerdekat) .
                             ', Berita: ' . count($berita));
         
-        return view('user_home/index', $data);
+        return view('user/index', $data);
     }
 }

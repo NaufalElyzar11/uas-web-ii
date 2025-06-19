@@ -92,4 +92,6 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('berita/edit/(:num)', 'Admin\Berita::edit/$1');
     $routes->post('berita/update/(:num)', 'Admin\Berita::update/$1');
     $routes->post('berita/delete/(:num)', 'Admin\Berita::delete/$1');
+
+    $routes->get('logout', 'Auth::logout');
 });
