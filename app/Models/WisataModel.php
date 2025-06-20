@@ -108,9 +108,6 @@ class WisataModel extends Model
                 ->orLike('wisata.daerah', $keyword)
                 ->orLike('kategori.nama_kategori', $keyword);
 
-            if (in_array('trending_score', $this->allowedFields)) {
-                return $builder->orderBy('trending_score', 'DESC')->findAll();
-            }
             return $builder->findAll();
         } catch (\Exception $e) {
             log_message('error', 'Error in searchWisata: ' . $e->getMessage());

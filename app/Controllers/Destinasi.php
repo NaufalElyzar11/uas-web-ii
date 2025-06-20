@@ -44,7 +44,7 @@ class Destinasi extends BaseController
 
         $wisata = [];
         if (!empty($keyword)) {
-            $wisata = $this->wisataModel->search($keyword);
+            $wisata = $this->wisataModel->searchWisata($keyword);
             foreach ($wisata as &$item) {
                 $item['gambar_wisata'] = $this->wisataModel->getFirstGalleryImage($item['wisata_id']) ?? base_url('uploads/wisata/default.jpg');
             }
