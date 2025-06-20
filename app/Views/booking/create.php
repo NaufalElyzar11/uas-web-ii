@@ -18,10 +18,17 @@
                         <h2 class="card-title"><?= esc($wisata['nama']) ?></h2>
                         <p class="card-text"><i class="fas fa-map-marker-alt"></i> <?= esc($wisata['daerah']) ?></p>
                         <div class="mb-3">
-                            <img src="<?= (filter_var($wisata['gambar_wisata'], FILTER_VALIDATE_URL)) ? $wisata['gambar_wisata'] : base_url('uploads/wisata/' . ($wisata['gambar_wisata'] ?? 'default.jpg')) ?>"
-                                class="img-fluid rounded"
-                                alt="<?= esc($wisata['nama']) ?>"
-                                style="max-height: 300px; width: auto;">
+                            <?php
+                            $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisata['wisata_id'];
+                            $imageUrl = base_url('uploads/wisata/default.jpg');
+                            if (is_dir($galleryPath)) {
+                                $files = array_diff(scandir($galleryPath), ['.', '..']);
+                                if (!empty($files)) {
+                                    $firstImage = reset($files);
+                                    $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
+                                }
+                            }
+                            <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>" class="img-fluid rounded mb-3">
                         </div>
                         <div class="wisata-info">
                             <p><strong>Kategori:</strong> <?= esc($wisata['nama_kategori']) ?></p>

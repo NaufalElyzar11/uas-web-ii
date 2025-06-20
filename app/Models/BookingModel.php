@@ -18,7 +18,7 @@ class BookingModel extends Model
         'tanggal_kunjungan',
         'jumlah_orang',
         'total_harga',
-        'status', // 'upcoming', 'completed', 'canceled'
+        'status',
         'created_at',
         'tanggal_booking',
         'status_pembayaran',
@@ -106,5 +106,19 @@ class BookingModel extends Model
             ->first();
 
         return $result['jumlah_orang'] ?? 0;
+    }
+
+    public function getFirstGalleryImage($wisataId)
+    {
+        $galleryPath = FCPATH . 'uploads/wisata/gallery/' . $wisataId;
+        if (is_dir($galleryPath)) {
+            $files = scandir($galleryPath);
+            foreach ($files as $file) {
+                if ($file != '.' && $file != '..' && in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif'])) {
+                    return base_url('uploads/wisata/gallery/' . $wisataId . '/' . $file);
+                }
+            }
+        }
+        return null;
     }
 }

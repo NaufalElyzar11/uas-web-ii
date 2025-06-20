@@ -12,7 +12,6 @@ class Booking extends BaseController
 
     public function __construct()
     {
-        // Cek apakah user sudah login
         if (!session()->get('isLoggedIn')) {
             header('Location: ' . base_url('auth/login'));
             exit();
@@ -29,7 +28,6 @@ class Booking extends BaseController
 
     public function create($wisataId)
     {
-        // Cek apakah user sudah login
         if (!session()->get('isLoggedIn')) {
             return redirect()->to('auth/login')->with('error', 'Silahkan login terlebih dahulu untuk melakukan pemesanan.');
         }
@@ -102,15 +100,12 @@ class Booking extends BaseController
     {
         $userId = session()->get('user_id');
 
-        // Check if booking belongs to user
         $booking = $this->bookingModel->find($bookingId);
         if (!$booking || $booking['user_id'] != $userId) {
             return redirect()->back()->with('error', 'Booking tidak ditemukan.');
         }
 
-        // Simple payment simulation - in real implementation this would connect to a payment gateway
         try {
-            // Update booking status to completed after payment
             $this->bookingModel->update($bookingId, [
                 'status' => 'completed'
             ]);

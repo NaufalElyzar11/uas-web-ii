@@ -60,7 +60,9 @@ button.btn-primary:hover {
 
 .img-fluid.rounded {
   border-radius: 16px;
-  max-width: 100%;
+  max-width: 400px;
+  width: 400px;
+  height: 250px;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
