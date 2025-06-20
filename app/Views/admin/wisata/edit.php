@@ -19,7 +19,7 @@
     <div class="card-body">
         <form action="<?= base_url('admin/wisata/update/' . $wisata['wisata_id']) ?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label>Nama</label>
+                <label>Wisata</label>
                 <input type="text" name="nama" class="form-control" value="<?= old('nama', $wisata['nama']) ?>" required>
             </div>
 
@@ -74,6 +74,12 @@
             <div class="form-group">
                 <label>Latitude</label>
                 <input type="text" name="latitude" class="form-control" value="<?= old('latitude', $wisata['latitude']) ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Link Video (YouTube)</label>
+                <input type="url" name="link_video" class="form-control" value="<?= old('link_video', $wisata['link_video'] ?? '') ?>" pattern="https://(www\.)?(youtube\.com|youtu\.be)/.+" placeholder="https://youtube.com/..." title="Masukkan link YouTube yang valid">
+                <small class="text-muted">Contoh: https://www.youtube.com/watch?v=xxxx atau https://youtu.be/xxxx</small>
             </div>
 
             <div class="form-group">

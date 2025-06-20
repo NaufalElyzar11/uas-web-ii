@@ -20,6 +20,7 @@
                             <th>Daerah</th>
                             <th>Harga</th>
                             <th>Kategori</th>
+                            <th>Link Video</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -31,6 +32,7 @@
                                 <td><?= $w['daerah'] ?></td>
                                 <td><?= number_format($w['harga'], 0, ',', '.') ?></td>
                                 <td><?= $w['nama_kategori'] ?></td>
+                                <td><?= isset($w['link_video']) ? esc($w['link_video']) : '-' ?></td>
                                 <td>
                                     <div class="d-flex" style="gap: 0.5rem;">
                                         <a href="<?= base_url('admin/wisata/edit/' . $w['wisata_id']) ?>"

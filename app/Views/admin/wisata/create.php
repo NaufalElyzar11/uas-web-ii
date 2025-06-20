@@ -78,6 +78,12 @@
     </div>
 
     <div class="form-group">
+        <label>Link Video (YouTube)</label>
+        <input type="url" name="link_video" class="form-control" value="<?= old('link_video') ?>" pattern="https://(www\.)?(youtube\.com|youtu\.be)/.+" placeholder="https://youtube.com/..." title="Masukkan link YouTube yang valid">
+        <small class="text-muted">Contoh: https://www.youtube.com/watch?v=xxxx atau https://youtu.be/xxxx</small>
+    </div>
+
+    <div class="form-group">
         <label>Gambar</label>
         <input type="file" name="gambar[]" class="form-control-file" multiple
             accept="image/jpeg,image/png,image/jpg">
