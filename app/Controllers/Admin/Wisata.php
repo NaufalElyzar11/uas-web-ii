@@ -155,6 +155,7 @@ class Wisata extends BaseController
         $kategori_id = (int) $this->request->getPost('kategori_id');
         $latitude = $this->request->getPost('latitude');
         $longitude = $this->request->getPost('longitude');
+        $link_video = strip_tags($this->request->getPost('link_video'));
 
         $data = [
             'nama' => $nama,
@@ -163,7 +164,8 @@ class Wisata extends BaseController
             'harga' => $harga,
             'kategori_id' => $kategori_id,
             'latitude' => $latitude,
-            'longitude' => $longitude
+            'longitude' => $longitude,
+            'link_video' => $link_video
         ];
 
         $this->wisataModel->update($id, $data);
