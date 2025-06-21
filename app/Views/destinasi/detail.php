@@ -125,7 +125,7 @@
                         </div>
                     </div>
                     <div class="detail-item">
-                        <i class="fas fa-person"></i>
+                        <i class="fas fa-chart-area"></i>
                         <div>
                             <strong>Pengunjung</strong>
                             <span><?= $trendingScore ?? 0 ?></span>
