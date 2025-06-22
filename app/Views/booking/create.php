@@ -116,19 +116,4 @@
     });
 </script>
 
-<style>
-    .wisata-info {
-        line-height: 1.6;
-    }
-
-    .form-control:disabled,
-    .form-control[readonly] {
-        background-color: #f8f9fa;
-    }
-
-    .input-group-text {
-        background-color: #f8f9fa;
-        border: 1px solid #ced4da;
-    }
-</style>
 <?= $this->endSection() ?>
