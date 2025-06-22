@@ -98,7 +98,6 @@ class Berita extends BaseController
             'updated_at' => date('Y-m-d H:i:s')
         ];
 
-        // Handle gambar upload if a new one is provided
         $gambar = $this->request->getFile('gambar');
         if ($gambar->isValid() && !$gambar->hasMoved()) {
             $oldBerita = $this->beritaModel->find($id);
@@ -125,7 +124,6 @@ class Berita extends BaseController
             return redirect()->to('admin/berita')->with('error', 'Berita tidak ditemukan');
         }
 
-        // Delete gambar file if exists
         if ($berita['gambar']) {
             $gambarPath = FCPATH . 'uploads/berita/' . $berita['gambar'];
             if (file_exists($gambarPath)) {
