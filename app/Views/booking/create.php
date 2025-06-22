@@ -28,6 +28,7 @@
                                     $imageUrl = base_url('uploads/wisata/gallery/' . $wisata['wisata_id'] . '/' . $firstImage);
                                 }
                             }
+                            ?>
                             <img src="<?= $imageUrl ?>" alt="<?= esc($wisata['nama']) ?>" class="img-fluid rounded mb-3">
                         </div>
                         <div class="wisata-info">
