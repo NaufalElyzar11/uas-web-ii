@@ -6,6 +6,13 @@ use CodeIgniter\Controller;
 
 class Auth extends BaseController
 {
+    protected $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = new \App\Models\UserModel();
+    }
+
     public function index()
     {
         return redirect()->to('/auth/login');
