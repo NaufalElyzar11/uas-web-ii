@@ -43,15 +43,6 @@
           <i class="bx bx-lock-alt icon"></i>
         </div>
 
-        <div class="remember-forgot">
-          <div class="remember-me">
-            <input type="checkbox" id="remember">
-            <label for="remember">Ingat saya</label>
-          </div>
-
-
-        </div>
-
         <div class="input_box">
           <input type="submit" class="input-submit" value="Login">
         </div>
