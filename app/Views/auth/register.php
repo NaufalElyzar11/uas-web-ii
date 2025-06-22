@@ -32,19 +32,19 @@
                 <div class="form-columns">
                     <div class="form-column">
                         <div class="input_box">
-                            <input type="text" class="input-field" id="nama" name="nama" value="<?= old('nama') ?>" required>
+                            <input type="text" class="input-field" id="nama" name="nama" value="<?= esc(old('nama')) ?>" required>
                             <label for="nama" class="label">Nama Lengkap</label>
                             <i class="bx bx-user icon"></i>
                         </div>
 
                         <div class="input_box">
-                            <input type="text" class="input-field" id="username" name="username" value="<?= old('username') ?>" required>
+                            <input type="text" class="input-field" id="username" name="username" value="<?= esc(old('username')) ?>" required>
                             <label for="username" class="label">Nama Pengguna</label>
                             <i class="bx bx-user icon"></i>
                         </div>
 
                         <div class="input_box">
-                            <input type="email" class="input-field" id="email" name="email" value="<?= old('email') ?>" required>
+                            <input type="email" class="input-field" id="email" name="email" value="<?= esc(old('email')) ?>" required>
                             <label for="email" class="label">Email</label>
                             <i class="bx bxl-gmail icon"></i>
                         </div>
@@ -68,7 +68,7 @@
                                     'Balangan'
                                 ];
                                 foreach ($daerahList as $daerah): ?>
-                                    <option value="<?= $daerah ?>" <?= old('daerah') === $daerah ? 'selected' : '' ?>><?= $daerah ?></option>
+                                    <option value="<?= esc($daerah) ?>" <?= old('daerah') === $daerah ? 'selected' : '' ?>><?= esc($daerah) ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <i class="bx bx-location-plus icon"></i>
@@ -98,7 +98,7 @@
                         </div>
 
                         <div class="input_box">
-                            <input type="number" class="input-field" id="umur" name="umur" value="<?= old('umur') ?>" required min="1">
+                            <input type="number" class="input-field" id="umur" name="umur" value="<?= esc(old('umur')) ?>" required min="1">
                             <label for="umur" class="label">Umur</label>
                             <i class="bx bx-user icon"></i>
                         </div>

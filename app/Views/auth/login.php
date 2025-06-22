@@ -32,7 +32,7 @@
         <?= csrf_field() ?>
 
         <div class="input_box">
-          <input type="text" id="email" name="email" class="input-field" required>
+          <input type="text" id="email" name="email" class="input-field" required value="<?= esc(old('email')) ?>">
           <label for="email" class="label">Email atau Nama Pengguna</label>
           <i class="bx bx-user icon"></i>
         </div>
