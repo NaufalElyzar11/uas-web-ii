@@ -19,7 +19,6 @@ class BeritaModel extends Model
         'status'
     ];
 
-    // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
@@ -48,13 +47,9 @@ class BeritaModel extends Model
         ]
     ];
 
-    /**
-     * Dapatkan berita terbaru beserta informasi wisata terkait
-     */
     public function getBeritaTerbaru($limit = 6)
     {
         try {
-            // Periksa apakah kolom tanggal_post ada
             $sortField = in_array('tanggal_post', $this->allowedFields) ? 'berita.tanggal_post' : 'berita.' . $this->primaryKey;
 
             return $this->select('berita.*, wisata.nama, wisata.gambar_wisata')
@@ -68,9 +63,6 @@ class BeritaModel extends Model
         }
     }
 
-    /**
-     * Dapatkan detail berita dengan informasi wisata
-     */
     public function getBeritaDetail($beritaId)
     {
         try {

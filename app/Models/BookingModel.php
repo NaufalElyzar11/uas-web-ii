@@ -27,7 +27,6 @@ class BookingModel extends Model
         'kode_tiket'
     ];
 
-    // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
@@ -35,7 +34,6 @@ class BookingModel extends Model
     protected $deletedField  = '';
     protected $cleanValidationRules = true;
 
-    // Callbacks
     protected $allowCallbacks = true;
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
@@ -44,13 +42,6 @@ class BookingModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    /**
-     * Get user's bookings with destination details
-     *
-     * @param int $userId
-     * @param string $status Filter by status (optional)
-     * @return array
-     */
     public function getUserBookings($userId, $status = null)
     {
         $query = $this->select('bookings.*, wisata.nama, wisata.daerah, wisata.harga, wisata.gambar_wisata, kategori.nama_kategori')
@@ -66,34 +57,16 @@ class BookingModel extends Model
             ->findAll();
     }
 
-    /**
-     * Get upcoming bookings for a user
-     *
-     * @param int $userId
-     * @return array
-     */
     public function getUpcomingBookings($userId)
     {
         return $this->getUserBookings($userId, 'upcoming');
     }
 
-    /**
-     * Get completed bookings for a user
-     *
-     * @param int $userId
-     * @return array
-     */
     public function getCompletedBookings($userId)
     {
         return $this->getUserBookings($userId, 'completed');
     }
 
-    /**
-     * Get canceled bookings for a user
-     *
-     * @param int $userId
-     * @return array
-     */
     public function getCanceledBookings($userId)
     {
         return $this->getUserBookings($userId, 'canceled');
