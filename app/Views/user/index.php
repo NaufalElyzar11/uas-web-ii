@@ -107,7 +107,7 @@
   </section>
 
   <section class="section-wisata">
-    <h2>Wisata Terdekat</h2>
+    <h2>Wisata Di Daerah Anda</h2>
     <div class="card-container"> <?php if (empty($wisataTerdekat)): ?>
         <div class="alert alert-info">Belum ada wisata di daerah <?= esc($user['daerah'] ?? 'Anda') ?></div>
       <?php else: ?>
