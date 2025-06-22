@@ -377,14 +377,11 @@
         const closeTicketBtn = document.querySelector('.close-ticket');
         const qrCodeContainer = document.getElementById('qrcode');
 
-        // Variabel untuk menyimpan object QRCode agar bisa di-clear
         let qrcode = null;
 
-        // Fungsi untuk membuka modal tiket
         window.openTicketModal = function(bookingId) {
             const url = `<?= base_url('riwayat/tiket/') ?>${bookingId}`;
 
-            // Tampilkan loading spinner jika ada
             qrCodeContainer.innerHTML = 'Memuat tiket...';
             ticketModal.style.display = "block";
 
@@ -403,16 +400,13 @@
                 .then(data => {
                     if (data.status === 'success') {
                         const ticketData = data.data;
-                        // Isi data ke dalam modal
                         document.getElementById('ticketNamaWisata').textContent = ticketData.nama_wisata;
                         document.getElementById('ticketKodeUnik').textContent = ticketData.kode_tiket;
                         document.getElementById('ticketJumlahOrang').textContent = ticketData.jumlah_orang + ' orang';
                         document.getElementById('ticketTotalHarga').textContent = ticketData.total_harga;
 
-                        // Bersihkan QR code lama sebelum membuat yang baru
                         qrCodeContainer.innerHTML = '';
 
-                        // Buat QR Code baru menggunakan library
                         qrcode = new QRCode(qrCodeContainer, {
                             text: ticketData.kode_tiket,
                             width: 200,
@@ -434,14 +428,12 @@
                 });
         }
 
-        // Event untuk menutup modal tiket
         if (closeTicketBtn) {
             closeTicketBtn.onclick = function() {
                 ticketModal.style.display = "none";
             }
         }
 
-        // Event untuk menutup modal jika klik di luar modal (sudah ada di kode Anda, tapi pastikan juga berlaku untuk ticketModal)
         window.addEventListener('click', function(event) {
             if (event.target == ticketModal) {
                 ticketModal.style.display = "none";
